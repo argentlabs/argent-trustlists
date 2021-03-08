@@ -1,0 +1,17 @@
+{
+    "registries": [
+        {
+            "id": "0",
+            "name": "Argent Essentials",
+            "dapps": {
+                "0x000000000000": "Used for refund payments to Argent"
+            }
+        },
+        {
+            "id": "1",
+            "name": "DeFi Community",
+            "dapps": {
+            }
+        }
+    ]
+}

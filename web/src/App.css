@@ -1,0 +1,142 @@
+
+
+.header {
+  background: black;
+  padding: 60px var(--inset) 90px var(--inset);
+  color: white;
+}
+
+.header-top {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  width: 120px;
+}
+
+.header-link {
+  color: white;
+  font-weight: bold;
+}
+
+.header-link span {
+  position: relative;
+  top: -5px;
+  margin-left: 6px;
+}
+
+.header h1 {
+  margin: 60px 0 20px 0;
+}
+
+.header p {
+  margin-top: 20px;
+  color: var(--clay-color);
+}
+
+.page {
+  padding: 40px var(--inset) 0 var(--inset);
+}
+
+.page h2 {
+  margin-bottom: 30px;
+}
+
+.page p {
+  margin-bottom: 20px;
+}
+
+code {
+  display: inline-block;
+  border: 1px solid var(--blue-light-color);
+  border-radius: 6px;
+  padding: 4px 6px;
+  margin-bottom: 20px;
+  background: var(--blue-lighter-color);
+  color: var(--blue-color);
+}
+
+.bubble {
+  margin: 40px -24px 0 -24px;
+  padding: 24px;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0px 0px 18px var(--light-grey-color);
+}
+
+@media (max-width: 960px) {
+  .bubble {
+    margin: 0 calc(var(--inset) * -1);
+    padding: 32px;
+    border-radius: 0;
+  }
+}
+
+.bubble h2 {
+  margin-top: 30px;
+}
+
+.registry-menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  margin: 0 -24px 32px -24px;
+  border-bottom: 1px solid var(--light-grey-color);
+  padding: 0 24px 24px 24px;
+}
+
+.registry-menu button {
+  background: none;
+  border: 0;
+  color: var(--primary-orange-color);
+  font-weight: bold;
+  margin-right: 18px;
+  padding: 6px 8px;
+}
+
+.registry-menu .on {
+  background-color: var(--orange-lighter-color);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+}
+
+th, td {
+  padding: 10px 0;
+}
+
+th {
+  text-align: left;
+  color: var(--clay-color);
+}
+
+tr:nth-child(odd) {
+  background-color:var(--off-white-color);
+}
+
+@media (max-width: 960px) {
+  table {
+    overflow-x: scroll;
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.footer p {
+  font-size: 16px;
+}
+
+.footer .small {
+  font-size: 12px;
+}

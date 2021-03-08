@@ -1,0 +1,24 @@
+type Registry @entity {
+  id: ID!
+  owner: Bytes!
+  registryId: Int!
+  dapps: [Dapp!]! @derivedFrom(field: "registry")
+}
+
+type Timelock @entity {
+  id: ID!
+  time: BigInt
+  pendingTime: BigInt
+  pendingConfirmAfter: BigInt
+}
+
+type Dapp @entity {
+  id: ID! # registryId:dapp
+  validAfter: BigInt!
+  lastChange: BigInt!
+  registry: Registry!
+  dapp: Bytes!
+  filter: Bytes!
+  pendingFilter: Bytes
+  pendingConfirmAfter: BigInt
+}
