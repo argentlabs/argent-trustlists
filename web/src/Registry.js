@@ -89,10 +89,10 @@ function Registry(props) {
             {activeFilters.map(d => {
               const note = meta ? meta.dapps[d.dapp] : null;
               return <tr>
-                <td><EthAddress address={d.dapp} /></td>
-                <td><EthAddress address={d.filter} canBeAny={true} /></td>
-                <td>{d.lastChange.fromNow()}</td>
-                <td>{note}</td>
+                <td><span>Destination: </span><EthAddress address={d.dapp} /></td>
+                <td><span>Filter: </span><EthAddress address={d.filter} canBeAny={true} /></td>
+                <td><span>Last updated: </span>{d.lastChange.fromNow()}</td>
+                <td><span>Note: </span>{note}</td>
               </tr>
             })}
           </tbody>

@@ -122,9 +122,18 @@ tr:nth-child(odd) {
   background-color:var(--off-white-color);
 }
 
+td span { display: none; }
+
 @media (max-width: 960px) {
-  table {
-    overflow-x: scroll;
+  td {
+    display: block;
+    padding: 4px 12px;
+  }
+  thead { display: none; }
+  td span { display: inline; }
+
+  tr:nth-child(odd) {
+    background-color:var(--light-grey-color);
   }
 }
 

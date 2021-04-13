@@ -2,9 +2,9 @@
     "registries": [
         {
             "id": "0",
-            "name": "Argent Essentials",
+            "name": "Argent",
             "dapps": {
-                "0x000000000000": "Used for refund payments to Argent"
+                "0x9e8f9a396675eaa34c9b2a2baacc58c30af4594f": "To pay network fees"
             }
         },
         {

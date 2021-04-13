@@ -6,7 +6,7 @@ dataSources:
     name: DappRegistry
     network: ropsten
     source:
-      address: "0x46DE3fd619dCA0607827ed64874318736F1492Bd"
+      address: "0x6062877a810632BCCE4cf234b19aB1e07c97bB73"
       abi: DappRegistry
       startBlock: 9800662
     mapping:
