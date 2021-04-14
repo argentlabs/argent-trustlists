@@ -59,7 +59,7 @@ function App() {
       </div>
       <div className="footer">
         <p>Made with ❤️ by Argent</p>
-        <p className="small"><a href="#" tagret="_blank" rel="noreferrer">Github source</a></p>
+        <p className="small"><a href="https://github.com/argentlabs/argent-trustlists" tagret="_blank" rel="noreferrer">Github source</a></p>
       </div>
     </div>
   );
