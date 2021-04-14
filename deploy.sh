@@ -6,20 +6,20 @@ env=$1
 action=$2
 
 # select terraform workspace
-( cd infrastructure && terraform workspace select $env )
+terraform -chdir=infrastructure workspace select $env
 
 # terraform apply/plan
 if [ "$action" = "plan" ];
 then
-  ( cd infrastructure && terraform plan )
+  terraform -chdir=infrastructure plan
   exit;
 elif [ "$action" = "apply" ];
 then
-  ( cd infrastructure && terraform apply -auto-approve )
+  terraform -chdir=infrastructure apply -auto-approve
 fi
 
 # get assumed role and devops bucket name from terraform
-terraform_output=`( cd infrastructure && terraform output -json )`
+terraform_output=`terraform -chdir=infrastructure output -json`
 if [ `echo $terraform_output | jq length` -eq "0" ]; then
   echo "no terraform output";
   exit;
@@ -30,7 +30,7 @@ s3_bucket_name=`echo $terraform_output | jq -r '.s3_bucket_name .value'`
 cloudfront_distribution_id=`echo $terraform_output | jq -r '.cloudfront_distribution_id .value'`
 
 # build web app
-( cd web && yarn build )
+REACT_APP_ENV=${env} yarn --cwd ./web build
 
 # get credentials to perform task in the the environment
 credentials=`aws sts assume-role --role-arn $iam_workspace_role --role-session-name "DeploymentSession"`
