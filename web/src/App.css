@@ -68,6 +68,14 @@ code {
   box-shadow: 0px 0px 18px var(--light-grey-color);
 }
 
+.env {
+  background: var(--primary-orange-color);
+  border-radius: 6px;
+  padding: 6px;
+  text-transform: uppercase;
+  color: black;
+}
+
 @media (max-width: 960px) {
   .bubble {
     margin: 0 calc(var(--inset) * -1);

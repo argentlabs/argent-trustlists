@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import logo from './argent.svg';
 import './App.css';
-import metadata from './metadata.json';
+import metadata from '@metadata';
 
 import Timelock from './Timelock';
 import Registry from './Registry';
@@ -20,12 +20,16 @@ function App() {
   const { loading, error, data } = useQuery(GET_REGISTRIES);
   const registryIds = data ? data.registries.map(r => r.id) : [];
   const [registryId, setRegistryId] = useState("0");
+  const envBanner = ['test', 'staging'].find(e => e === process.env.REACT_APP_ENVIRONMENT);
 
   return (
     <div className="app">
       <div className="header">
         <div className="header-top">
           <img src={logo} className="header-logo" alt="logo" />
+          { envBanner ?
+            <span className="env">{envBanner}</span>
+          : null }
           <a
             className="header-link"
             href="https://argent.xyz"

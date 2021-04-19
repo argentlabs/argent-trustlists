@@ -1,7 +1,7 @@
 import { useQuery, gql } from '@apollo/client';
 import moment from 'moment';
 
-import metadata from './metadata.json';
+import metadata from '@metadata';
 
 import EthAddress from './EthAddress';
 
