@@ -7,7 +7,7 @@
                 "0x0badc63d5cc7a25007f7c35acc23369c00df6ee7": "Buy & sell Balancer",
                 "0x12e51e77daaa58aa0e9247db7510ea4b46f9bead": "Sell Aave v1",
                 "0x158079ee67fce2f58472a96584a73c7ab9ac95c1": "Buy, sell, borrow Compound",
-                "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7": "PotFilter",
+                "0x197e90f9fad81970ba7976f33cbd77088e5d7cf7": "Buy & sell DSR",
                 "0x1bd435f3c054b6e901b7b108a0ab7617c808677b": "Trade tokens via Paraswap",
                 "0x1ddf0976ac842c696d01a86b39d25b067ed8c7ff": "Buy & sell Balancer",
                 "0x1eff8af5d577060ba4ac8a29a13525bb0ee2a3d5": "Buy & sell Balancer",
@@ -16,7 +16,7 @@
                 "0x29e240cfd7946ba20895a7a02edb25c210f9f324": "Buy & sell yearn (ERC20)",
                 "0x2f08119c6f07c006695e079aafc638b8789faf18": "Buy & sell yearn (ERC20)",
                 "0x328c4c80bc7aca0834db37e6600a6c49e12da4de": "Sell Aave v1",
-                "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b": "VatFilter",
+                "0x35d1b3f3d7966a1dfe207aa4514c12a259a0492b": "Buy & sell DSR",
                 "0x37d19d1c4e1fa9dc47bd1ea12f742a0887eda74a": "Buy & sell yearn (ERC20)",
                 "0x398ec7346dcd622edc5ae82352f02be94c62d119": "Buy Aave v1",
                 "0x39aa39c021dfbae8fac545936693ac917d5e7563": "Buy, sell, borrow Compound",
@@ -50,7 +50,7 @@
                 "0x8a649274e4d777ffc6851f13d23a86bbfa2f2fbf": "Buy & sell Balancer",
                 "0x8b6e6e7b5b3801fed2cafd4b22b8a16c2f2db21a": "Buy & sell Balancer",
                 "0x96d99093f22719dd06fb8db8e93779979a2acab3": "Buy & sell Balancer",
-                "0x9759a6ac90977b93b58547b4a71c78317f391a28": "DaiJoinFilter",
+                "0x9759a6ac90977b93b58547b4a71c78317f391a28": "Buy & sell DSR",
                 "0x9866772a9bdb4dc9d2c5a4753e8658b8b0ca1fc3": "Buy & sell Balancer",
                 "0x9ba00d6856a4edf4665bca2c2309936572473b7e": "Sell Aave v1",
                 "0x9ca85572e6a3ebf24dedd195623f188735a5179f": "Buy & sell yearn (ERC20)",
@@ -84,7 +84,20 @@
                 "0xfae2809935233d4bfe8a56c2355c4a2e7d1fff1a": "Buy & sell Balancer",
                 "0xfb2a52012f5e757ba748d1f8d7f582b8d1a613c0": "Pay trade commission",
                 "0xfc1e690f61efd961294b3e1ce3313fbd8aa4f85d": "Sell Aave v1",
-                "0xfc4b8ed459e00e5400be803a9bb3954234fd50e3": "Sell Aave v1"
+                "0xfc4b8ed459e00e5400be803a9bb3954234fd50e3": "Sell Aave v1",
+                "0xf806f9972f9a34fc05394ca6cf2cc606297ca6d5": "Buy & sell Uniswap v2",
+                "0xec4c8110e5b5bf0ad8aa89e3371d9c3b8cdcd778": "Buy & sell Uniswap v3",
+                "0xdef1c0ded9bec7f1a1670819833240f027b25eff": "Buy & sell 0x",
+                "0xdebf20617708857ebe4f679508e7b7863a8a8eee": "Buy & sell Curve",
+                "0xbebc44782c7db0a1a60cb6fe97d0b483032ff1c7": "Buy & sell Curve DAI/USDC/USDT",
+                "0xbc1315cd2671bc498fdab42ae1214068003dc51e": "Buy & sell Uniswap v3",
+                "0xa5407eae9ba41422680e2e00537571bcc53efbfd": "Buy & sell Curve sUSD",
+                "0xa2b47e3d5c44877cca798226b7b8118f9bfb7a56": "Buy & sell Curve Compound",
+                "0x95e6f48254609a6ee006f7d493c8e5fb97094cef": "Buy & sell 0x",
+                "0x86d3579b043585a97532514016dcf0c2d6c4b6a1": "Buy & sell Uniswap v3",
+                "0x52ea46506b9cc5ef470c5bf89f17dc28bb35d85c": "Buy & sell Curve USDT",
+                "0x45f783cce6b7ff23b2ab2d70e416cdb7d6055f51": "Buy & sell Curve Y",
+                "0x080bf510fcbf18b91105470639e9561022937712": "Buy & sell 0x"
             }
         }
     ]
