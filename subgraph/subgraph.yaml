@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: DappRegistry
-    network: ropsten
+    network: mainnet
     source:
-      address: "0x72A813d9e451Bd2Af28269c35fc10c7DAeD21d7b"
+      address: "0xB5ecC8ab46e2E20573C2e57C865F7c97f58c2798"
       abi: DappRegistry
-      startBlock: 9800662
+      startBlock: 12231000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
