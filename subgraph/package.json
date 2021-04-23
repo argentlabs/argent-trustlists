@@ -1,13 +1,13 @@
 {
-  "name": "trustlists-ropsten",
+  "name": "trust-lists",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ th3m477/trustlists-ropsten",
-    "create-local": "graph create --node http://localhost:8020/ th3m477/trustlists-ropsten",
-    "remove-local": "graph remove --node http://localhost:8020/ th3m477/trustlists-ropsten",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 th3m477/trustlists-ropsten"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ argentlabs/trust-lists",
+    "create-local": "graph create --node http://localhost:8020/ argentlabs/trust-lists",
+    "remove-local": "graph remove --node http://localhost:8020/ argentlabs/trust-lists",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 argentlabs/trust-lists"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.20.0",
