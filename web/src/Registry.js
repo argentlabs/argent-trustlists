@@ -9,7 +9,7 @@ const GET_REGISTRY = gql`
   query GetRegistry($id: String!) {
     registry(id: $id) {
       owner
-      dapps {
+      dapps(first: 1000) {
         dapp
     	  filter
         validAfter

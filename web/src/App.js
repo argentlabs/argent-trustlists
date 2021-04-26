@@ -33,7 +33,7 @@ function App() {
           <a
             className="header-link"
             href="https://argent.xyz"
-          >Homepage<span>🡥</span></a>
+          >Homepage<span>↗</span></a>
         </div>
         <div className="header-desc">
           <h1>Trust Lists</h1>
