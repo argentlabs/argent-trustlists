@@ -55,16 +55,18 @@ function Registry(props) {
       {pendingChanges.length > 0 ?
         <table>
           <thead>
-            <th>Destination</th>
-            <th>Filter</th>
-            <th>Active in</th>
-            <th>Notes</th>
+            <tr>
+              <th>Destination</th>
+              <th>Filter</th>
+              <th>Active in</th>
+              <th>Notes</th>
+            </tr>
           </thead>
           <tbody>
             {pendingChanges.map(d => {
               const date = d.pendingConfirmAfter || d.validAfter;
               const note = meta ? meta.dapps[d.dapp] : null;
-              return <tr>
+              return <tr key={d.dapp}>
                 <td><EthAddress address={d.dapp} /></td>
                 <td><EthAddress address={d.pendingFilter} canBeAny={true} /></td>
                 <td>{date.fromNow()}</td>
@@ -80,15 +82,17 @@ function Registry(props) {
       {activeFilters.length > 0 ?
         <table>
           <thead>
-            <th>Destination</th>
-            <th>Filter</th>
-            <th>Last updated</th>
-            <th>Notes</th>
+            <tr>
+              <th>Destination</th>
+              <th>Filter</th>
+              <th>Last updated</th>
+              <th>Notes</th>
+            </tr>
           </thead>
           <tbody>
             {activeFilters.map(d => {
               const note = meta ? meta.dapps[d.dapp] : null;
-              return <tr>
+              return <tr key={d.dapp}>
                 <td><span>Destination: </span><EthAddress address={d.dapp} /></td>
                 <td><span>Filter: </span><EthAddress address={d.filter} canBeAny={true} /></td>
                 <td><span>Last updated: </span>{d.lastChange.fromNow()}</td>
