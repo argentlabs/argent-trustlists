@@ -44,7 +44,7 @@ function App() {
       <div className="page">
         <h2>How Trust Lists are managed</h2>
         <p>Each Trust List has a <em>manager</em>. The manager can add, update or remove <em>filters</em> which specify a smart contract that validates a transaction against a destination (or allows any transaction to a destination).</p>
-        <p>All changes are subject to a timelock period to give Argent Vault owners an opportunity to review a change, and if they do not agree they may disable a Trust List. You can listen to updates in <a href="#">#timelock-updates on Discord</a>.</p>
+        <p>All changes are subject to a timelock period to give Argent Vault owners an opportunity to review a change, and if they do not agree they may disable a Trust List. You can listen to updates in <a href="https://discord.gg/EcDJk2U7Rf" tagret="_blank" rel="noreferrer">#trustlist-updates on Discord</a>.</p>
         <p>The timelock period applies to all registries and is applied to all new and updated filters. There is no timelock for the manager to remove a filter.</p>
         <Timelock />
         <p>The timelock period can be updated by Argent, subject to a timelock period equal to the current timelock.</p>
