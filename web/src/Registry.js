@@ -68,7 +68,7 @@ function Registry(props) {
               const note = meta ? meta.dapps[d.dapp] : null;
               return <tr key={d.dapp}>
                 <td><EthAddress address={d.dapp} /></td>
-                <td><EthAddress address={d.pendingFilter} canBeAny={true} /></td>
+                <td><EthAddress address={d.pendingFilter || d.filter} canBeAny={true} /></td>
                 <td>{date.fromNow()}</td>
                 <td>{note}</td>
               </tr>
