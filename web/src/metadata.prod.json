@@ -118,7 +118,10 @@
                 "0xfae2809935233d4bfe8a56c2355c4a2e7d1fff1a": "Buy & sell Balancer",
                 "0xfc1e690f61efd961294b3e1ce3313fbd8aa4f85d": "Sell Aave v1",
                 "0xfc4b8ed459e00e5400be803a9bb3954234fd50e3": "Sell Aave v1",
-                "0xfb2a52012f5e757ba748d1f8d7f582b8d1a613c0": "Pay trade commission"
+                "0xfb2a52012f5e757ba748d1f8d7f582b8d1a613c0": "Pay trade commission",
+                "0x35a18000230da775cac24873d00ff85bccded550": "Buy, sell, borrow Compound",
+                "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9": "Buy, sell, borrow Compound",
+                "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": "Wrap, unwrap WETH"
             }
         }
     ]
