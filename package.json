@@ -1,0 +1,24 @@
+{
+  "name": "argent-trustlists",
+  "version": "1.0.0",
+  "description": "Dapp Registry",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Argent Labs",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-truffle5": "^2.0.0",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "chai": "^4.3.4",
+    "dotenv": "^9.0.0",
+    "ethereum-waffle": "^3.3.0",
+    "ethers": "^5.1.3",
+    "hardhat": "^2.2.0",
+    "solidity-coverage": "^0.7.16",
+    "web3": "^1.3.5"
+  }
+}
