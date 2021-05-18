@@ -46,18 +46,21 @@ interface IFilter {
 
 ### Deployments
 
-The `DappRegistry` is currently deployed on Ropsten and on Mainnet.
+The `DappRegistry` is currently deployed on the following networks:
 
-| Ropsten | Mainnet |
+| Network | Address |
 | --------|---------|
-| [0x72A813d9e451Bd2Af28269c35fc10c7DAeD21d7b](https://ropsten.etherscan.io/address/0x72A813d9e451Bd2Af28269c35fc10c7DAeD21d7b) | [0xB5ecC8ab46e2E20573C2e57C865F7c97f58c2798](https://etherscan.io/address/0xB5ecC8ab46e2E20573C2e57C865F7c97f58c2798) |
+| Ropsten | [0x72A813d9e451Bd2Af28269c35fc10c7DAeD21d7b](https://ropsten.etherscan.io/address/0x72A813d9e451Bd2Af28269c35fc10c7DAeD21d7b) |
+| Mainnet | [0xB5ecC8ab46e2E20573C2e57C865F7c97f58c2798](https://etherscan.io/address/0xB5ecC8ab46e2E20573C2e57C865F7c97f58c2798) |
+
+The status of the `DappRegistry`, Argent trustlist and Community trustlist on mainnet can be found at https://trustlists.argent.xyz/ .
 
 ## How to add your dapp
 
 Please fork and open a pull request against the `develop` branch.
 
 You PR should include
-* A short explaination of your dapp and a list of all the methods that should be authorised.
+* A short explanation of your dapp and a list of all the methods that should be authorised.
 * A new `Filter` contract under `contracts/myDapp/` that implements the `IFilter` interface and exposes a single `isValid` method
 
 ```Java
@@ -79,6 +82,29 @@ contract MyDappFilter is IFilter {
 ```
 * A serie of unit tests under `test/myDapp` with 100% code coverage. Tests are executed against a fork of mainnet and should target your production contracts.
 
+## Development
+
+### Instal
+```
+npm install
+```
+
+### Compile the contracts
+```
+npx hardhat compile
+```
+
+### Test the contracts
+Add a `.env` file in the root of the directory with the `ALCHEMY_KEY` property set to your Alchemy API key then run 
+```
+npx hardhat test
+````
+
+### Run coverage
+```
+npx hardhat coverage
+```
+
 ## License
 
-GPL-3.0
+Released under [GPL-3.0](LICENSE)
