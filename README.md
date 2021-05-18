@@ -14,7 +14,7 @@ The role of the `DappRegistry` is therefore purely informative and it is the res
 
 Smart-contract wallets can leverage the `DapRegistry` via the `IAuthoriser` interface 
 
-```
+```Java
 interface IAuthoriser {
     function isAuthorised(address _wallet, address _spender, address _to, bytes calldata _data) external view returns (bool);
 }
