@@ -61,18 +61,10 @@ You PR should include
 * A new `Filter` contract under `contracts/myDapp/` that implements the `IFilter` interface and exposes a single `isValid` method
 
 ```Java
+
 contract MyDappFilter is IFilter {
 
-    function isValid(
-        address _wallet,
-        address _spender,
-        address _to,
-        bytes calldata _data
-    )
-        external
-        view
-        returns (bool valid)
-    {
+    function isValid(address _wallet, address _spender, address _to, bytes calldata _data) external view returns (bool valid) {
         if (_data.length == 0) {
             // the conditions for a secure ETH deposit
         }
