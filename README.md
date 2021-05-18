@@ -24,11 +24,11 @@ interface IAuthoriser {
 
 The `DappRegistry` contract consists of several lists of trusted dapps (aka trustlists). A wallet can decide to enable one or more trustlists based on its own usage and preferences, and the `DappRegistry` will authorise a transaction if and only if it is authorised in one of the trustlists enabled by the wallet starting the evaluation with the list at index 0.
 
-There is currently 2 trustlists created and available to wallets , the Argent trustlist with ID 0 and the Community trustlist with ID 1.
+There is currently 2 trustlists created and available to wallets , the **Argent trustlist** with ID 0 and the **Community trustlist** with ID 1.
 
-The Argent trust list contains the list of dapps (i.e. smart-contracts calls) that are natively integrated in the Argent client application. To save some gas it is enabled by default for all wallets.
+The **Argent trustlist** contains the list of dapps (i.e. smart-contracts calls) that are natively integrated in the Argent client application. To save some gas it is enabled by default for all wallets but they can always opt-out at any time.
 
-The Community trustlist is meant to contain a broader set of dapps that can be accessed via e.g. WalletConnect. It is disabled by default and wallets need to opt-in on-chain to add the dapps of the list to their trust zone.
+The **Community trustlist** is meant to contain a broader set of dapps that can be accessed via e.g. WalletConnect. It is disabled by default and wallets need to opt-in on-chain to add the dapps of this list to their trust zone.
 
 ### Filters
 
