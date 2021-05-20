@@ -54,7 +54,7 @@ describe("Curve", function() {
       expect(isAuthorised).to.equal(true);
     });
 
-    it("Should accept to aprove on the underlying when the pool is the spender", async function() {
+    it("Should accept to aprove the pool on an ERC20 underlying", async function() {
       let data = erc20.interface.encodeFunctionData("approve", [pool.address, parseEther("0.1")]);
       const isAuthorised = await registry.isAuthorised(wallet.address, pool.address, erc20.address, data);
       expect(isAuthorised).to.equal(true);
@@ -94,7 +94,7 @@ describe("Curve", function() {
       expect(isAuthorised).to.equal(true);
     });
 
-    it("Should accept to aprove on the underlying when the pool is the spender", async function() {
+    it("Should accept to aprove the pool on an ERC20 underlying", async function() {
       let data = erc20.interface.encodeFunctionData("approve", [pool.address, parseEther("0.1")]);
       const isAuthorised = await registry.isAuthorised(wallet.address, pool.address, erc20.address, data);
       expect(isAuthorised).to.equal(true);

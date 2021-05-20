@@ -5,6 +5,8 @@ const { parseEther } = ethers.utils;
 
 const ZERO_ADDRESS = ethers.constants.AddressZero;
 
+const ERC20_ABI = require('../erc20/abis/erc20.json');
+
 const CETH_ABI = require('./abis/cEther.json');
 const CETH_ADDRESS = "0x4ddc2d193948926d02f9b1fe9e1daa0718270ed5";
 const CDAI_ABI = require('./abis/cDai.json');
@@ -98,12 +100,15 @@ describe("Compound", function() {
     let dai;
     let cDai;
     let cDaiFilter;
+    let erc20;
 
     before(async function() {
       cDai = new ethers.Contract(CDAI_ADDRESS, CDAI_ABI, deployer);
-      dai = await cDai.underlying();
-      cDaiFilter = await CompoundCTokenFilter.deploy(dai);
+      const daiAddress = await cDai.underlying();
+      dai = new ethers.Contract(daiAddress, ERC20_ABI);
+      cDaiFilter = await CompoundCTokenFilter.deploy(daiAddress);
       await registry.addDapp(REGISTRY_ID, cDai.address, cDaiFilter.address);
+      erc20 = new ethers.Contract(ethers.constants.AddressZero, ERC20_ABI);
     });
 
     it("Should be added to the registry", async function() {
@@ -153,10 +158,16 @@ describe("Compound", function() {
       expect(isAuthorised).to.equal(false);
     });
 
-    it("Should accept ERC20 aprove on Dai when cDai is the spender", async function() {
-      let data = cDai.interface.encodeFunctionData("approve", [cDai.address, parseEther("0.1")]);
-      const isAuthorised = await registry.isAuthorised(wallet.address, cDai.address, dai, data);
+    it("Should accept to aprove the cDAI contract on the DAI token", async function() {
+      let data = dai.interface.encodeFunctionData("approve", [cDai.address, parseEther("0.1")]);
+      const isAuthorised = await registry.isAuthorised(wallet.address, cDai.address, dai.address, data);
       expect(isAuthorised).to.equal(true);
+    });
+
+    it("Should reject to aprove the cDAI contract on another ERC20 token", async function() {
+      let data = erc20.interface.encodeFunctionData("approve", [cDai.address, parseEther("0.1")]);
+      const isAuthorised = await registry.isAuthorised(wallet.address, cDai.address, erc20.address, data);
+      expect(isAuthorised).to.equal(false);
     });
 
     it("Should reject ETH transfer", async function() {

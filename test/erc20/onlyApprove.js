@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 
 const { parseEther } = ethers.utils;
 
-const ERC20_ABI = require('../erc20/abis/erc20.json');
+const ERC20_ABI = require('./abis/erc20.json');
 
 const REGISTRY_ID = 0;
 const TIMELOCK = 0;
