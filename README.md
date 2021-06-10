@@ -10,9 +10,9 @@ function is to help wallets answer the question "Is it safe to call that smart-c
 
 The role of the `DappRegistry` is therefore purely informative and it is the responsibility of each smart-contract wallet to act upon that information. For Argent wallets, only calls that are considered "safe" by the `DappRegistry` can be executed without the approval of guardians.
 
-"Safe" is a broad term that can have many meanings depending on the context. Here we use a very constraining definition and the only one that is suitable to Argent wallets, namely that the total value of the wallet cannot decrease as a result of the interaction. For example it is "safe" to exchange tokens for one or more tokens of equivallent value, but it is "not safe" to transfer tokens out of the wallet with nothing in return. This strict definition is required for Argent wallets where the smart-contract must protect a user's assets even when the private key controlling the wallet is compromised.
+"Safe" is a broad term that can have many meanings depending on the context. Here we use a very constraining definition and the only one that is suitable to Argent wallets, namely that the total value of the wallet cannot decrease as a result of the interaction. For example it is "safe" to exchange tokens for one or more tokens of equivalent value, but it is "not safe" to transfer tokens out of the wallet with nothing in return. This strict definition is required for Argent wallets where the smart-contract must protect a user's assets even when the private key controlling the wallet is compromised.
 
-Smart-contract wallets can leverage the `DapRegistry` via the `IAuthoriser` interface 
+Smart-contract wallets can leverage the `DappRegistry` via the `IAuthoriser` interface 
 
 ```Java
 interface IAuthoriser {
@@ -84,7 +84,7 @@ contract MyDappFilter is IFilter {
 
 ## Development
 
-### Instal
+### Install
 ```
 npm install
 ```
