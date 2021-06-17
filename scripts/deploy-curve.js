@@ -22,14 +22,13 @@ async function main() {
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [0, deployer.address]);
   }
 
-  // Add Compound filters
-  for (const idx in config.compound.markets) {
-    const market = config.compound.markets[idx];
-    const CompoundFilter = await ethers.getContractFactory("CompoundCTokenFilter");
-    const compoundFilter = await CompoundFilter.deploy(market.token);
-    configUpdate.compound.markets[idx].filter = compoundFilter.address;
-    await dappRegistry.addDapp(0, market.cToken, compoundFilter.address);
-    console.log(`Added Compound filter ${compoundFilter.address} for Compound cTken ${market.cToken}`);
+  // Add Curve filters
+  const CurveFilter = await ethers.getContractFactory("CurveFilter");
+  const curveFilter = await CurveFilter.deploy();
+  configUpdate.curve.filter = curveFilter.address;
+  for (const pool of config.curve.pools || []) {
+    await dappRegistry.addDapp(0, pool, curveFilter.address);
+    console.log(`Added Curve filter ${curveFilter.address} for Curve pool ${pool}`);
   }
 
   // Give ownership back

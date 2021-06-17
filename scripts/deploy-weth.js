@@ -22,15 +22,12 @@ async function main() {
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [0, deployer.address]);
   }
 
-  // Add Compound filters
-  for (const idx in config.compound.markets) {
-    const market = config.compound.markets[idx];
-    const CompoundFilter = await ethers.getContractFactory("CompoundCTokenFilter");
-    const compoundFilter = await CompoundFilter.deploy(market.token);
-    configUpdate.compound.markets[idx].filter = compoundFilter.address;
-    await dappRegistry.addDapp(0, market.cToken, compoundFilter.address);
-    console.log(`Added Compound filter ${compoundFilter.address} for Compound cTken ${market.cToken}`);
-  }
+  // Add WETH filters
+  const WethFilter = await ethers.getContractFactory("WethFilter");
+  const wethFilter = await WethFilter.deploy();
+  await dappRegistry.addDapp(0, config.weth.token, wethFilter.address);
+  configUpdate.weth.filter = wethFilter.address;
+  console.log(`Added WETH filter ${wethFilter.address} for WETH token ${config.weth.token}`);
 
   // Give ownership back
   if (config.dappRegistry.owner != deployer.address) {

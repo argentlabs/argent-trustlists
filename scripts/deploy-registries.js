@@ -5,8 +5,6 @@ const ConfigLoader = require("./utils/configurator-loader.js");
 
 async function main() {
 
-  console.log('\n', `/////////////     Running [deploy-registries.js] on [${hre.network.name}]     ///////////////`, '\n');
-
   const configLoader = new ConfigLoader(hre.network.name);
   const config = await configLoader.load();
   const configUpdate = clonedeep(config);
