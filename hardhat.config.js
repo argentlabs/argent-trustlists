@@ -18,8 +18,8 @@ const runScript = (script) => {
   })
 }
 
-task("deploy-scipts", "Deploy all scripts", async () => {
-    for (script of SCRIPTS) {
+task("deploy", "Deploy all scripts", async () => {
+    for (const script of SCRIPTS) {
       console.log('\n', `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, '\n');
       await runScript(script);
     };
