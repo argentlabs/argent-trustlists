@@ -105,6 +105,11 @@ npx hardhat test
 npx hardhat coverage
 ```
 
+### Deploy
+```
+npx hardhat deploy-all
+```
+
 ## License
 
 Released under [GPL-3.0](LICENSE)
