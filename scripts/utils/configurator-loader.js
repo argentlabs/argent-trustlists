@@ -17,13 +17,13 @@ class ConfigLoader {
   }
 
   async save(obj) {
-    const json = JSON.stringify(obj);
+    const json = JSON.stringify(obj, null, 2);
     fs.writeFileSync(this.path, json);
   }
 
   async update(obj) {
     merge(this.config, obj);
-    const json = JSON.stringify(this.config);
+    const json = JSON.stringify(this.config, null, 2);
     fs.writeFileSync(this.path, json);
   }
 }

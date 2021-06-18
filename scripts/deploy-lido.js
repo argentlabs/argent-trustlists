@@ -9,6 +9,12 @@ const TRUSTLIST = 0;
 
 async function main() {
 
+  // No Lido integration on Ropsten
+  if (hre.network.name === "ropsten") {
+    console.log("skipping Lido on Ropsten");
+    return;
+  }
+
   const configLoader = new ConfigLoader(hre.network.name);
   const config = await configLoader.load();
   const configUpdate = clonedeep(config);
@@ -24,14 +30,12 @@ async function main() {
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
   }
 
-  // Add Curve filters
-  const CurveFilter = await ethers.getContractFactory("CurveFilter");
-  const curveFilter = await CurveFilter.deploy();
-  configUpdate.curve.filter = curveFilter.address;
-  for (const pool of config.curve.pools || []) {
-    await dappRegistry.addDapp(TRUSTLIST, pool, curveFilter.address);
-    console.log(`Added Curve filter ${curveFilter.address} for Curve pool ${pool}`);
-  }
+  // Add Lido filters
+  const LidoFilter = await ethers.getContractFactory("LidoFilter");
+  const lidoFilter = await LidoFilter.deploy();
+  await dappRegistry.addDapp(TRUSTLIST, config.lido.contract, lidoFilter.address);
+  configUpdate.lido.filter = lidoFilter.address;
+  console.log(`Added Lido filter ${lidoFilter.address} for Lido contract ${config.lido.contract}`);
 
   // Give ownership back
   if (config.dappRegistry.owner != deployer.address) {

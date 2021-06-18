@@ -9,6 +9,12 @@ const TRUSTLIST = 0;
 
 async function main() {
 
+  // No Balancer integration on Ropsten
+  if (hre.network.name === "ropsten") {
+    console.log("skipping balancer on Ropsten");
+    return;
+  }
+
   const configLoader = new ConfigLoader(hre.network.name);
   const config = await configLoader.load();
   const configUpdate = clonedeep(config);
@@ -17,20 +23,20 @@ async function main() {
   const dappRegistry = await DappRegistry.attach(config.dappRegistry.address);
   const deployer = (await ethers.getSigners())[0];
 
-  // Temporarily give ownership of DappRegistry to deployment account if needed
+  // Temporarily give ownership of DappRegistry to deployment
   if (config.dappRegistry.owner != deployer.address) {
     const multisigExecutor = new MultisigExecutor();
     await multisigExecutor.connect(config.dappRegistry.owner);
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
   }
 
-  // Add Curve filters
-  const CurveFilter = await ethers.getContractFactory("CurveFilter");
-  const curveFilter = await CurveFilter.deploy();
-  configUpdate.curve.filter = curveFilter.address;
-  for (const pool of config.curve.pools || []) {
-    await dappRegistry.addDapp(TRUSTLIST, pool, curveFilter.address);
-    console.log(`Added Curve filter ${curveFilter.address} for Curve pool ${pool}`);
+  // A balancer filter to each pool
+  const BalancerFilter = await ethers.getContractFactory("BalancerFilter");
+  const balancerFilter = await BalancerFilter.deploy();
+  configUpdate.balancer.v1.filter = balancerFilter.address;
+  for (const pool of (config.balancer.v1.pools)) {
+    await dappRegistry.addDapp(TRUSTLIST, pool, balancerFilter.address);
+    console.log(`Added Balancer filter ${balancerFilter.address} for Balancer pool ${pool}`);
   }
 
   // Give ownership back

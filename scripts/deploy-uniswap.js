@@ -24,14 +24,21 @@ async function main() {
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
   }
 
-  // Add Curve filters
-  const CurveFilter = await ethers.getContractFactory("CurveFilter");
-  const curveFilter = await CurveFilter.deploy();
-  configUpdate.curve.filter = curveFilter.address;
-  for (const pool of config.curve.pools || []) {
-    await dappRegistry.addDapp(TRUSTLIST, pool, curveFilter.address);
-    console.log(`Added Curve filter ${curveFilter.address} for Curve pool ${pool}`);
-  }
+  /////////////////////////////////
+  // Uniswap V2
+  /////////////////////////////////
+
+  // Add UniZap filter
+  const UniswapV2Filter = await ethers.getContractFactory("UniswapV2UniZapFilter");
+  const uniswapV2Filter = await UniswapV2Filter.deploy(
+    config.tokenRegistry.address,
+    config.uniswap.v2.factory,
+    config.uniswap.v2.initCode,
+    config.weth.token
+  );
+  await dappRegistry.addDapp(TRUSTLIST, config.uniswap.v2.unizap, uniswapV2Filter.address);
+  configUpdate.uniswap.v2.filter = uniswapV2Filter.address;
+  console.log(`Added Uniswap v2 filter ${uniswapV2Filter.address} for Uniswap v2 UniZap ${config.uniswap.v2.unizap}`);
 
   // Give ownership back
   if (config.dappRegistry.owner != deployer.address) {

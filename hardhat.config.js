@@ -5,9 +5,13 @@ const { spawn } = require("child_process");
 
 const SCRIPTS = [
   "deploy-registries.js",
+  "deploy-aave.js",
+  "deploy-balancer.js",
   "deploy-compound.js",
-  "deploy-weth.js",
-  "deploy-curve.js"
+  "deploy-curve.js",
+  "deploy-lido.js",
+  "deploy-uniswap.js",
+  "deploy-weth.js"
 ];
 
 const runScript = (script) => {

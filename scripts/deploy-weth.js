@@ -5,6 +5,8 @@ const clonedeep = require('lodash.clonedeep');
 const ConfigLoader = require("./utils/configurator-loader.js");
 const MultisigExecutor = require("./utils/multisigexecutor.js");
 
+const TRUSTLIST = 0;
+
 async function main() {
 
   const configLoader = new ConfigLoader(hre.network.name);
@@ -19,19 +21,19 @@ async function main() {
   if (config.dappRegistry.owner != deployer.address) {
     const multisigExecutor = new MultisigExecutor();
     await multisigExecutor.connect(config.dappRegistry.owner);
-    await multisigExecutor.executeCall(dappRegistry, "changeOwner", [0, deployer.address]);
+    await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
   }
 
   // Add WETH filters
   const WethFilter = await ethers.getContractFactory("WethFilter");
   const wethFilter = await WethFilter.deploy();
-  await dappRegistry.addDapp(0, config.weth.token, wethFilter.address);
+  await dappRegistry.addDapp(TRUSTLIST, config.weth.token, wethFilter.address);
   configUpdate.weth.filter = wethFilter.address;
   console.log(`Added WETH filter ${wethFilter.address} for WETH token ${config.weth.token}`);
 
   // Give ownership back
   if (config.dappRegistry.owner != deployer.address) {
-    await dappRegistry.changeOwner(0, config.dappRegistry.owner);
+    await dappRegistry.changeOwner(TRUSTLIST, config.dappRegistry.owner);
   }
 
   // update config
