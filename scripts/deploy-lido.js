@@ -24,9 +24,10 @@ async function main() {
   const deployer = (await ethers.getSigners())[0];
 
   // Temporarily give ownership of DappRegistry to deployment account if needed
-  if (config.dappRegistry.owner != deployer.address) {
+  const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
+  if (registryOwner != deployer.address) {
     const multisigExecutor = new MultisigExecutor();
-    await multisigExecutor.connect(config.dappRegistry.owner);
+    await multisigExecutor.connect(registryOwner);
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
   }
 
@@ -38,8 +39,8 @@ async function main() {
   console.log(`Added Lido filter ${lidoFilter.address} for Lido contract ${config.lido.contract}`);
 
   // Give ownership back
-  if (config.dappRegistry.owner != deployer.address) {
-    await dappRegistry.changeOwner(TRUSTLIST, config.dappRegistry.owner);
+  if (registryOwner != deployer.address) {
+    await dappRegistry.changeOwner(TRUSTLIST, registryOwner);
   }
 
   // update config

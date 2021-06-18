@@ -11,7 +11,9 @@ const SCRIPTS = [
   "deploy-curve.js",
   "deploy-lido.js",
   "deploy-uniswap.js",
-  "deploy-weth.js"
+  "deploy-weth.js",
+  "deploy-yearn.js",
+  "deploy-argent.js"
 ];
 
 const runScript = (script) => {
@@ -22,7 +24,7 @@ const runScript = (script) => {
   })
 }
 
-task("deploy", "Deploy all scripts", async () => {
+task("deploy-all", "Deploy all scripts", async () => {
     for (const script of SCRIPTS) {
       console.log('\n', `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, '\n');
       await runScript(script);

@@ -8,64 +8,18 @@ async function main() {
   const configLoader = new ConfigLoader(hre.network.name);
   const config = await configLoader.load();
   const configUpdate = clonedeep(config);
-  const deployer = (await ethers.getSigners())[0];
-
-  /////////////////////////////////
-  // DappRegistry
-  /////////////////////////////////
 
   // Deploy DappRegistry
   const DappRegistry = await ethers.getContractFactory("DappRegistry");
   const dappRegistry = await DappRegistry.deploy(config.dappRegistry.timelock);
-  console.log("Deployed DappRegistry at ", dappRegistry.address);
-
-  // Add Argent refund EOAs
-  if (config.argent.refundCollector) {
-    await dappRegistry.addDapp(0, config.argent.refundCollector, ethers.constants.AddressZero);
-  }
-  if (config.argent.tradeCommissionCollector) {
-    await dappRegistry.addDapp(0, config.argent.tradeCommissionCollector, ethers.constants.AddressZero);
-  }
-
-  // Transfer ownership to the Argent multisig
-  if (config.dappRegistry.owner) {
-    console.log("Setting the owner of the default registry");
-    await dappRegistry.changeOwner(0, config.dappRegistry.owner);
-  } else {
-    configUpdate.dappRegistry.owner = deployer.address;
-  }
-
   configUpdate.dappRegistry.address = dappRegistry.address;
-
-  /////////////////////////////////
-  // TokenRegistry
-  /////////////////////////////////
+  console.log(`Deployed DappRegistry ${dappRegistry.address} with timelock ${config.dappRegistry.timelock}`);
 
   // Deploy new TokenRegistry
   const TokenRegistry = await ethers.getContractFactory("TokenRegistry");
   const tokenRegistry = await TokenRegistry.deploy();
-  console.log("Deployed TokenRegistry at ", tokenRegistry.address);
-
-  // Adding managers to the TokenRegistry
-  if (config.tokenRegistry.managers) {
-    for (const idx in config.argent.managers) {
-      const manager = config.argent.managers[idx];
-      console.log(`Setting ${manager} as a manager of the token registry`);
-      await tokenRegistry.addManager(manager);
-    }
-  }
-  
-  //Transfer ownership to the Argent multisig
-  if (config.tokenRegistry.owner) {
-    console.log("Setting the owner of the token registry");
-    await tokenRegistry.changeOwner(config.tokenRegistry.owner);
-  }
-
+  console.log("Deployed TokenRegistry ", tokenRegistry.address);
   configUpdate.tokenRegistry.address = tokenRegistry.address;
-
-  /////////////////////////////////
-  // Update the config
-  /////////////////////////////////
 
   await configLoader.save(configUpdate);
 }

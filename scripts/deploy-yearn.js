@@ -9,6 +9,12 @@ const TRUSTLIST = 0;
 
 async function main() {
 
+  // No Yearn v1 integration on Ropsten
+  if (hre.network.name === "ropsten") {
+    console.log("skipping Yearn v1 on Ropsten");
+    return;
+  }
+
   const configLoader = new ConfigLoader(hre.network.name);
   const config = await configLoader.load();
   const configUpdate = clonedeep(config);
@@ -26,20 +32,23 @@ async function main() {
   }
 
   /////////////////////////////////
-  // Uniswap V2
+  // Yearn V1
   /////////////////////////////////
 
-  // Add UniZap filter
-  const UniswapV2Filter = await ethers.getContractFactory("UniswapV2UniZapFilter");
-  const uniswapV2Filter = await UniswapV2Filter.deploy(
-    config.tokenRegistry.address,
-    config.uniswap.v2.factory,
-    config.uniswap.v2.initCode,
-    config.weth.token
-  );
-  await dappRegistry.addDapp(TRUSTLIST, config.uniswap.v2.unizap, uniswapV2Filter.address);
-  configUpdate.uniswap.v2.filter = uniswapV2Filter.address;
-  console.log(`Added Uniswap v2 filter ${uniswapV2Filter.address} for Uniswap v2 UniZap ${config.uniswap.v2.unizap}`);
+  // yEarn
+  const YearnFilter = await ethers.getContractFactory("YearnFilter");
+  const yearnFilter = await YearnFilter.deploy(false);
+  configUpdate.yearn.v1.filter = yearnFilter.address;
+  const wethYearnFilter = await YearnFilter.deploy(true);
+  configUpdate.yearn.v1.wethFilter = wethYearnFilter.address;
+  for (const vault of (config.yearn.v1.vaults)) {
+    await dappRegistry.addDapp(TRUSTLIST, vault, yearnFilter.address);
+    console.log(`Added Yearn filter ${yearnFilter.address} for yVault ${vault}`);
+  }
+  for (const vault of (config.yearn.v1.wethVaults)) {
+    await dappRegistry.addDapp(TRUSTLIST, vault, wethYearnFilter.address);
+    console.log(`Added Yearn filter ${wethYearnFilter.address} for wethVault ${vault}`);
+  }
 
   // Give ownership back
   if (registryOwner != deployer.address) {
