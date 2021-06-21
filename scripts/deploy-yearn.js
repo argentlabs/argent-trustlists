@@ -1,6 +1,6 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
-const clonedeep = require('lodash.clonedeep');
+const clonedeep = require("lodash.clonedeep");
 
 const ConfigLoader = require("./utils/configurator-loader.js");
 const MultisigExecutor = require("./utils/multisigexecutor.js");
@@ -8,10 +8,9 @@ const MultisigExecutor = require("./utils/multisigexecutor.js");
 const TRUSTLIST = 0;
 
 async function main() {
-
   // No Yearn v1 integration on Ropsten
   if (hre.network.name === "ropsten") {
-    console.log("skipping Yearn v1 on Ropsten");
+    console.log("skipping Yearn on Ropsten");
     return;
   }
 
@@ -35,19 +34,30 @@ async function main() {
   // Yearn V1
   /////////////////////////////////
 
-  // yEarn
   const YearnFilter = await ethers.getContractFactory("YearnFilter");
   const yearnFilter = await YearnFilter.deploy(false);
   configUpdate.yearn.v1.filter = yearnFilter.address;
   const wethYearnFilter = await YearnFilter.deploy(true);
   configUpdate.yearn.v1.wethFilter = wethYearnFilter.address;
-  for (const vault of (config.yearn.v1.vaults)) {
+  for (const vault of config.yearn.v1.vaults) {
     await dappRegistry.addDapp(TRUSTLIST, vault, yearnFilter.address);
     console.log(`Added Yearn filter ${yearnFilter.address} for yVault ${vault}`);
   }
-  for (const vault of (config.yearn.v1.wethVaults)) {
+  for (const vault of config.yearn.v1.wethVaults) {
     await dappRegistry.addDapp(TRUSTLIST, vault, wethYearnFilter.address);
     console.log(`Added Yearn filter ${wethYearnFilter.address} for wethVault ${vault}`);
+  }
+
+  /////////////////////////////////
+  // Yearn V2
+  /////////////////////////////////
+
+  const YearnV2Filter = await ethers.getContractFactory("YearnV2Filter");
+  const yearnV2Filter = await YearnV2Filter.deploy();
+  configUpdate.yearn.v2.filter = yearnV2Filter.address;
+  for (const vault of config.yearn.v2.vaults) {
+    await dappRegistry.addDapp(TRUSTLIST, vault, yearnV2Filter.address);
+    console.log(`Added YearnV2 filter ${yearnV2Filter.address} for vault ${vault}`);
   }
 
   // Give ownership back
@@ -61,7 +71,7 @@ async function main() {
 
 main()
   .then(() => process.exit(0))
-  .catch(error => {
+  .catch((error) => {
     console.error(error);
     process.exit(1);
   });

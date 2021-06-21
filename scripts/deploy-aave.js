@@ -1,6 +1,6 @@
 const hre = require("hardhat");
 const ethers = hre.ethers;
-const clonedeep = require('lodash.clonedeep');
+const clonedeep = require("lodash.clonedeep");
 
 const ConfigLoader = require("./utils/configurator-loader.js");
 const MultisigExecutor = require("./utils/multisigexecutor.js");
@@ -8,7 +8,6 @@ const MultisigExecutor = require("./utils/multisigexecutor.js");
 const TRUSTLIST = 0;
 
 async function main() {
-
   const configLoader = new ConfigLoader(hre.network.name);
   const config = await configLoader.load();
   const configUpdate = clonedeep(config);
@@ -47,13 +46,13 @@ async function main() {
   const AaveV1ATokenFilter = await ethers.getContractFactory("AaveV1ATokenFilter");
   const aaveV1ATokenFilter = await AaveV1ATokenFilter.deploy();
   configUpdate.aave.v1.filter = aaveV1ATokenFilter.address;
-  for (const aToken of (config.aave.v1.aTokens)) {
+  for (const aToken of config.aave.v1.aTokens) {
     await dappRegistry.addDapp(TRUSTLIST, aToken, aaveV1ATokenFilter.address);
     console.log(`Added aaveV1ATokenFilter ${onlyApproveFilter.address} for aToken ${aToken}`);
   }
 
   /////////////////////////////////
-  // Aave V1
+  // Aave V2
   /////////////////////////////////
 
   // No Aave v2 integration on Ropsten
@@ -65,7 +64,7 @@ async function main() {
     await dappRegistry.addDapp(TRUSTLIST, config.aave.v2.lendingPool.address, aaveV2Filter.address);
     configUpdate.aave.v2.lendingPool.filter = aaveV1LendingPoolFilter.address;
     console.log(`Added AaveV2Filter ${aaveV2Filter.address} for Aave v2 Lending Pool ${config.aave.v2.lendingPool.address}`);
-  }  
+  }
 
   // Give ownership back
   if (registryOwner != deployer.address) {
@@ -78,7 +77,7 @@ async function main() {
 
 main()
   .then(() => process.exit(0))
-  .catch(error => {
+  .catch((error) => {
     console.error(error);
     process.exit(1);
   });
