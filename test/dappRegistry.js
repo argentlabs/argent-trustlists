@@ -1,14 +1,10 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-const { parseEther } = ethers.utils;
-
 const TIMELOCK = 3;
 
 describe("DappRegistry", function () {
 
-  let DappRegistry;
-  let OnlyApproveFilter
   let registry;
   let deployer;
   let wallet;
@@ -17,7 +13,7 @@ describe("DappRegistry", function () {
   let other;
 
   beforeEach(async function () {
-    DappRegistry = await ethers.getContractFactory("DappRegistry");
+    const DappRegistry = await ethers.getContractFactory("DappRegistry");
     registry = await DappRegistry.deploy(TIMELOCK);
     [deployer, wallet, registryOwner, other, dapp] = await ethers.getSigners();
   });
@@ -90,7 +86,7 @@ describe("DappRegistry", function () {
     let filter2;
 
     before(async function () {
-      OnlyApproveFilter = await ethers.getContractFactory("OnlyApproveFilter");
+      const OnlyApproveFilter = await ethers.getContractFactory("OnlyApproveFilter");
       filter1 = await OnlyApproveFilter.deploy();
       filter2 = await OnlyApproveFilter.deploy();
     });
