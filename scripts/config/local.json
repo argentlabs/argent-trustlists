@@ -9,63 +9,63 @@
   },
   "dappRegistry": {
     "timelock": 0,
-    "address": "0xc0c5618f0F3Fa66b496F2940f373DC366d765BAe"
+    "address": "0xC0340c0831Aa40A0791cF8C3Ab4287EB0a9705d8"
   },
   "tokenRegistry": {
-    "address": "0xa195ACcEB1945163160CD5703Ed43E4f78176a54"
+    "address": "0xFf658343244c0475b9305859F1b7CDAB9784762f"
   },
   "compound": {
     "markets": [
       {
         "token": "0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
         "cToken": "0x6C8c6b02E7b2BE14d4fA6022Dfd6d75921D90E4E",
-        "filter": "0x837a41023CF81234f89F956C94D676918b4791c1"
+        "filter": "0x4278C5d322aB92F1D876Dd7Bd9b44d1748b88af2"
       },
       {
         "token": "0x0000000000000000000000000000000000000000",
         "cToken": "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5",
-        "filter": "0xd9abC93F81394Bd161a1b24B03518e0a570bDEAd"
+        "filter": "0x24EcC5E6EaA700368B8FAC259d3fBD045f695A08"
       },
       {
         "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
         "cToken": "0x39AA39c021dfbaE8faC545936693aC917d5E7563",
-        "filter": "0x37D31345F164Ab170B19bc35225Abc98Ce30b46A"
+        "filter": "0xD56e6F296352B03C3c3386543185E9B8c2e5Fd0b"
       },
       {
         "token": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
         "cToken": "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4",
-        "filter": "0x88D1aF96098a928eE278f162c1a84f339652f95b"
+        "filter": "0x3C2BafebbB0c8c58f39A976e725cD20D611d01e9"
       },
       {
         "token": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
         "cToken": "0xB3319f5D18Bc0D84dD1b4825Dcde5d5f7266d407",
-        "filter": "0x87c470437282174b3f8368c7CF1Ac03bcAe57954"
+        "filter": "0xaD82Ecf79e232B0391C5479C7f632aA1EA701Ed1"
       },
       {
         "token": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
         "cToken": "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643",
-        "filter": "0x96E303b6D807c0824E83f954784e2d6f3614f167"
+        "filter": "0x91A1EeE63f300B8f41AE6AF67eDEa2e2ed8c3f79"
       },
       {
         "token": "0xc00e94cb662c3520282e6f5717214004a7f26888",
         "cToken": "0x70e36f6bf80a52b3b46b3af8e106cc0ed743e8e4",
-        "filter": "0xd3b893cd083f07Fe371c1a87393576e7B01C52C6"
+        "filter": "0x54287AaB4D98eA51a3B1FBceE56dAf27E04a56A6"
       },
       {
         "token": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
         "cToken": "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9",
-        "filter": "0x930b218f3e63eE452c13561057a8d5E61367d5b7"
+        "filter": "0xb6aA91E8904d691a10372706e57aE1b390D26353"
       },
       {
         "token": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
         "cToken": "0x35a18000230da775cac24873d00ff85bccded550",
-        "filter": "0x38c76A767d45Fc390160449948aF80569E2C4217"
+        "filter": "0x11632F9766Ee9d9317F95562a6bD529652ead78f"
       }
     ]
   },
   "weth": {
     "token": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    "filter": "0x52bad4A8584909895C22bdEcf8DBF33314468Fb0"
+    "filter": "0xFcCa971FE9Ee20C1Cf22596E700aA993D8fD19c5"
   },
   "curve": {
     "pools": [
@@ -78,17 +78,17 @@
       "0xdebf20617708857ebe4f679508e7b7863a8a8eee",
       "0xdc24316b9ae028f1497c275eb9192a3ea0f67022"
     ],
-    "filter": "0xfc073209b7936A771F77F63D42019a3a93311869"
+    "filter": "0x499AA73A1D27e54B33E7DB05ffd22854EC70257E"
   },
   "aave": {
     "v1": {
       "lendingPool": {
         "address": "0x398eC7346DcD622eDc5ae82352F02bE94C62d119",
-        "filter": "0x6212cb549De37c25071cF506aB7E115D140D9e42"
+        "filter": "0x1c1521cf734CD13B02e8150951c3bF2B438be780"
       },
       "lendingPoolCore": {
         "address": "0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3",
-        "filter": "0xf4AE7E15B1012edceD8103510eeB560a9343AFd3"
+        "filter": "0x0B1a87021ec75fBaE919b1e86b2B1335FFC8F4d3"
       },
       "aTokens": [
         "0x3a3A65aAb0dd2A17E3F1947bA16138cd37d08c04",
@@ -112,12 +112,12 @@
         "0x69948cc03f478b95283f7dbf1ce764d0fc7ec54c",
         "0x12e51e77daaa58aa0e9247db7510ea4b46f9bead"
       ],
-      "filter": "0xc981ec845488b8479539e6B22dc808Fb824dB00a"
+      "filter": "0xA4aE77554847958aC0854f06601267c9F9C75dfD"
     },
     "v2": {
       "lendingPool": {
         "address": "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9",
-        "filter": "0x6212cb549De37c25071cF506aB7E115D140D9e42"
+        "filter": "0x1c1521cf734CD13B02e8150951c3bF2B438be780"
       }
     }
   },
@@ -151,12 +151,12 @@
         "0xfae2809935233d4bfe8a56c2355c4a2e7d1fff1a",
         "0x49ff149d649769033d43783e7456f626862cd160"
       ],
-      "filter": "0x46d4674578a2daBbD0CEAB0500c6c7867999db34"
+      "filter": "0xd8A9159c111D0597AD1b475b8d7e5A217a1d1d05"
     }
   },
   "lido": {
     "contract": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
-    "filter": "0x20Dc424c5fa468CbB1c702308F0cC9c14DA2825C"
+    "filter": "0x59c7D03d2E9893FB7bAa89dA50a9452e1e9B8b90"
   },
   "yearn": {
     "v1": {
@@ -177,8 +177,8 @@
       "wethVaults": [
         "0xe1237aa7f535b0cc33fd973d66cbf830354d16c7"
       ],
-      "filter": "0x1B25157F05B25438441bF7CDe38A95A55ccf8E50",
-      "wethFilter": "0xc775bF567D67018dfFac4E89a7Cf10f0EDd0Be93"
+      "filter": "0x04F75a27cE2FDC591C71a88f1EcaC7e5Ce44f5Fc",
+      "wethFilter": "0x273c507D8E21cDE039491B14647Fe9278D88e91D"
     }
   },
   "uniswap": {
@@ -186,7 +186,7 @@
       "factory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
       "initCode": "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f",
       "unizap": "0xbCc492DF37bD4ec651D46d72230E340c9ec1950c",
-      "filter": "0x89ec9355b1Bcc964e576211c8B011BD709083f8d"
+      "filter": "0x8D75F9F7f4F4C4eFAB9402261bC864f21DF0c649"
     }
   }
 }
