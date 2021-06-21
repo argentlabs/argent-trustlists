@@ -14,7 +14,8 @@ const SCRIPTS = [
   "deploy-weth.js",
   "deploy-yearn.js",
   "deploy-maker.js",
-  "deploy-argent.js"
+  "deploy-gro.js",
+  "deploy-argent.js",
 ];
 
 const runScript = (script) => {

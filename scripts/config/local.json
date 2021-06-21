@@ -9,63 +9,63 @@
   },
   "dappRegistry": {
     "timelock": 0,
-    "address": "0x998abeb3E57409262aE5b751f60747921B33613E"
+    "address": "0x262e2b50219620226C5fB5956432A88fffd94Ba7"
   },
   "tokenRegistry": {
-    "address": "0x70e0bA845a1A0F2DA3359C97E0285013525FFC49"
+    "address": "0x10e38eE9dd4C549b61400Fc19347D00eD3edAfC4"
   },
   "compound": {
     "markets": [
       {
         "token": "0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
         "cToken": "0x6C8c6b02E7b2BE14d4fA6022Dfd6d75921D90E4E",
-        "filter": "0xA4899D35897033b927acFCf422bc745916139776"
+        "filter": "0xe044814c9eD1e6442Af956a817c161192cBaE98F"
       },
       {
         "token": "0x0000000000000000000000000000000000000000",
         "cToken": "0x4Ddc2D193948926D02f9B1fE9e1daa0718270ED5",
-        "filter": "0xAA292E8611aDF267e563f334Ee42320aC96D0463"
+        "filter": "0x4ff1f64683785E0460c24A4EF78D582C2488704f"
       },
       {
         "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
         "cToken": "0x39AA39c021dfbaE8faC545936693aC917d5E7563",
-        "filter": "0x720472c8ce72c2A2D711333e064ABD3E6BbEAdd3"
+        "filter": "0x1D3EDBa836caB11C26A186873abf0fFeB8bbaE63"
       },
       {
         "token": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
         "cToken": "0xC11b1268C1A384e55C48c2391d8d480264A3A7F4",
-        "filter": "0x5067457698Fd6Fa1C6964e416b3f42713513B3dD"
+        "filter": "0xFCFE742e19790Dd67a627875ef8b45F17DB1DaC6"
       },
       {
         "token": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
         "cToken": "0xB3319f5D18Bc0D84dD1b4825Dcde5d5f7266d407",
-        "filter": "0x4b6aB5F819A515382B0dEB6935D793817bB4af28"
+        "filter": "0xbe18A1B61ceaF59aEB6A9bC81AB4FB87D56Ba167"
       },
       {
         "token": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
         "cToken": "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643",
-        "filter": "0xD5ac451B0c50B9476107823Af206eD814a2e2580"
+        "filter": "0x01cf58e264d7578D4C67022c58A24CbC4C4a304E"
       },
       {
         "token": "0xc00e94cb662c3520282e6f5717214004a7f26888",
         "cToken": "0x70e36f6bf80a52b3b46b3af8e106cc0ed743e8e4",
-        "filter": "0xc0F115A19107322cFBf1cDBC7ea011C19EbDB4F8"
+        "filter": "0x666432Ccb747B2220875cE185f487Ed53677faC9"
       },
       {
         "token": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
         "cToken": "0xf650c3d88d12db855b8bf7d11be6c55a4e07dcc9",
-        "filter": "0x34B40BA116d5Dec75548a9e9A8f15411461E8c70"
+        "filter": "0xF6a8aD553b265405526030c2102fda2bDcdDC177"
       },
       {
         "token": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
         "cToken": "0x35a18000230da775cac24873d00ff85bccded550",
-        "filter": "0x07882Ae1ecB7429a84f1D53048d35c4bB2056877"
+        "filter": "0x3E661784267F128e5f706De17Fac1Fc1c9d56f30"
       }
     ]
   },
   "weth": {
     "token": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    "filter": "0x38a024C0b412B9d1db8BC398140D00F5Af3093D4"
+    "filter": "0x6533158b042775e2FdFeF3cA1a782EFDbB8EB9b1"
   },
   "curve": {
     "pools": [
@@ -78,17 +78,17 @@
       "0xdebf20617708857ebe4f679508e7b7863a8a8eee",
       "0xdc24316b9ae028f1497c275eb9192a3ea0f67022"
     ],
-    "filter": "0xA7c59f010700930003b33aB25a7a0679C860f29c"
+    "filter": "0x15Ff10fCc8A1a50bFbE07847A22664801eA79E0f"
   },
   "aave": {
     "v1": {
       "lendingPool": {
         "address": "0x398eC7346DcD622eDc5ae82352F02bE94C62d119",
-        "filter": "0x4826533B4897376654Bb4d4AD88B7faFD0C98528"
+        "filter": "0xd753c12650c280383Ce873Cc3a898F6f53973d16"
       },
       "lendingPoolCore": {
         "address": "0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3",
-        "filter": "0x0E801D84Fa97b50751Dbf25036d067dCf18858bF"
+        "filter": "0xd30bF3219A0416602bE8D482E0396eF332b0494E"
       },
       "aTokens": [
         "0x3a3A65aAb0dd2A17E3F1947bA16138cd37d08c04",
@@ -112,12 +112,12 @@
         "0x69948cc03f478b95283f7dbf1ce764d0fc7ec54c",
         "0x12e51e77daaa58aa0e9247db7510ea4b46f9bead"
       ],
-      "filter": "0x9d4454B023096f34B160D6B654540c56A1F81688"
+      "filter": "0xAD2935E147b61175D5dc3A9e7bDa93B0975A43BA"
     },
     "v2": {
       "lendingPool": {
         "address": "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9",
-        "filter": "0x4826533B4897376654Bb4d4AD88B7faFD0C98528"
+        "filter": "0xd753c12650c280383Ce873Cc3a898F6f53973d16"
       }
     }
   },
@@ -151,12 +151,12 @@
         "0xfae2809935233d4bfe8a56c2355c4a2e7d1fff1a",
         "0x49ff149d649769033d43783e7456f626862cd160"
       ],
-      "filter": "0x04C89607413713Ec9775E14b954286519d836FEf"
+      "filter": "0x103A3b128991781EE2c8db0454cA99d67b257923"
     }
   },
   "lido": {
     "contract": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
-    "filter": "0xE3011A37A904aB90C8881a99BD1F6E21401f1522"
+    "filter": "0xe14058B1c3def306e2cb37535647A04De03Db092"
   },
   "yearn": {
     "v1": {
@@ -177,8 +177,8 @@
       "wethVaults": [
         "0xe1237aa7f535b0cc33fd973d66cbf830354d16c7"
       ],
-      "filter": "0xB82008565FdC7e44609fA118A4a681E92581e680",
-      "wethFilter": "0x2a810409872AfC346F9B5b26571Fd6eC42EA4849"
+      "filter": "0xD2D5e508C82EFc205cAFA4Ad969a4395Babce026",
+      "wethFilter": "0x2b639Cc84e1Ad3aA92D4Ee7d2755A6ABEf300D72"
     },
     "v2": {
       "vaults": [
@@ -213,7 +213,7 @@
         "0xf29ae508698bdef169b89834f76704c3b205aedf",
         "0xa258C4606Ca8206D8aA700cE2143D7db854D168c"
       ],
-      "filter": "0xfcDB4564c18A9134002b9771816092C9693622e3"
+      "filter": "0x6e0a5725dD4071e46356bD974E13F35DbF9ef367"
     }
   },
   "uniswap": {
@@ -221,7 +221,17 @@
       "factory": "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
       "initCode": "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f",
       "unizap": "0xbCc492DF37bD4ec651D46d72230E340c9ec1950c",
-      "filter": "0x457cCf29090fe5A24c19c1bc95F492168C0EaFdb"
+      "filter": "0xF5b81Fe0B6F378f9E6A3fb6A6cD1921FCeA11799"
+    }
+  },
+  "gro": {
+    "deposit": {
+      "handler": "0x79b14d909381D79B655C0700d0fdc2C7054635b9",
+      "filter": "0x0c03eCB91Cb50835e560a7D52190EB1a5ffba797"
+    },
+    "withdraw": {
+      "handler": "0xd89512Bdf570476310DE854Ef69D715E0e85B09F",
+      "filter": "0x1c39BA375faB6a9f6E0c01B9F49d488e101C2011"
     }
   },
   "maker": {
