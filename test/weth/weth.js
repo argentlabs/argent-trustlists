@@ -53,6 +53,12 @@ describe("Weth", function() {
       expect(isAuthorised).to.equal(true);
     });
 
+    it("Should block calls with 1, 2 or 3 bytes of data", async function() {
+      let data = "0x01";
+      const isAuthorised = await registry.isAuthorised(wallet.address, weth.address, weth.address, data);
+      expect(isAuthorised).to.equal(false);
+    });
+
     it("Should accept to withdraw", async function() {
         let data = weth.interface.encodeFunctionData("withdraw", [parseEther("0.1")]);
         const isAuthorised = await registry.isAuthorised(wallet.address, weth.address, weth.address, data);

@@ -61,6 +61,12 @@ describe("DSR", function () {
       data = vat.interface.encodeFunctionData("hope", [other.address]);
       expect(await registry.isAuthorised(wallet.address, vat.address, vat.address, data)).to.equal(false);
     });
+
+    it("Should block approving ERC20 tokens on vat", async function() {
+      let data = erc20.interface.encodeFunctionData("approve", [vat.address, parseEther("0.1")]);
+      const isAuthorised = await registry.isAuthorised(wallet.address, vat.address, erc20.address, data);
+      expect(isAuthorised).to.equal(false);
+    });
   });
 
   describe("Testing Pot filter", function () {
