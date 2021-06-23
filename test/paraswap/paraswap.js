@@ -86,7 +86,7 @@ const ADAPTERS = {
   uniswapV3: "0xbfBFf2938E3bE0fE588FbF6007F1fdE73C5a9A4E",
 };
 const TARGET_EXCHANGES = {
-  uniswap: ["0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95"],
+  uniswap: "0xc0a47dFe034B400B47bDaD5FecDa2621de6c4d95",
   uniswapV2: "0x86d3579b043585A97532514016dCF0C2d6C4b6a1",
   uniswapV3: "0xE592427A0AEce92De3Edee1F18E0157C05861564",
   sushiswap: "0xBc1315CD2671BC498fDAb42aE1214068003DC51e",
@@ -122,7 +122,6 @@ describe("Paraswap", function () {
   let paraswap;
   let paraswapProxyAddress;
   let paraswapFilter;
-  let uniswapProxy;
   let proxyFilter;
   let paraswapUniV2Router;
 
@@ -145,6 +144,14 @@ describe("Paraswap", function () {
     weth = new ethers.Contract(WETH, WETH_ABI, deployer);
     cream = new ethers.Contract(CREAM, ERC20_ABI, deployer);
     paraswap = new ethers.Contract(AUGUSTUS, AUGUSTUS_ABI, deployer);
+
+    const paraswapOwner = await paraswap.owner();
+    await hre.network.provider.request({
+      method: "hardhat_impersonateAccount",
+      params: [paraswapOwner],
+    });
+    paraswap = paraswap.connect(await ethers.provider.getSigner(paraswapOwner));
+
     zeroExV2TargetExchange = new ethers.Contract(TARGET_EXCHANGES.zeroexV2, ZEROEXV2_TARGET_EXCHANGE_ABI, deployer);
     zeroExV4TargetExchange = new ethers.Contract(TARGET_EXCHANGES.zeroexV4, ZEROEXV4_TARGET_EXCHANGE_ABI, deployer);
     paraswapUniV2Router = new ethers.Contract(TARGET_EXCHANGES.uniswapV2, UNIV2_TARGET_EXCHANGE_ABI, deployer);
@@ -230,9 +237,9 @@ describe("Paraswap", function () {
       weth: useUnauthorisedAdapter ? other.address : ADAPTERS.weth,
     };
     const targetExchanges = {
-      uniswap: useUnauthorisedTargetExchange ? other.address : UNIV1_FACTORY,
-      uniswapv2: ZERO_ADDRESS,
-      uniswapv3: useUnauthorisedTargetExchange ? other.address : UNIV3_ROUTER,
+      uniswap: useUnauthorisedTargetExchange ? other.address : TARGET_EXCHANGES.uniswap,
+      uniswapv2: useUnauthorisedTargetExchange ? other.address : TARGET_EXCHANGES.uniswapV2,
+      uniswapv3: useUnauthorisedTargetExchange ? other.address : TARGET_EXCHANGES.uniswapV3,
       sushiswap: ZERO_ADDRESS,
       linkswap: ZERO_ADDRESS,
       defiswap: ZERO_ADDRESS,
@@ -310,7 +317,7 @@ describe("Paraswap", function () {
     let proxy = null;
     let convertWeth = false;
 
-    if (["uniswapv2", "sushiswap"].includes(exchange)) {
+    if (["uniswapv2", "sushiswap", "defiswap", "linkswap"].includes(exchange)) {
       targetExchange = paraswapUniV2Router;
       swapMethod = "swap(uint256,uint256,address[])";
       swapParams = [fromAmount, toAmount, [fromToken, toToken]];
@@ -457,7 +464,7 @@ describe("Paraswap", function () {
       it("should allow selling WETH for token ETH", async () => {
         await testTrade({ method, exchange, fromToken: WETH, toToken: PARASWAP_ETH_TOKEN });
       });
-    } else {
+    } else if (!["defiswap", "linkswap"].includes(exchange) /*pairs not in token registry for these forks*/) {
       it("should allow selling ETH for USDC", async () => {
         await testTrade({ method, exchange, fromToken: PARASWAP_ETH_TOKEN, toToken: USDC });
       });
@@ -468,7 +475,8 @@ describe("Paraswap", function () {
         await testTrade({ method, exchange, fromToken: DAI, toToken: USDC });
       });
     }
-    if (["uniswapv2"].includes(exchange)) {
+
+    if (["uniswapv2", "sushiswap", "defiswap", "linkswap"].includes(exchange)) {
       it("should not allow selling ETH for non-tradable token", async () => {
         await testTrade({ method, exchange, fromToken: PARASWAP_ETH_TOKEN, toToken: CREAM, expectValid: false });
       });
@@ -488,13 +496,35 @@ describe("Paraswap", function () {
 
   for (const method of ["multiSwap", "megaSwap", "simpleSwap"]) {
     describe(`${method} trades`, () => {
-      for (const exchange of ["uniswapv2", "sushiswap", "uniswap", "paraswappoolv2", "paraswappoolv4", "curve", "uniswapV3", "weth"]) {
+      for (const exchange of ["uniswapv2", "sushiswap", "defiswap", "linkswap", "uniswap", "paraswappoolv2", "paraswappoolv4", "curve", "uniswapV3", "weth"]) {
         describe(`  via ${exchange}`, () => {
           testsForMethod(method, exchange);
         });
       }
     });
   }
+
+  describe("Unauthorised exchanges", () => {
+    async function testUnauthorisedAdapter(method) {
+      await testTrade({ method, fromToken: PARASWAP_ETH_TOKEN, toToken: USDC, useUnauthorisedAdapter: true, expectValid: false });
+    }
+
+    for (const method of ["multiSwap", "megaSwap"]) {
+      it(`should not allow ${method} via unauthorised adapter`, async () => {
+        await testUnauthorisedAdapter(method);
+      });
+    }
+
+    async function testUnauthorisedTargetExchange(method) {
+      await testTrade({ method, fromToken: PARASWAP_ETH_TOKEN, toToken: USDC, useUnauthorisedTargetExchange: true, expectValid: false });
+    }
+
+    for (const method of ["multiSwap", "megaSwap"]) {
+      it(`should not allow ${method} via unauthorised target exchange`, async () => {
+        await testUnauthorisedTargetExchange(method);
+      });
+    }
+  });
 
   describe("simpleSwap target exchanges", () => {
     it("should allow ETH transfers to WETH", async () => {
@@ -524,5 +554,46 @@ describe("Paraswap", function () {
         expect(isValid).to.equal(false);
       });
     }
+  });
+
+  describe("Augustus", () => {
+    it("should not allow sending ETH to Augustus without calling an authorised method", async () => {
+      const isValid = await paraswapFilter.isValid(wallet.address, paraswap.address, paraswap.address, "0x");
+      expect(isValid).to.equal(false);
+    });
+    it("should not allow calling an unauthorised method on Augustus", async () => {
+      const methodData = paraswap.interface.encodeFunctionData("renounceOwnership()", []); // unauthorised methodId
+      const isValid = await paraswapFilter.isValid(wallet.address, paraswap.address, paraswap.address, methodData);
+      expect(isValid).to.equal(false);
+    });
+    it("should not allow swapOnUniswap[Fork] via unauthorised uniswap proxy", async () => {
+      // wipe the timelock to avoid having to evm_mine thousands of blocks...
+      const tl1 = await paraswap.getTimeLock();
+      await ethers.provider.send("hardhat_setStorageAt", [AUGUSTUS, "0xA", "0x0000000000000000000000000000000000000000000000000000000000000000"]);
+      const tl2 = await paraswap.getTimeLock();
+      expect(tl1.toString()).to.not.be.equal(tl2.toString());
+
+      const uniswapProxyAddress = await paraswap.getUniswapProxy();
+      await paraswap.changeUniswapProxy(other.address);
+      await paraswap.confirmUniswapProxyChange();
+      const uniswapProxyAddress2 = await paraswap.getUniswapProxy();
+      expect(uniswapProxyAddress2).to.not.be.equal(uniswapProxyAddress);
+
+      await paraswapFilter.updateIsValidUniswapProxy();
+      await testTrade({
+        method: "swapOnUniswap",
+        fromToken: PARASWAP_ETH_TOKEN,
+        toToken: USDC,
+        expectValid: false,
+      });
+      await testTrade({
+        method: "swapOnUniswapFork",
+        fromToken: PARASWAP_ETH_TOKEN,
+        toToken: USDC,
+        expectValid: false,
+      });
+      await paraswap.changeUniswapProxy(uniswapProxyAddress);
+      await paraswapFilter.updateIsValidUniswapProxy();
+    });
   });
 });

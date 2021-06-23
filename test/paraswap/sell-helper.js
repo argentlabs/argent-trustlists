@@ -192,6 +192,7 @@ const getUniswapRoutes = ({ fromToken, toToken }) => [
     data: { tokenFrom: fromToken, tokenTo: toToken },
   },
 ];
+
 const getUniswapV2Routes = ({ fromToken, toToken }) => [
   {
     exchange: "uniswapv2",
@@ -199,9 +200,26 @@ const getUniswapV2Routes = ({ fromToken, toToken }) => [
     data: { tokenFrom: fromToken, tokenTo: toToken, path: [fromToken, toToken] },
   },
 ];
+
 const getSushiswapRoutes = ({ fromToken, toToken }) => [
   {
     exchange: "sushiswap",
+    percent: "100",
+    data: { tokenFrom: fromToken, tokenTo: toToken, path: [fromToken, toToken] },
+  },
+];
+
+const getLinkswapRoutes = ({ fromToken, toToken }) => [
+  {
+    exchange: "linkswap",
+    percent: "100",
+    data: { tokenFrom: fromToken, tokenTo: toToken, path: [fromToken, toToken] },
+  },
+];
+
+const getDefiswapRoutes = ({ fromToken, toToken }) => [
+  {
+    exchange: "defiswap",
     percent: "100",
     data: { tokenFrom: fromToken, tokenTo: toToken, path: [fromToken, toToken] },
   },
@@ -242,9 +260,11 @@ const getRoutesForExchange = ({ fromToken, toToken, maker, fee, exchange }) => {
     case "uniswapv2":
       return getUniswapV2Routes({ fromToken, toToken });
     case "sushiswap":
-    case "linkswap":
-    case "defiswap":
       return getSushiswapRoutes({ fromToken, toToken });
+    case "linkswap":
+      return getLinkswapRoutes({ fromToken, toToken });
+    case "defiswap":
+      return getDefiswapRoutes({ fromToken, toToken });
     case "curve":
       return getCurveRoutes({ fromToken, toToken });
     case "weth":
