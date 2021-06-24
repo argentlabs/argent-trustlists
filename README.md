@@ -107,7 +107,7 @@ npx hardhat coverage
 
 ### Deploy
 ```
-npx hardhat deploy-all
+npx hardhat deploy-all --network [network]
 ```
 
 ## License
