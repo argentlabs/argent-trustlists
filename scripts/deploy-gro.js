@@ -8,12 +8,6 @@ const MultisigExecutor = require("./utils/multisigexecutor.js");
 const TRUSTLIST = 0;
 
 async function main() {
-  // No Yearn v1 integration on Ropsten
-  if (hre.network.name === "ropsten") {
-    console.log("skipping Yearn on Ropsten");
-    return;
-  }
-
   const configLoader = new ConfigLoader(hre.network.name);
   const config = await configLoader.load();
   const configUpdate = clonedeep(config);
@@ -31,34 +25,19 @@ async function main() {
   }
 
   /////////////////////////////////
-  // Yearn V1
+  // Gro
   /////////////////////////////////
 
-  const YearnFilter = await ethers.getContractFactory("YearnFilter");
-  const yearnFilter = await YearnFilter.deploy(false);
-  configUpdate.yearn.v1.filter = yearnFilter.address;
-  const wethYearnFilter = await YearnFilter.deploy(true);
-  configUpdate.yearn.v1.wethFilter = wethYearnFilter.address;
-  for (const vault of config.yearn.v1.vaults) {
-    await dappRegistry.addDapp(TRUSTLIST, vault, yearnFilter.address);
-    console.log(`Added Yearn filter ${yearnFilter.address} for yVault ${vault}`);
-  }
-  for (const vault of config.yearn.v1.wethVaults) {
-    await dappRegistry.addDapp(TRUSTLIST, vault, wethYearnFilter.address);
-    console.log(`Added Yearn filter ${wethYearnFilter.address} for wethVault ${vault}`);
-  }
-
-  /////////////////////////////////
-  // Yearn V2
-  /////////////////////////////////
-
-  const YearnV2Filter = await ethers.getContractFactory("YearnV2Filter");
-  const yearnV2Filter = await YearnV2Filter.deploy();
-  configUpdate.yearn.v2.filter = yearnV2Filter.address;
-  for (const vault of config.yearn.v2.vaults) {
-    await dappRegistry.addDapp(TRUSTLIST, vault, yearnV2Filter.address);
-    console.log(`Added YearnV2 filter ${yearnV2Filter.address} for vault ${vault}`);
-  }
+  const GroWithdrawFilter = await ethers.getContractFactory("GroWithdrawFilter");
+  const GroDepositFilter = await ethers.getContractFactory("GroDepositFilter");
+  const depositFilter = await GroDepositFilter.deploy();
+  const withdrawFilter = await GroWithdrawFilter.deploy();
+  configUpdate.gro.deposit.filter = depositFilter.address;
+  configUpdate.gro.withdraw.filter = withdrawFilter.address;
+  await dappRegistry.addDapp(TRUSTLIST, configUpdate.gro.deposit.handler, depositFilter.address);
+  console.log(`Added deposit filter ${depositFilter.address} for Gro deposit handler ${configUpdate.gro.deposit.handler}`);
+  await dappRegistry.addDapp(TRUSTLIST, configUpdate.gro.withdraw.handler, withdrawFilter.address);
+  console.log(`Added withdraw filter ${withdrawFilter.address} for Gro withdraw handler ${configUpdate.gro.withdraw.handler}`);
 
   // Give ownership back
   if (registryOwner != deployer.address) {
