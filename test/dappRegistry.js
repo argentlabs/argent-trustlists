@@ -73,9 +73,9 @@ describe("DappRegistry", function () {
   describe("Trustlist management", function() {
 
     it("Should toggle a trustlit for a wallet", async function() {
-      const isEnalbled = await registry.isEnabledRegistry(wallet.address, 0);
-      await registry.connect(wallet).toggleRegistry(0, !isEnalbled);
-      expect(await registry.isEnabledRegistry(wallet.address, 0)).to.equal(!isEnalbled);
+      const isEnabled = await registry.isEnabledRegistry(wallet.address, 0);
+      await registry.connect(wallet).toggleRegistry(0, !isEnabled);
+      expect(await registry.isEnabledRegistry(wallet.address, 0)).to.equal(!isEnabled);
     });
 
   });
