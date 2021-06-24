@@ -13,6 +13,7 @@ const SCRIPTS = [
   "deploy-uniswap.js",
   "deploy-weth.js",
   "deploy-yearn.js",
+  "deploy-maker.js",
   "deploy-argent.js"
 ];
 
