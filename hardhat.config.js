@@ -15,6 +15,7 @@ const SCRIPTS = [
   "deploy-yearn.js",
   "deploy-maker.js",
   "deploy-gro.js",
+  "deploy-paraswap.js",
   "deploy-argent.js",
 ];
 
