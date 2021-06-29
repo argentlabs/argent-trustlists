@@ -81,7 +81,7 @@ async function main() {
   const WhitelistedZeroExV2Filter = await ethers.getContractFactory("WhitelistedZeroExV2Filter");
   const WhitelistedZeroExV4Filter = await ethers.getContractFactory("WhitelistedZeroExV4Filter");
 
-  const forks = [config.uniswap.v2.forks.sushiswap, config.uniswap.v2.forks.linkswap, config.uniswap.v2.forks.defiswap];
+  const forks = [config.paraswap.uniswapV2Forks.sushiswap, config.paraswap.uniswapV2Forks.linkswap, config.paraswap.uniswapV2Forks.defiswap];
 
   await installFilter({
     filterDeployer: async () => {
@@ -91,8 +91,8 @@ async function main() {
         config.dappRegistry.address,
         config.paraswap.contract,
         config.paraswap.uniswapProxy,
-        [...forks.map((f) => f.factory), config.uniswap.v3.factory],
-        [...forks.map((f) => f.initCode), config.uniswap.v3.initCode],
+        [...forks, config.uniswap.v3].map((f) => f.factory),
+        [...forks, config.uniswap.v3].map((f) => f.initCode),
         [
           config.paraswap.adapters.uniswap,
           config.paraswap.adapters.uniswapV2,
@@ -105,7 +105,7 @@ async function main() {
           config.paraswap.adapters.weth,
           config.paraswap.adapters.uniswapV3,
         ],
-        [].concat(...Object.values(config.paraswap.targetExchanges || {})), // flattened targetExchanges values
+        [...Object.values(config.paraswap.targetExchanges || {}), ...config.curve.pools],
         config.paraswap.marketMakers || []
       );
       console.log(`Deployed ParaswapFilter at ${paraswapFilter.address}`);
@@ -120,7 +120,7 @@ async function main() {
   // ParaswapUniV2RouterFilter
   const factories = [config.uniswap.v2, ...forks].map((f) => f.factory);
   const initCodes = [config.uniswap.v2, ...forks].map((f) => f.initCode);
-  const routers = [config.uniswap.v2, ...forks].map((f) => f.paraswapUniV2Router);
+  const routers = [config.paraswap, ...forks].map((f) => f.paraswapUniV2Router);
   for (let i = 0; i < routers.length; i += 1) {
     await installFilter({
       filterDeployer: async () => {

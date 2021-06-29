@@ -19,7 +19,6 @@ pragma solidity ^0.8.3;
 import "../BaseFilter.sol";
 import "./ParaswapUtils.sol";
 import "../../interfaces/IAuthoriser.sol";
-import "../../Utils.sol";
 
 interface IUniswapV1Factory {
     function getExchange(address token) external view returns (address);
@@ -301,7 +300,7 @@ contract ParaswapFilter is BaseFilter {
             } else {
                 to[j] = _callees[i];
                 allData[j] = slicedExchangeData;
-                spenders[j] = Utils.recoverSpender(_callees[i], slicedExchangeData);
+                spenders[j] = ParaswapUtils.recoverSpender(_callees[i], slicedExchangeData);
                 j++;
             }
         }
