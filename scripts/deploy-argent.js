@@ -37,7 +37,14 @@ async function main() {
   if (config.argent.tradeCommissionCollector) {
     await dappRegistry.addDapp(TRUSTLIST, config.argent.tradeCommissionCollector, ethers.constants.AddressZero);
     console.log(`Added empty filter for Argent trade commission collector ${config.argent.tradeCommissionCollector}`);
-  }  
+  }
+  
+  // Add Argent ENS Manager filter
+  const ArgentEnsFilter = await ethers.getContractFactory("ArgentEnsManagerFilter");
+  const argentEnsFilter = await ArgentEnsFilter.deploy();
+  await dappRegistry.addDapp(TRUSTLIST, config.argent.ens.manager, argentEnsFilter.address);
+  configUpdate.argent.ens.managerFilter = argentEnsFilter.address;
+  console.log(`Added Argent ENS Manager filter ${argentEnsFilter.address} for Argent ENS Manager ${config.argent.ens.manager}`);
 
   // Transfer ownership to Argent multisig
   await dappRegistry.changeOwner(TRUSTLIST, config.argent.multisig);

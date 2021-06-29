@@ -5,7 +5,11 @@
     "multisig": "0x19a5312e13f458e8afe59c2c213b41243285f2fd",
     "managers": [
       "0xa1a1224e9071470ab12a8df7626d4fe7789a039d"
-    ]
+    ],
+    "ens": {
+      "manager": "0xF32FDDEF964b98b1d2d2b1C071ac60ED55d4D217",
+      "managerFilter": "0x8f86403A4DE0BB5791fa46B8e795C547942fE4Cf"
+    }
   },
   "dappRegistry": {
     "timelock": 0,
