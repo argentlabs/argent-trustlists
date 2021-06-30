@@ -46,7 +46,7 @@ module.exports = {
     },
     test: {
       url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: [`0x${process.env.ROPSTEN_PKEY}`],
+      accounts: [`0x${process.env.TEST_PKEY}`],
       chainId: 3,
     },
     staging: {
