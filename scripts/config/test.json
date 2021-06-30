@@ -72,9 +72,7 @@
       ]
     },
     "v2": {
-      "lendingPool": {
-        "address": "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"
-      }
+      "lendingPool": {}
     }
   },
   "uniswap": {
@@ -114,10 +112,7 @@
     },
     "uniswapProxy": "0xa597cb35ecf67b41562fbd417ec3a15c67a72b2c",
     "marketMakers": [],
-    "proxies": {
-      "zeroexV2": "0x95e6f48254609a6ee006f7d493c8e5fb97094cef"
-    },
-    "paraswapUniV2Router": "0x86d3579b043585A97532514016dCF0C2d6C4b6a1",
+    "proxies": {},
     "uniswapV2Forks": {},
     "filters": {
       "paraswap": "0xe139882664ada2523de76a0f539a5023981e7550"
