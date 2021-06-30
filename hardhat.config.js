@@ -44,9 +44,20 @@ module.exports = {
         url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
       },
     },
-    ropsten: {
+    test: {
       url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: [`0x${process.env.ROPSTEN_PKEY}`],
       chainId: 3,
+    },
+    staging: {
+      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: [`0x${process.env.STAGING_PKEY}`],
+      chainId: 1,
+    },
+    prod: {
+      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: [`0x${process.env.PROD_PKEY}`],
+      chainId: 1,
     },
   },
   solidity: {
