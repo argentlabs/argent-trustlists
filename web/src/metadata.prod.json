@@ -152,7 +152,14 @@
                 "0x8fa3a9ecd9efb07a8ce90a6eb014cf3c0e3b32ef": "Buy & sell yearn v2",
                 "0xf8768814b88281de4f532a3beefa5b85b69b9324": "Buy & sell yearn v2",
                 "0xf29ae508698bdef169b89834f76704c3b205aedf": "Buy & sell yearn v2",
-                "0xa258c4606ca8206d8aa700ce2143d7db854d168c": "Buy & sell yearn v2"
+                "0xa258c4606ca8206d8aa700ce2143d7db854d168c": "Buy & sell yearn v2",
+                "0xda816459f1ab5631232fe5e97a05bbbb94970c95": "Buy & sell yearn v2",
+                "0xb124541127a0a657f056d9dd06188c4f1b0e5aab": "Sell Aave v1",
+                "0xba3d9687cf50fe253cd2e1cfeede1d6787344ed5": "Sell Aave v1",
+                "0xface851a4921ce59e912d19329929ce6da6eb0c7": "Buy, sell, borrow Compound",
+                "0x12392f67bdf24fae0af363c24ac620a2f67dad86": "Buy, sell, borrow Compound",
+                "0xb7207ea9446dca1dec1c1fc93c6fcdf8b4a44f40": "Buy Gro",
+                "0x641befa4db601578a64f0fc1f4e89e9869268fe7": "Sell Gro"
             }
         }
     ]
