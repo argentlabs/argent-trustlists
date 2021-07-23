@@ -44,6 +44,11 @@ describe("Balancer", function() {
       expect(auth[0]).to.equal(balancerFilter.address);
     });
 
+    it("Should reject ETH transfer", async function () {
+      const isAuthorised = await registry.isAuthorised(wallet.address, pool.address, pool.address, "0x");
+      expect(isAuthorised).to.equal(false);
+    });
+
     it("Should accept calls to join", async function() {
       let data = pool.interface.encodeFunctionData("joinswapExternAmountIn", [tokenA.address, parseEther("0.1"), 1]);
       const isAuthorised = await registry.isAuthorised(wallet.address, pool.address, pool.address, data);
