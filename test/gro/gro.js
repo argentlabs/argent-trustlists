@@ -9,8 +9,8 @@ const ERC20_ABI = require("../erc20/abis/erc20.json");
 const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
 const DEPOSIT_HANDLER_ABI = require("./abis/depositHandler.json");
 const WITHDRAW_HANDLER_ABI = require("./abis/withdrawHandler.json");
-const DEPOSIT_HANDLER_ADDRESS = "0x79b14d909381D79B655C0700d0fdc2C7054635b9";
-const WITHDRAW_HANDLER_ADDRESS = "0xd89512Bdf570476310DE854Ef69D715E0e85B09F";
+const DEPOSIT_HANDLER_ADDRESS = "0xB7207Ea9446DcA1dEC1c1FC93c6Fcdf8B4a44F40";
+const WITHDRAW_HANDLER_ADDRESS = "0x641bEFA4dB601578A64F0Fc1f4E89E9869268Fe7";
 
 const REGISTRY_ID = 0;
 const TIMELOCK = 0;
@@ -69,19 +69,19 @@ describe("Gro", function () {
   });
 
   it("Should accept to call depositGvt", async function () {
-    const data = depositHandler.interface.encodeFunctionData("depositGvt(uint256[],uint256,address)", [[parseEther("0.1"), 0, 0], 1, ZERO_ADDRESS]);
+    const data = depositHandler.interface.encodeFunctionData("depositGvt(uint256[3],uint256,address)", [[parseEther("0.1"), 0, 0], 1, ZERO_ADDRESS]);
     const isAuthorised = await registry.isAuthorised(wallet.address, depositHandler.address, depositHandler.address, data);
     expect(isAuthorised).to.equal(true);
   });
 
   it("Should accept to call depositPwrd", async function () {
-    const data = depositHandler.interface.encodeFunctionData("depositPwrd(uint256[],uint256,address)", [[parseEther("0.1"), 0, 0], 1, ZERO_ADDRESS]);
+    const data = depositHandler.interface.encodeFunctionData("depositPwrd(uint256[3],uint256,address)", [[parseEther("0.1"), 0, 0], 1, ZERO_ADDRESS]);
     const isAuthorised = await registry.isAuthorised(wallet.address, depositHandler.address, depositHandler.address, data);
     expect(isAuthorised).to.equal(true);
   });
 
   it("Should accept to call withdrawByLPToken", async function () {
-    const data = withdrawHandler.interface.encodeFunctionData("withdrawByLPToken(bool,uint256,uint256[])", [true, parseEther("0.1"), [1, 1, 1]]);
+    const data = withdrawHandler.interface.encodeFunctionData("withdrawByLPToken(bool,uint256,uint256[3])", [true, parseEther("0.1"), [1, 1, 1]]);
     const isAuthorised = await registry.isAuthorised(wallet.address, withdrawHandler.address, withdrawHandler.address, data);
     expect(isAuthorised).to.equal(true);
   });
@@ -99,7 +99,7 @@ describe("Gro", function () {
   });
 
   it("Should accept to call withdrawAllBalanced", async function () {
-    const data = withdrawHandler.interface.encodeFunctionData("withdrawAllBalanced(bool,uint256[])", [true, [1, 1, 1]]);
+    const data = withdrawHandler.interface.encodeFunctionData("withdrawAllBalanced(bool,uint256[3])", [true, [1, 1, 1]]);
     const isAuthorised = await registry.isAuthorised(wallet.address, withdrawHandler.address, withdrawHandler.address, data);
     expect(isAuthorised).to.equal(true);
   });
