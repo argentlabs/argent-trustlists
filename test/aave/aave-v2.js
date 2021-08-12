@@ -7,7 +7,7 @@ const ERC20_ABI = require('../erc20/abis/erc20.json');
 const DAI = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
 
 const LENDING_POOL_V2__ABI = require('./abis/lendingPoolV2.json');
-const LENDING_POOL_V2_ADDRESS = "0xC6845a5C768BF8D7681249f8927877Efda425baf";
+const LENDING_POOL_V2_ADDRESS = "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9";
 
 const REGISTRY_ID = 0;
 const TIMELOCK = 0;
