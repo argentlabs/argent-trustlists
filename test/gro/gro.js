@@ -22,7 +22,6 @@ describe("Gro", function () {
   let registry;
   let deployer;
   let wallet;
-  let other;
 
   let depositHandler;
   let withdrawHandler;
@@ -105,10 +104,11 @@ describe("Gro", function () {
   });
 
   it("Should not accept to call unsupported method (deposits)", async function () {
-    const data = depositHandler.interface.encodeFunctionData("referral", [ZERO_ADDRESS]);
+    const data = depositHandler.interface.encodeFunctionData("setDependencies", []);
     const isAuthorised = await registry.isAuthorised(wallet.address, depositHandler.address, depositHandler.address, data);
     expect(isAuthorised).to.equal(false);
   });
+
   it("Should not accept to call unsupported method (withdrawals)", async function () {
     const data = withdrawHandler.interface.encodeFunctionData("withdrawalFee", [true]);
     const isAuthorised = await registry.isAuthorised(wallet.address, withdrawHandler.address, withdrawHandler.address, data);

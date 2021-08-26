@@ -9,6 +9,10 @@
     "test": "npx hardhat test"
   },
   "author": "Argent Labs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/argentlabs/argent-trustlists.git"
+  },
   "license": "GPL-3.0-only",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
