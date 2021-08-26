@@ -81,7 +81,12 @@ async function main() {
   const WhitelistedZeroExV2Filter = await ethers.getContractFactory("WhitelistedZeroExV2Filter");
   const WhitelistedZeroExV4Filter = await ethers.getContractFactory("WhitelistedZeroExV4Filter");
 
-  const forks = [config.paraswap.uniswapV2Forks.sushiswap, config.paraswap.uniswapV2Forks.linkswap, config.paraswap.uniswapV2Forks.defiswap];
+  const forkPlaceholder = { factory: ethers.constants.AddressZero, initCode: ethers.constants.HashZero, paraswapUniV2Router: ethers.constants.AddressZero };
+  const forks = [
+    config.paraswap.uniswapV2Forks.sushiswap || forkPlaceholder,
+    config.paraswap.uniswapV2Forks.linkswap || forkPlaceholder,
+    config.paraswap.uniswapV2Forks.defiswap || forkPlaceholder,
+  ];
 
   await installFilter({
     filterDeployer: async () => {
@@ -96,16 +101,16 @@ async function main() {
         [
           config.paraswap.adapters.uniswap,
           config.paraswap.adapters.uniswapV2,
-          config.paraswap.adapters.sushiswap,
-          config.paraswap.adapters.linkswap,
-          config.paraswap.adapters.defiswap,
-          config.paraswap.adapters.zeroexV2,
-          config.paraswap.adapters.zeroexV4,
-          config.paraswap.adapters.curve,
-          config.paraswap.adapters.weth,
-          config.paraswap.adapters.uniswapV3,
+          config.paraswap.adapters.sushiswap || ethers.constants.AddressZero,
+          config.paraswap.adapters.linkswap || ethers.constants.AddressZero,
+          config.paraswap.adapters.defiswap || ethers.constants.AddressZero,
+          config.paraswap.adapters.zeroexV2 || ethers.constants.AddressZero,
+          config.paraswap.adapters.zeroexV4 || ethers.constants.AddressZero,
+          config.paraswap.adapters.curve || ethers.constants.AddressZero,
+          config.paraswap.adapters.weth || ethers.constants.AddressZero,
+          config.paraswap.adapters.uniswapV3 || ethers.constants.AddressZero,
         ],
-        [...Object.values(config.paraswap.targetExchanges || {}), ...config.curve.pools],
+        [...Object.values(config.paraswap.targetExchanges || {}), ...((config.curve && config.curve.pools) || [])],
         config.paraswap.marketMakers || []
       );
       console.log(`Deployed ParaswapFilter at ${paraswapFilter.address}`);
@@ -116,25 +121,6 @@ async function main() {
     dappName: "Augustus",
     filterName: "ParaswapFilter",
   });
-
-  // ParaswapUniV2RouterFilter
-  const factories = [config.uniswap.v2, ...forks].map((f) => f.factory);
-  const initCodes = [config.uniswap.v2, ...forks].map((f) => f.initCode);
-  const routers = [config.paraswap, ...forks].map((f) => f.paraswapUniV2Router);
-  for (let i = 0; i < routers.length; i += 1) {
-    await installFilter({
-      filterDeployer: async () => {
-        console.log(`Deploying ParaswapUniV2RouterFilter#${i}...`);
-        const paraswapUniV2RouterFilter = await ParaswapUniV2RouterFilter.deploy(config.tokenRegistry.address, factories[i], initCodes[i], config.weth.token);
-        console.log(`Deployed ParaswapUniV2RouterFilter#${i} at ${paraswapUniV2RouterFilter.address}`);
-        configUpdate.paraswap.filters[["uniswapV2", "sushiswap", "linkswap", "defiswap"][i]] = paraswapUniV2RouterFilter.address;
-        return paraswapUniV2RouterFilter.address;
-      },
-      dapp: routers[i],
-      dappName: `ParaswapUniV2Router#${i}`,
-      filterName: `ParaswapUniV2RouterFilter#${i}`,
-    });
-  }
 
   // UniswapV3RouterFilter
   await installFilter({
@@ -149,31 +135,53 @@ async function main() {
     filterName: "UniswapV3RouterFilter",
   });
 
-  // WhitelistedZeroExV2Filter
-  await installFilter({
-    filterDeployer: async () => {
-      const zeroExV2Filter = await WhitelistedZeroExV2Filter.deploy(config.paraswap.marketMakers);
-      console.log(`Deployed WhitelistedZeroExV2Filter at ${zeroExV2Filter.address}`);
-      configUpdate.paraswap.filters.zeroexV2 = zeroExV2Filter.address;
-      return zeroExV2Filter.address;
-    },
-    dapp: config.paraswap.targetExchanges.zeroexV2,
-    dappName: "ZeroExV2",
-    filterName: "WhitelistedZeroExV2Filter",
-  });
+  if (hre.network.name === "test") {
+    console.log("skipping ParaswapUniV2Router & ZeroEx filter deployment on Ropsten");
+  } else {
+    // ParaswapUniV2RouterFilter
+    const factories = [config.uniswap.v2, ...forks].map((f) => f.factory);
+    const initCodes = [config.uniswap.v2, ...forks].map((f) => f.initCode);
+    const routers = [config.paraswap, ...forks].map((f) => f.paraswapUniV2Router);
+    for (let i = 0; i < routers.length; i += 1) {
+      await installFilter({
+        filterDeployer: async () => {
+          console.log(`Deploying ParaswapUniV2RouterFilter#${i}...`);
+          const paraswapUniV2RouterFilter = await ParaswapUniV2RouterFilter.deploy(config.tokenRegistry.address, factories[i], initCodes[i], config.weth.token);
+          console.log(`Deployed ParaswapUniV2RouterFilter#${i} at ${paraswapUniV2RouterFilter.address}`);
+          configUpdate.paraswap.filters[["uniswapV2", "sushiswap", "linkswap", "defiswap"][i]] = paraswapUniV2RouterFilter.address;
+          return paraswapUniV2RouterFilter.address;
+        },
+        dapp: routers[i],
+        dappName: `ParaswapUniV2Router#${i}`,
+        filterName: `ParaswapUniV2RouterFilter#${i}`,
+      });
+    }
 
-  // WhitelistedZeroExV4Filter
-  await installFilter({
-    filterDeployer: async () => {
-      const zeroExV4Filter = await WhitelistedZeroExV4Filter.deploy(config.paraswap.marketMakers);
-      console.log(`Deployed WhitelistedZeroExV4Filter at ${zeroExV4Filter.address}`);
-      configUpdate.paraswap.filters.zeroexV4 = zeroExV4Filter.address;
-      return zeroExV4Filter.address;
-    },
-    dapp: config.paraswap.targetExchanges.zeroexV4,
-    dappName: "ZeroExV4",
-    filterName: "WhitelistedZeroExV4Filter",
-  });
+    // WhitelistedZeroExV2Filter;
+    await installFilter({
+      filterDeployer: async () => {
+        const zeroExV2Filter = await WhitelistedZeroExV2Filter.deploy(config.paraswap.marketMakers);
+        console.log(`Deployed WhitelistedZeroExV2Filter at ${zeroExV2Filter.address}`);
+        configUpdate.paraswap.filters.zeroexV2 = zeroExV2Filter.address;
+        return zeroExV2Filter.address;
+      },
+      dapp: config.paraswap.targetExchanges.zeroexV2,
+      dappName: "ZeroExV2",
+      filterName: "WhitelistedZeroExV2Filter",
+    });
+    // WhitelistedZeroExV4Filter
+    await installFilter({
+      filterDeployer: async () => {
+        const zeroExV4Filter = await WhitelistedZeroExV4Filter.deploy(config.paraswap.marketMakers);
+        console.log(`Deployed WhitelistedZeroExV4Filter at ${zeroExV4Filter.address}`);
+        configUpdate.paraswap.filters.zeroexV4 = zeroExV4Filter.address;
+        return zeroExV4Filter.address;
+      },
+      dapp: config.paraswap.targetExchanges.zeroexV4,
+      dappName: "ZeroExV4",
+      filterName: "WhitelistedZeroExV4Filter",
+    });
+  }
 
   // Give ownership back
   if (registryOwner != deployer.address) {
