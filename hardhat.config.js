@@ -27,6 +27,12 @@ const runScript = (script) => {
   });
 };
 
+task("deploy-argent", "Deploy argent", async () => {
+  const script = "deploy-argent.js";
+  console.log("\n", `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, "\n");
+  await runScript(script);
+});
+
 task("deploy-all", "Deploy all scripts", async () => {
   for (const script of SCRIPTS) {
     console.log("\n", `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, "\n");
@@ -43,6 +49,11 @@ module.exports = {
       forking: {
         url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
       },
+    },
+    dev: {
+      url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: [`0x${process.env.DEV_PKEY}`],
+      chainId: 4,
     },
     test: {
       url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
