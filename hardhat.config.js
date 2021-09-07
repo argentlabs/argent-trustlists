@@ -27,12 +27,6 @@ const runScript = (script) => {
   });
 };
 
-task("deploy-argent", "Deploy argent", async () => {
-  const script = "deploy-argent.js";
-  console.log("\n", `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, "\n");
-  await runScript(script);
-});
-
 task("deploy-all", "Deploy all scripts", async () => {
   for (const script of SCRIPTS) {
     console.log("\n", `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, "\n");

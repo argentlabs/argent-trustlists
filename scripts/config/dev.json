@@ -18,8 +18,5 @@
   "dappRegistry": {
     "timelock": 0,
     "address": "0x804eeC59D7AbA121417730a2974ff3CD3C18D2C1"
-  },
-  "tokenRegistry": {
-    "address": "0x2E0fBaE30Bc38b3677bcc473D9DF8D6bee36C9F2"
   }
 }
