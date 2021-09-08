@@ -1,0 +1,22 @@
+{
+  "argent": {
+    "refundCollector": "0x15a3361e61bee856f3204917330bc4446207f876",
+    "tradeCommissionCollector": "0x15a3361e61bee856f3204917330bc4446207f876",
+    "multisig": "0x6f9EE21b3d83Bbf8527a3034f3bcE14d007890F2",
+    "managers": [
+      "0x0267482c3de8d6fe7555d5d1756176f7f90f116d",
+      "0x50fee4f130688593ced4fd6aa3357e2a6d924312",
+      "0xb8dfd77dd1e52b5f18db04fd10a9c8bd75c0b7ed",
+      "0x4d4ba095d6c6c3ae3088118a21ecaa8b96255a2f",
+      "0x5ca379a4ab7d375966f82284279667a9d04f5021"
+    ],
+    "ens": {
+      "manager": "0x5cCe8f81Ca37Dd2998FE2a0d7f8EfFABd8010901",
+      "managerFilter": "0x2E84B11B76c4Aa5892B047bf9359834575199a19"
+    }
+  },
+  "dappRegistry": {
+    "timelock": 0,
+    "address": "0x804eeC59D7AbA121417730a2974ff3CD3C18D2C1"
+  }
+}
