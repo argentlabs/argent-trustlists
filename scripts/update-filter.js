@@ -8,7 +8,7 @@ const MultisigExecutor = require("./utils/multisigexecutor.js");
 
 const TRUSTLIST = 0;
 
-const keypress = async () => {
+const keypress = () => {
   process.stdin.setRawMode(true);
   return new Promise((resolve) =>
     process.stdin.once("data", (data) => {
@@ -29,7 +29,7 @@ async function main() {
   const configUpdate = clonedeep(config);
 
   const DappRegistry = await ethers.getContractFactory("DappRegistry");
-  const dappRegistry = await DappRegistry.attach(config.dappRegistry.address);
+  const dappRegistry = DappRegistry.attach(config.dappRegistry.address);
   const deployer = (await ethers.getSigners())[0];
 
   // Temporarily give ownership of DappRegistry to deployment account if needed
@@ -96,12 +96,15 @@ async function main() {
 
   // update config
   await configLoader.save(configUpdate);
-  }
+}
 
-  main()
-      .then(() => process.exit(0))
-      .catch((error) => {
-      console.error(error);
-      process.exit(1);
-      });
+(async () => {
+  try {
+    await main();
+    process.exit(0);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+})();
     
