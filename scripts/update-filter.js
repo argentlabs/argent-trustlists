@@ -37,7 +37,8 @@ async function main() {
   if (registryOwner != deployer.address) {
     const multisigExecutor = new MultisigExecutor();
     await multisigExecutor.connect(registryOwner);
-    await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
+    const tx = await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
+    await tx.wait();
   }
 
   const installFilter = async ({ filterDeployer, dapp, dappName = "Dapp", filterName = "Filter", registryId = TRUSTLIST }) => {
@@ -47,7 +48,8 @@ async function main() {
     if (filter === ethers.constants.AddressZero) {
       const newFilter = await filterDeployer();
       console.log(`Adding ${filterName}@${newFilter} for ${dappStr}`);
-      await dappRegistry.addDapp(registryId, dapp, newFilter);
+      const tx = await dappRegistry.addDapp(registryId, dapp, newFilter);
+      await tx.wait();
       console.log(`Done. Filter will be active on ${new Date(Date.now() + timelock).toLocaleString()}\n`);
     } else {
       const pendingUpdate = await dappRegistry.pendingFilterUpdates(registryId, dapp);
@@ -58,40 +60,44 @@ async function main() {
         await keypress();
         const newFilter = await filterDeployer();
         console.log(`Requesting replacement of ${filterStr} by ${filterName}@${newFilter} for ${dappStr}`);
-        await dappRegistry.requestFilterUpdate(registryId, dapp, newFilter);
+        const tx = await dappRegistry.requestFilterUpdate(registryId, dapp, newFilter);
+        await tx.wait();
         console.log(`Done. Pending filter update will be confirmable on ${new Date(Date.now() + timelock).toLocaleString()}\n`);
       } else if (Date.now() < pendingUpdateConfirmationTime) {
         const confTime = new Date(pendingUpdateConfirmationTime).toLocaleString();
         console.log(`Pending installation of ${filterName}@${pendingUpdateFilterAddress} for ${dappStr} will be confirmable on ${confTime}\n`);
       } else {
         console.log(`Confirming installation of ${filterName}@${pendingUpdateFilterAddress} for ${dappStr}`);
-        await dappRegistry.confirmFilterUpdate(registryId, dapp);
+        const tx = await dappRegistry.confirmFilterUpdate(registryId, dapp);
+        await tx.wait();
         console.log("Done.\n");
       }
     }
   };
 
   /////////////////////////////////////////////////////////////////////////////
-  //
+  
   // Add a call to installFilter for every filter that you want to update:
-  //
-  // await installFilter({
-  //   filterDeployer: async () => {
-  //     const myFilterToUpdate = await MyFilterToUpdate.deploy(...);
-  //     console.log(`Deployed MyFilterToUpdate at ${myFilterToUpdate.address}`);
-  //     configUpdate.myDapp.filter = myFilterToUpdate.address;
-  //     return uniV3RouterFilter.address;
-  //   },
-  //   dapp: config.myDapp.address,
-  //   dappName: "MyDapp",
-  //   filterName: "MyDappFilter",
-  // });
-  //
+  /* 
+  await installFilter({
+    // must retrun the address of the filter
+    filterDeployer: async () => {
+      const myFilterToUpdate = await MyFilterToUpdate.deploy(...);
+      console.log(`Deployed MyFilterToUpdate at ${myFilterToUpdate.address}`);
+      configUpdate.myDapp.filter = myFilterToUpdate.address;
+      return myFilterToUpdate.address;
+    },
+    dapp: config.myDapp.address,
+    dappName: "MyDapp",
+    filterName: "MyDappFilter",
+  });
+   */
   /////////////////////////////////////////////////////////////////////////////
 
   // Give ownership back
   if (registryOwner != deployer.address) {
-    await dappRegistry.changeOwner(TRUSTLIST, registryOwner);
+    const tx = await dappRegistry.changeOwner(TRUSTLIST, registryOwner);
+    await tx.wait();
   }
 
   // update config

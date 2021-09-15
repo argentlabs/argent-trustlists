@@ -86,13 +86,13 @@ class MultisigExecutor {
       options.gasPrice = web3.utils.toWei(String(gasPriceGwei), "gwei");
 
       const executeTransaction = await this._multisigWrapper.execute(contractWrapper.address, 0, data, signatures, options);
-      return executeTransaction.receipt;
+      return executeTransaction;
     }
 
     // // Call "execute" on the Multisig wallet with data and signatures
     const executeTransaction = await this._multisigWrapper.execute(contractWrapper.address, 0, data, signatures);
 
-    return executeTransaction.receipt;
+    return executeTransaction;
   }
 
   static signHash(walletAddr, destinationAddr, value, data, nonce) {
