@@ -98,13 +98,9 @@ async function main() {
   await configLoader.save(configUpdate);
 }
 
-(async () => {
-  try {
-    await main();
-    process.exit(0);
-  } catch (error) {
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
     console.error(error);
     process.exit(1);
-  }
-})();
-    
+  })

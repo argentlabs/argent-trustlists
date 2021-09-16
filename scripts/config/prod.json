@@ -355,5 +355,8 @@
       "address": "0x9759A6Ac90977b93B58547b4A71c78317f391A28",
       "filter": "0x7a92f243eaa4B2da9D43de5aF58bc1334960c564"
     }
+  },
+  "zkSync": {
+    "address": "0xaBEA9132b05A70803a4E85094fD0e1800777fBEF"
   }
 }

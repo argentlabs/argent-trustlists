@@ -131,5 +131,8 @@
       "address": "0xaF02A3A65d307aBc64A2bC8a845A0Fcf192F8D08",
       "filter": "0xc4cfcb0785d22ad9ee59576f2bd66d88c8443114"
     }
+  },
+  "zkSync": {
+    "address": "0xc332679D243439048c8395DEfDe74D71cf5151e7"
   }
 }

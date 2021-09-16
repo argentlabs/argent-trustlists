@@ -333,5 +333,8 @@
       "address": "0x9759A6Ac90977b93B58547b4A71c78317f391A28",
       "filter": "0xa85EffB2658CFd81e0B1AaD4f2364CdBCd89F3a1"
     }
+  },
+  "zkSync": {
+    "address": "0xaBEA9132b05A70803a4E85094fD0e1800777fBEF"
   }
 }
