@@ -18,5 +18,8 @@
   "dappRegistry": {
     "timelock": 0,
     "address": "0x804eeC59D7AbA121417730a2974ff3CD3C18D2C1"
+  },
+  "zkSync": {
+    "address": "0x82F67958A5474e40E1485742d648C0b0686b6e5D"
   }
 }
