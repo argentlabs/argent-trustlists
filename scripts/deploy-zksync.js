@@ -25,20 +25,10 @@ async function main() {
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
   }
 
-  // Add Argent refund EOAs
-  if (config.argent.refundCollector) {
-    await dappRegistry.addDapp(TRUSTLIST, config.argent.refundCollector, ethers.constants.AddressZero);
-    console.log(`Added empty filter for Argent refund collector ${config.argent.refundCollector}`);
-  }
-  if (config.argent.tradeCommissionCollector) {
-    await dappRegistry.addDapp(TRUSTLIST, config.argent.tradeCommissionCollector, ethers.constants.AddressZero);
-    console.log(`Added empty filter for Argent trade commission collector ${config.argent.tradeCommissionCollector}`);
-  }
-  
-  // Add Argent ENS Manager filter
-  const ZkSyncFilter = await ethers.getContractFactory("ArgentEnsManagerFilter");
+  // Add zkSync filter
+  const ZkSyncFilter = await ethers.getContractFactory("ZkSyncFilter");
   const zkSyncFilter = await ZkSyncFilter.deploy();
-  await dappRegistry.addDapp(TRUSTLIST, config.argent.ens.manager, zkSyncFilter.address);
+  await dappRegistry.addDapp(TRUSTLIST, config.zkSync.address, zkSyncFilter.address);
   configUpdate.zkSync.filter = zkSyncFilter.address;
   console.log(`Added zkSync filter ${zkSyncFilter.address} for zkSync contract ${config.zkSync.address}`);
 
