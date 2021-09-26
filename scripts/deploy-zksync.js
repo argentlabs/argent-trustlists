@@ -28,13 +28,18 @@ async function main() {
   // Add zkSync filter
   const ZkSyncFilter = await ethers.getContractFactory("ZkSyncFilter");
   const zkSyncFilter = await ZkSyncFilter.deploy();
-  await dappRegistry.addDapp(TRUSTLIST, config.zkSync.address, zkSyncFilter.address);
+  await zkSyncFilter.deployTransaction.wait();
+
+  const tx1 = await dappRegistry.addDapp(TRUSTLIST, config.zkSync.address, zkSyncFilter.address);
+  await tx1.wait();
+
   configUpdate.zkSync.filter = zkSyncFilter.address;
   console.log(`Added zkSync filter ${zkSyncFilter.address} for zkSync contract ${config.zkSync.address}`);
 
   // Give ownership back
   if (registryOwner != deployer.address) {
-    await dappRegistry.changeOwner(TRUSTLIST, registryOwner);
+    const tx2 = await dappRegistry.changeOwner(TRUSTLIST, registryOwner);
+    await tx2.wait();
   }
 
   // update config

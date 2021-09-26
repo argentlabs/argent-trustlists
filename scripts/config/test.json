@@ -22,10 +22,10 @@
   },
   "dappRegistry": {
     "timelock": 480,
-    "address": "0x1c3311BC31f52e5c9441dF224946D128C00baab8"
+    "address": "0x72A813d9e451Bd2Af28269c35fc10c7DAeD21d7b"
   },
   "tokenRegistry": {
-    "address": "0xa97a6009114c5c2A9503c5Ad9f301BF29A20039f"
+    "address": "0x61CDA13cC572becE352988E5c52688f6A1285b86"
   },
   "compound": {
     "markets": [
@@ -133,6 +133,7 @@
     }
   },
   "zkSync": {
-    "address": "0xc332679D243439048c8395DEfDe74D71cf5151e7"
+    "address": "0xc332679D243439048c8395DEfDe74D71cf5151e7",
+    "filter": "0x6C749b71F20D2C15156290530AB8087e01af3962"
   }
 }
