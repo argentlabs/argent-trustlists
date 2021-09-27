@@ -25,6 +25,7 @@
     "ethers": "^5.4.6",
     "hardhat": "^2.6.2",
     "solidity-coverage": "^0.7.17",
+    "typescript": ">=3.7.0",
     "web3": "^1.5.2"
   },
   "dependencies": {
