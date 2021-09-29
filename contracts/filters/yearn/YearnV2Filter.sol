@@ -21,7 +21,7 @@ import "../BaseFilter.sol";
 /**
  * @title YearnV2Filter
  * @notice Filter used for deposits & withdrawals into/from YearnV2 vaults
- * such as the WETH vault at 0xa9fE4601811213c340e850ea305481afF02f5b28
+ * such as the WETH vault at 0xa258C4606Ca8206D8aA700cE2143D7db854D168c
  * @author Olivier VDB - <olivier@argent.xyz>
  */
 contract YearnV2Filter is BaseFilter {
