@@ -25,9 +25,14 @@
     "ethers": "^5.4.6",
     "hardhat": "^2.6.2",
     "solidity-coverage": "^0.7.17",
+    "typescript": ">=3.7.0",
     "web3": "^1.5.2"
   },
   "dependencies": {
+    "@rumblefishdev/hardhat-kms-signer": "argentlabs/hardhat-kms-signer#add-eth_sign-method",
+    "ethereumjs-util": "^7.0.0",
+    "@types/mocha": "^5.2.6",
+    "aws-sdk": "^2.993.0",
     "child_process": "^1.0.2",
     "fs": "0.0.1-security",
     "inquirer": "^8.1.2",

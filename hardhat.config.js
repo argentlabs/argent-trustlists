@@ -1,4 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
+require("@rumblefishdev/hardhat-kms-signer");
 require("solidity-coverage");
 require("dotenv").config();
 const { spawn } = require("child_process");
@@ -34,6 +35,11 @@ task("deploy-all", "Deploy all scripts", async () => {
   }
 });
 
+task("display-account", "Display deployment account", async () => {
+  const signer = await hre.ethers.getSigner();
+  console.log(signer);
+});
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
@@ -51,12 +57,12 @@ module.exports = {
     },
     test: {
       url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: [`0x${process.env.TEST_PKEY}`],
+      kmsKeyId: process.env.TEST_KMSID,
       chainId: 3,
     },
     staging: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: [`0x${process.env.STAGING_PKEY}`],
+      kmsKeyId: process.env.STAGING_KMSID,
       chainId: 1,
     },
     prod: {

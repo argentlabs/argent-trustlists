@@ -5,13 +5,14 @@ const inquirer = require("inquirer");
 const multisigAbi = require('./multisig.json');
 
 class MultisigExecutor {
-  constructor(setupGas = false) {
+  constructor(autoSign = true, setupGas = false) {
     this._setupGas = setupGas;
+    this._autoSign = autoSign;
   }
 
   async connect(multisigAddress) {
-    const deployer = (await ethers.getSigners())[0];
-    this._multisigWrapper = new ethers.Contract(multisigAddress, multisigAbi, deployer);
+    this._deployer = await ethers.getSigner();
+    this._multisigWrapper = new ethers.Contract(multisigAddress, multisigAbi, this._deployer);
   }
 
   async executeCall(contractWrapper, method, params) {
@@ -27,40 +28,54 @@ class MultisigExecutor {
 
     let signatures;
     let estimateGas;
-    // Get the threshold
-    const threshold = (await this._multisigWrapper.threshold()).toNumber();
 
-    console.log("******* MultisigExecutor *******");
-    console.log(`Signing data for transaction to contract ${contractWrapper.address}:`);
-    console.log(`multisig: ${this._multisigWrapper.address}`);
-    console.log(`to:       ${contractWrapper.address}`);
-    console.log("value:    0");
-    console.log(`data:     ${data}`);
-    console.log(`nonce:    ${nonce}`);
-    console.log(`SignHash: ${signHash}`);
-    console.log(`Required signatures: ${threshold}`);
-    console.log("********************************");
+    // const isOwner = (await this._multisigWrapper.isOwner(this._deployer.address));
 
-    estimateGas = await this._multisigWrapper.provider.estimateGas({from: this._multisigWrapper.address, to: contractWrapper.address, value: 0, data});
-    console.log(`Gas Estimate Direct: ${estimateGas}`);
+    if (this._autoSign === true) {
+      // Get the off chain signature
+      signatures = await this._deployer.signMessage(ethers.utils.arrayify(signHash));
+      // if (!ethers.utils.isHexString(signatures)) {
+      //   signatures = ethers.utils.joinSignature({
+      //     r: "0x" + signatures.r.toString("hex"),
+      //     s: "0x" + signatures.s.toString("hex"),
+      //     v: signatures.v.toNumber()
+      //   });
+      // }
+    } else {
+      // Get the threshold
+      const threshold = (await this._multisigWrapper.threshold()).toNumber();
 
-    const signaturesOutput = await inquirer.prompt(Array(threshold).fill(0).map((value, index) => ({
-      type: "input",
-      name: `signature_${index}`,
-      message: `Please provide signature ${index + 1}/${threshold}`,
-    })));
+      console.log("******* MultisigExecutor *******");
+      console.log(`Signing data for transaction to contract ${contractWrapper.address}:`);
+      console.log(`multisig: ${this._multisigWrapper.address}`);
+      console.log(`to:       ${contractWrapper.address}`);
+      console.log("value:    0");
+      console.log(`data:     ${data}`);
+      console.log(`nonce:    ${nonce}`);
+      console.log(`SignHash: ${signHash}`);
+      console.log(`Required signatures: ${threshold}`);
+      console.log("********************************");
 
-    const parsedSignatures = Object.values(signaturesOutput).map((signature) => JSON.parse(signature));
-    const sortedSignatures = parsedSignatures.sort((s1, s2) => {
-      const bn1 = ethers.BigNumber.from(s1.address);
-      const bn2 = ethers.BigNumber.from(s2.address);
-      if (bn1.lt(bn2)) return -1;
-      if (bn1.gt(bn2)) return 1;
-      return 0;
-    });
+      estimateGas = await this._multisigWrapper.provider.estimateGas({from: this._multisigWrapper.address, to: contractWrapper.address, value: 0, data});
+      console.log(`Gas Estimate Direct: ${estimateGas}`);
 
-    signatures = `0x${sortedSignatures.map((s) => s.sig.slice(2)).join("")}`;
+      const signaturesOutput = await inquirer.prompt(Array(threshold).fill(0).map((value, index) => ({
+        type: "input",
+        name: `signature_${index}`,
+        message: `Please provide signature ${index + 1}/${threshold}`,
+      })));
 
+      const parsedSignatures = Object.values(signaturesOutput).map((signature) => JSON.parse(signature));
+      const sortedSignatures = parsedSignatures.sort((s1, s2) => {
+        const bn1 = ethers.BigNumber.from(s1.address);
+        const bn2 = ethers.BigNumber.from(s2.address);
+        if (bn1.lt(bn2)) return -1;
+        if (bn1.gt(bn2)) return 1;
+        return 0;
+      });
+
+      signatures = `0x${sortedSignatures.map((s) => s.sig.slice(2)).join("")}`;
+    }
     const options = {};
     if (this._setupGas) {
       try {
@@ -90,7 +105,8 @@ class MultisigExecutor {
     }
 
     // // Call "execute" on the Multisig wallet with data and signatures
-    const executeTransaction = await this._multisigWrapper.execute(contractWrapper.address, 0, data, signatures);
+    const executeTransaction = await this._multisigWrapper.execute(contractWrapper.address, 0, data, signatures); // overrides);
+    await executeTransaction.wait();
 
     return executeTransaction;
   }

@@ -2,7 +2,10 @@
   "argent": {
     "refundCollector": "0x482579F93dC13e6B434E38b5a0447ca543D88A46",
     "tradeCommissionCollector": "0xfb2a52012F5E757Ba748d1F8D7f582B8d1a613C0",
-    "multisig": "0xa5c603e1C27a96171487aea0649b01c56248d2e8",
+    "multisig": {
+      "address": "0xa5c603e1C27a96171487aea0649b01c56248d2e8",
+      "autosign": false
+    },
     "managers": [
       "0xa1a1224e9071470ab12a8df7626d4fe7789a039d",
       "0xf7f8bbb310df9cf0a99b2121c27a9f891507fedb",

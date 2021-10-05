@@ -2,7 +2,10 @@
   "argent": {
     "refundCollector": "0x9e8f9a396675eaa34c9b2a2baacc58c30af4594f",
     "tradeCommissionCollector": "0x9e8f9a396675eaa34c9b2a2baacc58c30af4594f",
-    "multisig": "0x27BCd61c2f8691324D08116DbD0517c085369ECc",
+    "multisig": {
+      "address": "0x27BCd61c2f8691324D08116DbD0517c085369ECc",
+      "autosign": true
+    },
     "managers": [
       "0x6dd12184b25b722d45b5618a1a87dd9b4bff1ffe",
       "0x7be230a2b936feec7c9d76da1407e7f2f75170f0",
@@ -22,10 +25,10 @@
   },
   "dappRegistry": {
     "timelock": 480,
-    "address": "0x1c3311BC31f52e5c9441dF224946D128C00baab8"
+    "address": "0x72A813d9e451Bd2Af28269c35fc10c7DAeD21d7b"
   },
   "tokenRegistry": {
-    "address": "0xa97a6009114c5c2A9503c5Ad9f301BF29A20039f"
+    "address": "0x61CDA13cC572becE352988E5c52688f6A1285b86"
   },
   "compound": {
     "markets": [
@@ -133,6 +136,7 @@
     }
   },
   "zkSync": {
-    "address": "0xc332679D243439048c8395DEfDe74D71cf5151e7"
+    "address": "0x3A49F0f4cf80992976625e1af168F31a12aB5004",
+    "filter": "0x6C749b71F20D2C15156290530AB8087e01af3962"
   }
 }
