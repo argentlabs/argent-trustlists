@@ -11,7 +11,7 @@ class MultisigExecutor {
   }
 
   async connect(multisigAddress) {
-    this._deployer = (await ethers.getSigners())[0];
+    this._deployer = await ethers.getSigner();
     this._multisigWrapper = new ethers.Contract(multisigAddress, multisigAbi, this._deployer);
   }
 
