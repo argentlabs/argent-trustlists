@@ -2,7 +2,10 @@
   "argent": {
     "refundCollector": "0x482579F93dC13e6B434E38b5a0447ca543D88A46",
     "tradeCommissionCollector": "0xfb2a52012F5E757Ba748d1F8D7f582B8d1a613C0",
-    "multisig": "0x19a5312e13f458e8afe59c2c213b41243285f2fd",
+    "multisig": {
+      "address": "0x19a5312e13f458e8afe59c2c213b41243285f2fd",
+      "autosign": false
+    },
     "managers": [
       "0x42ea16c9b9e529da492909f34f416fed2be7c280",
       "0x90c29fe72e67db90a8b3a66277414da21e116652",
@@ -341,5 +344,9 @@
       "address": "0x9759A6Ac90977b93B58547b4A71c78317f391A28",
       "filter": "0x444De2B229e8809D3e99343d9f8aAf7BeB29969a"
     }
+  },
+  "zkSync": {
+    "address": "0xaBEA9132b05A70803a4E85094fD0e1800777fBEF",
+    "filter": "0xbA0BaaF6030A89a5356Bb6562eb1e07F8DEC33d3"
   }
 }

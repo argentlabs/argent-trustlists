@@ -62,7 +62,7 @@ module.exports = {
     },
     staging: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: [`0x${process.env.STAGING_PKEY}`],
+      kmsKeyId: process.env.STAGING_KMSID,
       chainId: 1,
     },
     prod: {

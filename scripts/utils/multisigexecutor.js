@@ -5,7 +5,7 @@ const inquirer = require("inquirer");
 const multisigAbi = require('./multisig.json');
 
 class MultisigExecutor {
-  constructor(setupGas = false, autoSign = true) {
+  constructor(autoSign = true, setupGas = false) {
     this._setupGas = setupGas;
     this._autoSign = autoSign;
   }
