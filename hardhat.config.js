@@ -67,7 +67,7 @@ module.exports = {
     },
     prod: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: [`0x${process.env.PROD_PKEY}`],
+      kmsKeyId: process.env.PROD_KMSID,
       chainId: 1,
     },
   },

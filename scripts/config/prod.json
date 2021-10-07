@@ -364,6 +364,7 @@
     }
   },
   "zkSync": {
-    "address": "0xaBEA9132b05A70803a4E85094fD0e1800777fBEF"
+    "address": "0xaBEA9132b05A70803a4E85094fD0e1800777fBEF",
+    "filter": "0x50f385D97403443A341825E2c0411F328c48eeAb"
   }
 }
