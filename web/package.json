@@ -19,8 +19,7 @@
     "start": "sh -ac '. .env.test; craco start'",
     "build": "sh -ac '. ./.env.${REACT_APP_ENV}; craco build'",
     "test": "craco test",
-    "eject": "craco eject",
-    "deploy": "aws s3 sync --acl public-read --sse --delete ./build s3://${S3_BUCKET} && aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION} --paths '/*'"
+    "eject": "craco eject"
   },
   "eslintConfig": {
     "extends": [
