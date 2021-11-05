@@ -15,5 +15,5 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
-      - run: npm run compile
-      - run: npm run test
+      - run: npx hardhat run scripts/debug.js
+      # - run: npm run test
