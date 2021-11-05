@@ -2,9 +2,9 @@ const hre = require("hardhat");
 const ethers = hre.ethers;
 
 async function main() {
+  console.log("MAIN");
   const [signer] = await ethers.getSigners();
   console.log(`signer is ${signer.address}`);
-  console.log(`ALCHEMY_KEY is ${(process.env.ALCHEMY_KEY || "").split("")}`);
 }
 
 main()
