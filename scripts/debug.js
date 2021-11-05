@@ -4,7 +4,7 @@ const ethers = hre.ethers;
 async function main() {
   const [signer] = await ethers.getSigners();
   console.log(`signer is ${signer.address}`);
-  console.log(`ALCHEMY_KEY is ${process.env.ALCHEMY_KEY}`);
+  console.log(`ALCHEMY_KEY is ${(process.env.ALCHEMY_KEY || "").split("")}`);
 }
 
 main()
