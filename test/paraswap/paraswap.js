@@ -150,7 +150,12 @@ describe("Paraswap", function () {
       method: "hardhat_impersonateAccount",
       params: [paraswapOwner],
     });
-    paraswap = paraswap.connect(await ethers.provider.getSigner(paraswapOwner));
+    paraswap = paraswap.connect(ethers.provider.getSigner(paraswapOwner));
+
+    const paraswapOwnerBalance = await ethers.provider.getBalance(paraswapOwner);
+    if (paraswapOwnerBalance.lt(ethers.utils.parseEther("0.1"))) {
+      await deployer.sendTransaction({ to: paraswapOwner, value: ethers.utils.parseEther("10") });
+    }
 
     zeroExV2TargetExchange = new ethers.Contract(TARGET_EXCHANGES.zeroexV2, ZEROEXV2_TARGET_EXCHANGE_ABI, deployer);
     zeroExV4TargetExchange = new ethers.Contract(TARGET_EXCHANGES.zeroexV4, ZEROEXV4_TARGET_EXCHANGE_ABI, deployer);
