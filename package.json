@@ -8,6 +8,18 @@
     "coverage": "npx hardhat coverage",
     "test": "npx hardhat test"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "author": "Argent Labs",
   "repository": {
     "type": "git",
@@ -21,19 +33,23 @@
     "@nomiclabs/hardhat-web3": "^2.0.0",
     "chai": "^4.3.4",
     "dotenv": "^9.0.0",
+    "eslint": "^8.2.0",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.4.6",
     "hardhat": "^2.6.2",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.0.2",
+    "prettier": "^2.4.1",
     "solidity-coverage": "^0.7.17",
     "typescript": ">=3.7.0",
     "web3": "^1.5.2"
   },
   "dependencies": {
     "@rumblefishdev/hardhat-kms-signer": "argentlabs/hardhat-kms-signer#add-eth_sign-method",
-    "ethereumjs-util": "^7.0.0",
     "@types/mocha": "^5.2.6",
     "aws-sdk": "^2.993.0",
     "child_process": "^1.0.2",
+    "ethereumjs-util": "^7.0.0",
     "fs": "0.0.1-security",
     "inquirer": "^8.1.2",
     "lodash.clonedeep": "^4.5.0"
