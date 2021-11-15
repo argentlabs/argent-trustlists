@@ -42,6 +42,7 @@ async function main() {
   console.log(`hash ${transaction.hash}`);
   console.log(`Added new YearnV2 vault ${vault} for filter ${yearnV2Filter.address}`);
   configUpdate.yearn.v2.vaults.push(vault);
+  await configLoader.save(configUpdate);
 
   vault = yvUSDC;
   console.log("adding yvUSDC vault");
@@ -49,7 +50,6 @@ async function main() {
   console.log(`hash ${transaction.hash}`);
   console.log(`Added new YearnV2 vault ${vault} for filter ${yearnV2Filter.address}`);
   configUpdate.yearn.v2.vaults.push(vault);
-
   await configLoader.save(configUpdate);
 }
 
