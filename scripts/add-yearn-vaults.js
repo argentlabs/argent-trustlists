@@ -22,7 +22,7 @@ async function main() {
   console.log(`yearn v2 filter is ${yearnV2Filter.address}`);
   console.log(`registry owner is ${registryOwner}`);
 
-  if (config.argent.multisig.address !== registryOwner) {
+  if (config.argent.multisig.address.toLowerCase() !== registryOwner.toLowerCase()) {
     console.error("Registry owner should be multisig");
     return;
   }
