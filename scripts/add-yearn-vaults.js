@@ -23,7 +23,7 @@ async function main() {
   console.log(`registry owner is ${registryOwner}`);
 
   const multisigExecutor = new MultisigExecutor(config.argent.multisig.autosign);
-  await multisigExecutor.connect(registryOwner);
+  await multisigExecutor.connect(config.argent.multisig.address);
   console.log("multisig executor connected");
 
   const yvYFI = "0xdb25cA703181E7484a155DD612b06f57E12Be5F0";
