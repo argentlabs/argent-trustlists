@@ -25,9 +25,7 @@ const SCRIPTS = [
 
 const runScript = (script: string, networkName: string) => {
   return new Promise((resolve, reject) => {
-    const childProcess = spawn("npx", ["hardhat", "run", `./scripts/${script}`, "--network", networkName], {
-      stdio: "inherit",
-    });
+    const childProcess = spawn("npx", ["hardhat", "run", `./scripts/${script}`, "--network", networkName], { stdio: "inherit" });
     childProcess.once("close", resolve);
     childProcess.once("error", reject);
   });
