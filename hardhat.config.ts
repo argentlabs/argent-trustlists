@@ -1,8 +1,11 @@
-require("@nomiclabs/hardhat-waffle");
-require("@rumblefishdev/hardhat-kms-signer");
-require("solidity-coverage");
-require("dotenv").config();
-const { spawn } = require("child_process");
+import { task } from "hardhat/config";
+import "@nomiclabs/hardhat-waffle";
+import "@rumblefishdev/hardhat-kms-signer";
+import "solidity-coverage";
+import dotenv from "dotenv";
+import { spawn } from "child_process";
+
+dotenv.config();
 
 const SCRIPTS = [
   "deploy-registries.js",
@@ -20,23 +23,31 @@ const SCRIPTS = [
   "deploy-argent.js",
 ];
 
-const runScript = (script) => {
+const runScript = (script: string, networkName: string) => {
   return new Promise((resolve, reject) => {
-    const childProcess = spawn("npx", ["hardhat", "run", `./scripts/${script}`, "--network", hre.network.name], { stdio: "inherit" });
+    const childProcess = spawn(
+      "npx",
+      ["hardhat", "run", `./scripts/${script}`, "--network", networkName],
+      { stdio: "inherit" }
+    );
     childProcess.once("close", resolve);
     childProcess.once("error", reject);
   });
 };
 
-task("deploy-all", "Deploy all scripts", async () => {
+task("deploy-all", "Deploy all scripts", async (args, hre) => {
   for (const script of SCRIPTS) {
-    console.log("\n", `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, "\n");
-    await runScript(script);
+    console.log(
+      "\n",
+      `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`,
+      "\n"
+    );
+    await runScript(script, hre.network.name);
   }
 });
 
-task("display-account", "Display deployment account", async () => {
-  const signer = await hre.ethers.getSigner();
+task("display-account", "Display deployment account", async (args, hre) => {
+  const [signer] = await hre.ethers.getSigners();
   console.log(signer);
 });
 
