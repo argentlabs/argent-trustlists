@@ -22,7 +22,7 @@ async function main() {
   console.log(`yearn v2 filter is ${yearnV2Filter.address}`);
   console.log(`registry owner is ${registryOwner}`);
 
-  const multisigExecutor = new MultisigExecutor(false);
+  const multisigExecutor = new MultisigExecutor(config.argent.multisig.autosign);
   await multisigExecutor.connect(registryOwner);
   console.log("multisig executor connected");
 
