@@ -25,11 +25,9 @@ const SCRIPTS = [
 
 const runScript = (script: string, networkName: string) => {
   return new Promise((resolve, reject) => {
-    const childProcess = spawn(
-      "npx",
-      ["hardhat", "run", `./scripts/${script}`, "--network", networkName],
-      { stdio: "inherit" }
-    );
+    const childProcess = spawn("npx", ["hardhat", "run", `./scripts/${script}`, "--network", networkName], {
+      stdio: "inherit",
+    });
     childProcess.once("close", resolve);
     childProcess.once("error", reject);
   });
@@ -37,11 +35,7 @@ const runScript = (script: string, networkName: string) => {
 
 task("deploy-all", "Deploy all scripts", async (args, hre) => {
   for (const script of SCRIPTS) {
-    console.log(
-      "\n",
-      `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`,
-      "\n"
-    );
+    console.log("\n", `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, "\n");
     await runScript(script, hre.network.name);
   }
 });
