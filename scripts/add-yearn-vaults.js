@@ -22,6 +22,11 @@ async function main() {
   console.log(`yearn v2 filter is ${yearnV2Filter.address}`);
   console.log(`registry owner is ${registryOwner}`);
 
+  if (config.argent.multisig.address !== registryOwner) {
+    console.error("Registry owner should be multisig");
+    return;
+  }
+
   const multisigExecutor = new MultisigExecutor(config.argent.multisig.autosign);
   await multisigExecutor.connect(config.argent.multisig.address);
   console.log("multisig executor connected");
