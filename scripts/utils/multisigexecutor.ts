@@ -112,8 +112,8 @@ export class MultisigExecutor {
     return executeTransaction;
   }
 
-  static signHash(walletAddr: string, destinationAddr: string, value: any, data: string, nonce: any) {
-    const input = `0x${[
+  static signHash(walletAddr: string, destinationAddr: string, value: any, data: string, nonce: number) {
+    const input = ethers.utils.hexConcat([
       "0x19",
       "0x00",
       walletAddr,
@@ -121,7 +121,7 @@ export class MultisigExecutor {
       ethers.utils.hexZeroPad(ethers.utils.hexlify(value), 32),
       data,
       ethers.utils.hexZeroPad(ethers.utils.hexlify(nonce), 32),
-    ].map((hex) => hex.slice(2)).join("")}`;
+    ]);
 
     return ethers.utils.keccak256(input);
   }
