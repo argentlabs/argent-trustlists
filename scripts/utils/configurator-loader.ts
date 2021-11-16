@@ -1,8 +1,11 @@
-const fs = require("fs");
-const merge = require("lodash.merge");
+import fs from "fs";
+import merge from "lodash.merge";
 
-class ConfigLoader {
-  constructor(network) {
+export class ConfigLoader {
+  path: string;
+  config: any;
+
+  constructor(network: string) {
     if (network === "hardhat" || network === "localhost") {
       this.path = `${__dirname}/../config/local.json`; 
     } else {
@@ -16,16 +19,14 @@ class ConfigLoader {
     return this.config;
   }
 
-  async save(obj) {
+  async save(obj: any) {
     const json = JSON.stringify(obj, null, 2);
     fs.writeFileSync(this.path, json);
   }
 
-  async update(obj) {
+  async update(obj: any) {
     merge(this.config, obj);
     const json = JSON.stringify(this.config, null, 2);
     fs.writeFileSync(this.path, json);
   }
 }
-
-module.exports = ConfigLoader;

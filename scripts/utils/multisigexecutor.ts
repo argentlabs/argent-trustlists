@@ -1,22 +1,21 @@
-const hre = require("hardhat");
-const ethers = hre.ethers;
-const inquirer = require("inquirer");
+import { Contract } from "@ethersproject/contracts";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { ethers } from "hardhat";
+import inquirer from "inquirer";
+import multisigAbi from "./multisig.json";
 
-const multisigAbi = require('./multisig.json');
+export class MultisigExecutor {
+  private _deployer!: SignerWithAddress;
+  private _multisigWrapper!: Contract;
 
-class MultisigExecutor {
-  constructor(autoSign = true, setupGas = false) {
-    this._setupGas = setupGas;
-    this._autoSign = autoSign;
-  }
+  constructor(private _autoSign = true, private _setupGas = false) {}
 
-  async connect(multisigAddress) {
-    this._deployer = await ethers.getSigner();
+  async connect(multisigAddress: string) {
+    [this._deployer] = await ethers.getSigners();
     this._multisigWrapper = new ethers.Contract(multisigAddress, multisigAbi, this._deployer);
   }
 
-  async executeCall(contractWrapper, method, params) {
-
+  async executeCall(contractWrapper: Contract, method: string, params: any[]) {
     // Encode the method call with its parameters
     const data = contractWrapper.interface.encodeFunctionData(method, [...params]);
 
@@ -59,7 +58,7 @@ class MultisigExecutor {
       estimateGas = await this._multisigWrapper.provider.estimateGas({from: this._multisigWrapper.address, to: contractWrapper.address, value: 0, data});
       console.log(`Gas Estimate Direct: ${estimateGas}`);
 
-      const signaturesOutput = await inquirer.prompt(Array(threshold).fill(0).map((value, index) => ({
+      const signaturesOutput: Record<string, string> = await inquirer.prompt(Array(threshold).fill(0).map((value, index) => ({
         type: "input",
         name: `signature_${index}`,
         message: `Please provide signature ${index + 1}/${threshold}`,
@@ -76,7 +75,7 @@ class MultisigExecutor {
 
       signatures = `0x${sortedSignatures.map((s) => s.sig.slice(2)).join("")}`;
     }
-    const options = {};
+
     if (this._setupGas) {
       try {
         estimateGas = await this._multisigWrapper.execute.estimateGas(contractWrapper.address, 0, data, signatures);
@@ -97,8 +96,10 @@ class MultisigExecutor {
         default: 50,
       }]);
 
-      options.gasLimit = parseInt(gasLimit, 10);
-      options.gasPrice = ethers.utils.parseUnits(String(gasPriceGwei), "gwei");
+      const options = {
+        gasLimit: parseInt(gasLimit, 10),
+        gasPrice: ethers.utils.parseUnits(`${gasPriceGwei}`, "gwei"),
+      };
 
       const executeTransaction = await this._multisigWrapper.execute(contractWrapper.address, 0, data, signatures, options);
       return executeTransaction;
@@ -111,7 +112,7 @@ class MultisigExecutor {
     return executeTransaction;
   }
 
-  static signHash(walletAddr, destinationAddr, value, data, nonce) {
+  static signHash(walletAddr: string, destinationAddr: string, value: any, data: string, nonce: any) {
     const input = `0x${[
       "0x19",
       "0x00",
@@ -122,8 +123,7 @@ class MultisigExecutor {
       ethers.utils.hexZeroPad(ethers.utils.hexlify(nonce), 32),
     ].map((hex) => hex.slice(2)).join("")}`;
 
+    console.log(`signHash is ${ethers.utils.keccak256(input)}`);
     return ethers.utils.keccak256(input);
   }
 }
-
-module.exports = MultisigExecutor;
