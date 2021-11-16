@@ -1,7 +1,7 @@
-const hre = require("hardhat");
-const ethers = hre.ethers;
-const clonedeep = require('lodash.clonedeep');
-const ConfigLoader = require("./utils/configurator-loader.js");
+import hre, { ethers } from "hardhat";
+import clonedeep from "lodash.clonedeep";
+
+import { ConfigLoader } from "./utils/configurator-loader";
 
 async function main() {
 

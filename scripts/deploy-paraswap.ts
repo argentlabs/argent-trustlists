@@ -1,16 +1,15 @@
-const hre = require("hardhat");
-const ethers = hre.ethers;
-const clonedeep = require("lodash.clonedeep");
-const BN = require("bn.js");
+import hre, { ethers } from "hardhat";
+import clonedeep from "lodash.clonedeep";
+import BN from "bn.js";
 
-const ConfigLoader = require("./utils/configurator-loader.js");
-const MultisigExecutor = require("./utils/multisigexecutor.js");
+import { ConfigLoader } from "./utils/configurator-loader";
+import { MultisigExecutor } from "./utils/multisigexecutor";
 
 const TRUSTLIST = 0;
 
 const keypress = async () => {
   process.stdin.setRawMode(true);
-  return new Promise((resolve) =>
+  return new Promise<void>((resolve) =>
     process.stdin.once("data", (data) => {
       const byteArray = [...data];
       if (byteArray.length > 0 && byteArray[0] === 3) {
@@ -40,7 +39,7 @@ async function main() {
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
   }
 
-  const installFilter = async ({ filterDeployer, dapp, dappName = "Dapp", filterName = "Filter", registryId = TRUSTLIST }) => {
+  const installFilter = async ({ filterDeployer, dapp, dappName = "Dapp", filterName = "Filter", registryId = TRUSTLIST }: any) => {
     const timelock = 1000 * parseInt((await dappRegistry.timelockPeriod()).toHexString(), 16);
     const filter = (await dappRegistry.getAuthorisation(registryId, dapp))[0];
     const [filterStr, dappStr] = [`${filterName}@${filter}`, `${dappName}@${dapp}`];

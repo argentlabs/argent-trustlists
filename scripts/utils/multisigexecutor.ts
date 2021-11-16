@@ -2,6 +2,7 @@ import { Contract } from "@ethersproject/contracts";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { ethers } from "hardhat";
 import inquirer from "inquirer";
+
 import multisigAbi from "./multisig.json";
 
 export class MultisigExecutor {

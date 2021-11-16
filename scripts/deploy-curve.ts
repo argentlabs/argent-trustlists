@@ -1,9 +1,8 @@
-const hre = require("hardhat");
-const ethers = hre.ethers;
-const clonedeep = require('lodash.clonedeep');
+import hre, { ethers } from "hardhat";
+import clonedeep from "lodash.clonedeep";
 
-const ConfigLoader = require("./utils/configurator-loader.js");
-const MultisigExecutor = require("./utils/multisigexecutor.js");
+import { ConfigLoader } from "./utils/configurator-loader";
+import { MultisigExecutor } from "./utils/multisigexecutor";
 
 const TRUSTLIST = 0;
 
@@ -25,14 +24,13 @@ async function main() {
     await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
   }
 
-  // Add Compound filters
-  for (const idx in config.compound.markets) {
-    const market = config.compound.markets[idx];
-    const CompoundFilter = await ethers.getContractFactory("CompoundCTokenFilter");
-    const compoundFilter = await CompoundFilter.deploy(market.token);
-    configUpdate.compound.markets[idx].filter = compoundFilter.address;
-    await dappRegistry.addDapp(TRUSTLIST, market.cToken, compoundFilter.address);
-    console.log(`Added Compound filter ${compoundFilter.address} for Compound cTken ${market.cToken}`);
+  // Add Curve filters
+  const CurveFilter = await ethers.getContractFactory("CurveFilter");
+  const curveFilter = await CurveFilter.deploy();
+  configUpdate.curve.filter = curveFilter.address;
+  for (const pool of config.curve.pools || []) {
+    await dappRegistry.addDapp(TRUSTLIST, pool, curveFilter.address);
+    console.log(`Added Curve filter ${curveFilter.address} for Curve pool ${pool}`);
   }
 
   // Give ownership back
