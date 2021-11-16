@@ -12,8 +12,7 @@ async function main() {
   const config = await configLoader.load();
   const configUpdate = clonedeep(config);
 
-  const DappRegistry = await ethers.getContractFactory("DappRegistry");
-  const dappRegistry = await DappRegistry.attach(config.dappRegistry.address);
+  const dappRegistry = await ethers.getContractAt("DappRegistry", config.dappRegistry.address);
   const [deployer] = await ethers.getSigners();
 
   // Temporarily give ownership of DappRegistry to deployment account if needed
