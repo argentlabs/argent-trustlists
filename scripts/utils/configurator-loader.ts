@@ -13,18 +13,18 @@ export class ConfigLoader {
     }
   }
 
-  async load() {
+  load() {
     const json = fs.readFileSync(this.path, "utf8");
     this.config = JSON.parse(json);
     return this.config;
   }
 
-  async save(obj: any) {
+  save(obj: any) {
     const json = JSON.stringify(obj, null, 2);
     fs.writeFileSync(this.path, json);
   }
 
-  async update(obj: any) {
+  update(obj: any) {
     merge(this.config, obj);
     const json = JSON.stringify(this.config, null, 2);
     fs.writeFileSync(this.path, json);

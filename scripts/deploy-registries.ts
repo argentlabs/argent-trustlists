@@ -6,7 +6,7 @@ import { ConfigLoader } from "./utils/configurator-loader";
 async function main() {
 
   const configLoader = new ConfigLoader(hre.network.name);
-  const config = await configLoader.load();
+  const config = configLoader.load();
   const configUpdate = clonedeep(config);
 
   // Deploy DappRegistry
@@ -21,7 +21,7 @@ async function main() {
   console.log("Deployed TokenRegistry ", tokenRegistry.address);
   configUpdate.tokenRegistry.address = tokenRegistry.address;
 
-  await configLoader.save(configUpdate);
+  configLoader.save(configUpdate);
 }
 
 main()

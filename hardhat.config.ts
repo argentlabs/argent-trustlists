@@ -1,4 +1,4 @@
-import { task } from "hardhat/config";
+import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
 import "@rumblefishdev/hardhat-kms-signer";
 import "solidity-coverage";
@@ -43,10 +43,7 @@ task("display-account", "Display deployment account", async (args, hre) => {
   console.log(signer);
 });
 
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
-module.exports = {
+const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
@@ -82,3 +79,5 @@ module.exports = {
     ],
   },
 };
+
+export default config;

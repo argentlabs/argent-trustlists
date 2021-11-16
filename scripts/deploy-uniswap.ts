@@ -9,7 +9,7 @@ const TRUSTLIST = 0;
 async function main() {
 
   const configLoader = new ConfigLoader(hre.network.name);
-  const config = await configLoader.load();
+  const config = configLoader.load();
   const configUpdate = clonedeep(config);
 
   const dappRegistry = await ethers.getContractAt("DappRegistry", config.dappRegistry.address);
@@ -45,7 +45,7 @@ async function main() {
   }
 
   // update config
-  await configLoader.save(configUpdate);
+  configLoader.save(configUpdate);
 }
 
 main()
