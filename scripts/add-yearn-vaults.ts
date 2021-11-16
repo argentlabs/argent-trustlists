@@ -16,15 +16,15 @@ async function main() {
 
   const dappRegistry = await ethers.getContractAt("DappRegistry", config.dappRegistry.address);
   const yearnV2Filter = await ethers.getContractAt("YearnV2Filter", config.yearn.v2.filter);
-  // const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
-  // console.log(`dapp registry is ${dappRegistry.address}`);
-  // console.log(`yearn v2 filter is ${yearnV2Filter.address}`);
-  // console.log(`registry owner is ${registryOwner}`);
+  const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
+  console.log(`dapp registry is ${dappRegistry.address}`);
+  console.log(`yearn v2 filter is ${yearnV2Filter.address}`);
+  console.log(`registry owner is ${registryOwner}`);
 
-  // if (config.argent.multisig.address.toLowerCase() !== registryOwner.toLowerCase()) {
-    // console.error("Registry owner should be multisig");
-    // return;
-  // }
+  if (config.argent.multisig.address.toLowerCase() !== registryOwner.toLowerCase()) {
+    console.error("Registry owner should be multisig");
+    return;
+  }
 
   const multisigExecutor = new MultisigExecutor(config.argent.multisig.autosign);
   await multisigExecutor.connect(config.argent.multisig.address);
