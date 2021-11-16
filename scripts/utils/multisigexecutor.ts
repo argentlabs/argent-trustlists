@@ -123,7 +123,6 @@ export class MultisigExecutor {
       ethers.utils.hexZeroPad(ethers.utils.hexlify(nonce), 32),
     ].map((hex) => hex.slice(2)).join("")}`;
 
-    console.log(`signHash is ${ethers.utils.keccak256(input)}`);
     return ethers.utils.keccak256(input);
   }
 }

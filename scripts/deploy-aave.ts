@@ -1,9 +1,7 @@
-const hre = require("hardhat");
-const ethers = hre.ethers;
-const clonedeep = require("lodash.clonedeep");
-
-const ConfigLoader = require("./utils/configurator-loader.js");
-const MultisigExecutor = require("./utils/multisigexecutor.js");
+import hre, { ethers } from "hardhat";
+import clonedeep from "lodash.clonedeep";
+import { ConfigLoader } from "./utils/configurator-loader.js";
+import { MultisigExecutor } from "./utils/multisigexecutor.js";
 
 const TRUSTLIST = 0;
 
@@ -33,14 +31,18 @@ async function main() {
   const aaveV1LendingPoolFilter = await AaveV1LendingPoolFilter.deploy();
   await dappRegistry.addDapp(TRUSTLIST, config.aave.v1.lendingPool.address, aaveV1LendingPoolFilter.address);
   configUpdate.aave.v1.lendingPool.filter = aaveV1LendingPoolFilter.address;
-  console.log(`Added AaveV1LendingPoolFilter ${aaveV1LendingPoolFilter.address} for Aave v1 Lending Pool ${config.aave.v1.lendingPool.address}`);
+  console.log(
+    `Added AaveV1LendingPoolFilter ${aaveV1LendingPoolFilter.address} for Aave v1 Lending Pool ${config.aave.v1.lendingPool.address}`,
+  );
 
   // lending pool core
   const OnlyApproveFilter = await ethers.getContractFactory("OnlyApproveFilter");
   const onlyApproveFilter = await OnlyApproveFilter.deploy();
   await dappRegistry.addDapp(TRUSTLIST, config.aave.v1.lendingPoolCore.address, onlyApproveFilter.address);
   configUpdate.aave.v1.lendingPoolCore.filter = onlyApproveFilter.address;
-  console.log(`Added OnlyApproveFilter ${onlyApproveFilter.address} for Aave v1 Lending Pool Core ${config.aave.v1.lendingPoolCore.address}`);
+  console.log(
+    `Added OnlyApproveFilter ${onlyApproveFilter.address} for Aave v1 Lending Pool Core ${config.aave.v1.lendingPoolCore.address}`,
+  );
 
   // aTokens
   const AaveV1ATokenFilter = await ethers.getContractFactory("AaveV1ATokenFilter");
@@ -63,7 +65,9 @@ async function main() {
     const aaveV2Filter = await AaveV2Filter.deploy();
     await dappRegistry.addDapp(TRUSTLIST, config.aave.v2.lendingPool.address, aaveV2Filter.address);
     configUpdate.aave.v2.lendingPool.filter = aaveV1LendingPoolFilter.address;
-    console.log(`Added AaveV2Filter ${aaveV2Filter.address} for Aave v2 Lending Pool ${config.aave.v2.lendingPool.address}`);
+    console.log(
+      `Added AaveV2Filter ${aaveV2Filter.address} for Aave v2 Lending Pool ${config.aave.v2.lendingPool.address}`,
+    );
   }
 
   // Give ownership back
