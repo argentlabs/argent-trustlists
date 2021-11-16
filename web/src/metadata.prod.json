@@ -159,7 +159,9 @@
                 "0xface851a4921ce59e912d19329929ce6da6eb0c7": "Buy, sell, borrow Compound",
                 "0x12392f67bdf24fae0af363c24ac620a2f67dad86": "Buy, sell, borrow Compound",
                 "0xb7207ea9446dca1dec1c1fc93c6fcdf8b4a44f40": "Buy Gro",
-                "0x641befa4db601578a64f0fc1f4e89e9869268fe7": "Sell Gro"
+                "0x641befa4db601578a64f0fc1f4e89e9869268fe7": "Sell Gro",
+                "0xdb25cA703181E7484a155DD612b06f57E12Be5F0": "Buy & sell yearn v2",
+                "0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE": "Buy & sell yearn v2"
             }
         }
     ]

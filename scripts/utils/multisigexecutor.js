@@ -97,8 +97,8 @@ class MultisigExecutor {
         default: 50,
       }]);
 
-      options.gas = parseInt(gasLimit, 10);
-      options.gasPrice = web3.utils.toWei(String(gasPriceGwei), "gwei");
+      options.gasLimit = parseInt(gasLimit, 10);
+      options.gasPrice = ethers.utils.parseUnits(String(gasPriceGwei), "gwei");
 
       const executeTransaction = await this._multisigWrapper.execute(contractWrapper.address, 0, data, signatures, options);
       return executeTransaction;
