@@ -8,19 +8,19 @@ import { spawn } from "child_process";
 dotenv.config();
 
 const SCRIPTS = [
-  "deploy-registries.js",
-  "deploy-aave.js",
-  "deploy-balancer.js",
-  "deploy-compound.js",
-  "deploy-curve.js",
-  "deploy-lido.js",
-  "deploy-uniswap.js",
-  "deploy-weth.js",
-  "deploy-yearn.js",
-  "deploy-maker.js",
-  "deploy-gro.js",
-  "deploy-paraswap.js",
-  "deploy-argent.js",
+  "deploy-registries.ts",
+  "deploy-aave.ts",
+  "deploy-balancer.ts",
+  "deploy-compound.ts",
+  "deploy-curve.ts",
+  "deploy-lido.ts",
+  "deploy-uniswap.ts",
+  "deploy-weth.ts",
+  "deploy-yearn.ts",
+  "deploy-maker.ts",
+  "deploy-gro.ts",
+  "deploy-paraswap.ts",
+  "deploy-argent.ts",
 ];
 
 const runScript = (script: string, networkName: string) => {
