@@ -1,8 +1,8 @@
 import hre, { ethers } from "hardhat";
 import clonedeep from "lodash.clonedeep";
 
-import { ConfigLoader } from "./utils/configurator-loader.js";
-import { MultisigExecutor } from "./utils/multisigexecutor.js";
+import { ConfigLoader } from "./utils/configurator-loader";
+import { MultisigExecutor } from "./utils/multisigexecutor";
 
 const TRUSTLIST = 0;
 
