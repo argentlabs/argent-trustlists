@@ -22,7 +22,7 @@ const keypress = async () => {
   );
 };
 
-async function main() {
+export async function main() {
   const configLoader = new ConfigLoader(hre.network.name);
   const config = configLoader.load();
   const configUpdate = clonedeep(config);
@@ -190,9 +190,12 @@ async function main() {
   configLoader.save(configUpdate);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+
+if (require.main === module) {
+  main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+      console.error(error);
+      process.exit(1);
+    });
+}

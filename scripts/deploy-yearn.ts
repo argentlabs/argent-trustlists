@@ -6,7 +6,7 @@ import { MultisigExecutor } from "./utils/multisigexecutor";
 
 const TRUSTLIST = 0;
 
-async function main() {
+export async function main() {
   // No Yearn v1 integration on Ropsten
   if (hre.network.name === "ropsten") {
     console.log("skipping Yearn on Ropsten");
@@ -67,9 +67,11 @@ async function main() {
   configLoader.save(configUpdate);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+if (require.main === module) {
+  main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+      console.error(error);
+      process.exit(1);
+    });
+}

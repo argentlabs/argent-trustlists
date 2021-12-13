@@ -3,11 +3,10 @@ import "@nomiclabs/hardhat-waffle";
 import "@rumblefishdev/hardhat-kms-signer";
 import "solidity-coverage";
 import dotenv from "dotenv";
-import { spawn } from "child_process";
 
 dotenv.config();
 
-const SCRIPTS = [
+const scripts = [
   "deploy-registries.ts",
   "deploy-aave.ts",
   "deploy-balancer.ts",
@@ -23,18 +22,11 @@ const SCRIPTS = [
   "deploy-argent.ts",
 ];
 
-const runScript = (script: string, networkName: string) => {
-  return new Promise((resolve, reject) => {
-    const childProcess = spawn("npx", ["hardhat", "run", `./scripts/${script}`, "--network", networkName], { stdio: "inherit" });
-    childProcess.once("close", resolve);
-    childProcess.once("error", reject);
-  });
-};
-
 task("deploy-all", "Deploy all scripts", async (args, hre) => {
-  for (const script of SCRIPTS) {
+  for (const script of scripts) {
     console.log("\n", `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, "\n");
-    await runScript(script, hre.network.name);
+    const { main } = require(`./scripts/${script}`);
+    await main();
   }
 });
 
