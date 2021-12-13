@@ -1,9 +1,8 @@
-const hre = require("hardhat");
-const ethers = hre.ethers;
-const clonedeep = require('lodash.clonedeep');
+import hre, { ethers } from "hardhat";
+import clonedeep from "lodash.clonedeep";
 
-const ConfigLoader = require("./utils/configurator-loader.js");
-const MultisigExecutor = require("./utils/multisigexecutor.js");
+import { ConfigLoader } from "./utils/configurator-loader";
+import { MultisigExecutor } from "./utils/multisigexecutor";
 
 const TRUSTLIST = 0;
 
@@ -15,7 +14,7 @@ async function main() {
 
   const DappRegistry = await ethers.getContractFactory("DappRegistry");
   const dappRegistry = await DappRegistry.attach(config.dappRegistry.address);
-  const deployer = await ethers.getSigner();
+  const [deployer] = await ethers.getSigners();
 
   // Temporarily give ownership of DappRegistry to deployment account if needed
   const originalRegistryOwner = await dappRegistry.registryOwners(TRUSTLIST);
