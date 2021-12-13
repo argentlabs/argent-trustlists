@@ -1,40 +1,32 @@
-import { task } from "hardhat/config";
+import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
 import "@rumblefishdev/hardhat-kms-signer";
 import "solidity-coverage";
 import dotenv from "dotenv";
-import { spawn } from "child_process";
 
 dotenv.config();
 
-const SCRIPTS = [
-  "deploy-registries.js",
-  "deploy-aave.js",
-  "deploy-balancer.js",
-  "deploy-compound.js",
-  "deploy-curve.js",
-  "deploy-lido.js",
-  "deploy-uniswap.js",
-  "deploy-weth.js",
-  "deploy-yearn.js",
-  "deploy-maker.js",
-  "deploy-gro.js",
-  "deploy-paraswap.js",
-  "deploy-argent.js",
+const scripts = [
+  "deploy-registries.ts",
+  "deploy-aave.ts",
+  "deploy-balancer.ts",
+  "deploy-compound.ts",
+  "deploy-curve.ts",
+  "deploy-lido.ts",
+  "deploy-uniswap.ts",
+  "deploy-weth.ts",
+  "deploy-yearn.ts",
+  "deploy-maker.ts",
+  "deploy-gro.ts",
+  "deploy-paraswap.ts",
+  "deploy-argent.ts",
 ];
 
-const runScript = (script: string, networkName: string) => {
-  return new Promise((resolve, reject) => {
-    const childProcess = spawn("npx", ["hardhat", "run", `./scripts/${script}`, "--network", networkName], { stdio: "inherit" });
-    childProcess.once("close", resolve);
-    childProcess.once("error", reject);
-  });
-};
-
 task("deploy-all", "Deploy all scripts", async (args, hre) => {
-  for (const script of SCRIPTS) {
+  for (const script of scripts) {
     console.log("\n", `/////////////     Executing [${script}] on [${hre.network.name}]     ///////////////`, "\n");
-    await runScript(script, hre.network.name);
+    const { main } = require(`./scripts/${script}`);
+    await main();
   }
 });
 
@@ -43,10 +35,7 @@ task("display-account", "Display deployment account", async (args, hre) => {
   console.log(signer);
 });
 
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
-module.exports = {
+const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
@@ -82,3 +71,5 @@ module.exports = {
     ],
   },
 };
+
+export default config;

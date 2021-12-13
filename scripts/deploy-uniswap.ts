@@ -6,15 +6,14 @@ import { MultisigExecutor } from "./utils/multisigexecutor";
 
 const TRUSTLIST = 0;
 
-async function main() {
+export async function main() {
 
   const configLoader = new ConfigLoader(hre.network.name);
-  const config = await configLoader.load();
+  const config = configLoader.load();
   const configUpdate = clonedeep(config);
 
-  const DappRegistry = await ethers.getContractFactory("DappRegistry");
-  const dappRegistry = await DappRegistry.attach(config.dappRegistry.address);
-  const deployer = (await ethers.getSigners())[0];
+  const dappRegistry = await ethers.getContractAt("DappRegistry", config.dappRegistry.address);
+  const [deployer] = await ethers.getSigners();
 
   // Temporarily give ownership of DappRegistry to deployment account if needed
   const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
@@ -46,12 +45,14 @@ async function main() {
   }
 
   // update config
-  await configLoader.save(configUpdate);
+  configLoader.save(configUpdate);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch(error => {
-    console.error(error);
-    process.exit(1);
-  });
+if (require.main === module) {
+  main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+      console.error(error);
+      process.exit(1);
+    });
+}

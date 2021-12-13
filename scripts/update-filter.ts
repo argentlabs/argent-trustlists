@@ -24,12 +24,11 @@ const keypress = () => {
 
 async function main() {
   const configLoader = new ConfigLoader(hre.network.name);
-  const config = await configLoader.load();
+  const config = configLoader.load();
   const configUpdate = clonedeep(config);
 
-  const DappRegistry = await ethers.getContractFactory("DappRegistry");
-  const dappRegistry = DappRegistry.attach(config.dappRegistry.address);
-  const deployer = (await ethers.getSigners())[0];
+  const dappRegistry = await ethers.getContractAt("DappRegistry", config.dappRegistry.address);
+  const [deployer] = await ethers.getSigners();
 
   // Temporarily give ownership of DappRegistry to deployment account if needed
   const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
@@ -100,7 +99,7 @@ async function main() {
   }
 
   // update config
-  await configLoader.save(configUpdate);
+  configLoader.save(configUpdate);
 }
 
 main()
