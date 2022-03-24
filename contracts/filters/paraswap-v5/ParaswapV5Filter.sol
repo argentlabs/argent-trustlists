@@ -1,4 +1,4 @@
-// Copyright (C) 2021  Argent Labs Ltd. <https://argent.xyz>
+// Copyright (C) 2022  Argent Labs Ltd. <https://argent.xyz>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,8 +20,6 @@ import "../BaseFilter.sol";
 
 contract ParaswapV5Filter is BaseFilter {
 
-    bytes4 private constant DELEGATE_TO_PARASWAP = bytes4(keccak256("delegateToParaswap(bytes,bytes)"));
-
     address private immutable agsAddress;
     address private immutable augustusAddress;
 
@@ -31,7 +29,7 @@ contract ParaswapV5Filter is BaseFilter {
     }
 
     function isValid(address _wallet, address /*_spender*/, address _to, bytes calldata _data) external view override returns (bool valid) {
-        // disable ETH transfer
+        // disallow ETH transfer
         if (_data.length < 4) {
             return false;
         }
@@ -41,6 +39,7 @@ contract ParaswapV5Filter is BaseFilter {
             return false;
         }
 
+        // 65 is length of signature, 32 is length of deadline
         bytes calldata swapData = _data[:_data.length - 65 - 32];
         bytes calldata deadline = _data[_data.length - 65 - 32: _data.length - 65];
         bytes calldata signature = _data[_data.length - 65:];
