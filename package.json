@@ -41,6 +41,9 @@
     "ethereumjs-util": "^7.0.0",
     "fs": "0.0.1-security",
     "inquirer": "^8.1.2",
-    "lodash.clonedeep": "^4.5.0"
+    "lodash.clonedeep": "^4.5.0",
+    "openzeppelin-solidity": "3.3.0",
+    "@uniswap/lib": "1.1.1",
+    "paraswap": "^5.1.0"
   }
 }

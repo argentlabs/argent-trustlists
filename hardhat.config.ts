@@ -68,7 +68,13 @@ const config: HardhatUserConfig = {
       {
         version: "0.8.3",
       },
+      {
+        version: "0.7.5",
+      }
     ],
+  },
+  mocha: {
+    timeout: 1000000
   },
 };
 
