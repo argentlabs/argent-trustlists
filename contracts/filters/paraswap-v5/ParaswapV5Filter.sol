@@ -23,42 +23,53 @@ contract ParaswapV5Filter is BaseFilter {
     bytes4 private constant DELEGATE_TO_PARASWAP = bytes4(keccak256("delegateToParaswap(bytes,bytes)"));
 
     address private immutable agsAddress;
+    address private immutable augustusAddress;
 
-    constructor(address _agsAddress) {
+    constructor(address _agsAddress, address _augustusAddress) {
         agsAddress = _agsAddress;
+        augustusAddress = _augustusAddress;
     }
 
-    function isValid(address /*_wallet*/, address /*_spender*/, address /*_to*/, bytes calldata _data) external view override returns (bool valid) {
+    function isValid(address _wallet, address /*_spender*/, address _to, bytes calldata _data) external view override returns (bool valid) {
         // disable ETH transfer
         if (_data.length < 4) {
             return false;
         }
 
-        bytes4 method = getMethod(_data);
-        if (method != DELEGATE_TO_PARASWAP) {
+        // only allow calls to AugustusSwapper
+        if (_to != augustusAddress) {
             return false;
         }
 
-        // TODO: add checks on `_wallet` and a time to expiry
+        bytes calldata swapData = _data[:_data.length - 65 - 32];
+        bytes calldata deadline = _data[_data.length - 65 - 32: _data.length - 65];
+        bytes calldata signature = _data[_data.length - 65:];
 
-        bytes calldata signature = _data[4 + 3*32: 4 + 3*32 + 65];
-        bytes calldata swapData = _data[4 + 7*32: 4 + 12*32 + 4];
-        bytes32 signedHash = getSignedHash(swapData);
+        uint256 deadlineTimestamp;
+        assembly {
+            deadlineTimestamp := calldataload(deadline.offset)
+        }
 
+        // make sure trade hasn't expired
+        if (block.timestamp >= deadlineTimestamp) {
+            return false;
+        }
+
+        bytes32 signedHash = getSignedHash(_wallet, deadline, swapData);
         return validateSignature(signedHash, signature, agsAddress);
     }
 
-    function getSignedHash(bytes memory _data) internal view returns (bytes32) {
-        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", keccak256(_data)));
+    function getSignedHash(address _wallet, bytes calldata _deadline, bytes calldata _swapData) internal pure returns (bytes32) {
+        bytes32 message = keccak256(abi.encodePacked(_wallet, _deadline, _swapData));
+        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", message));
     }
 
-    function validateSignature(bytes32 _signedHash, bytes calldata _signature, address _account) internal view returns (bool) {
+    function validateSignature(bytes32 _signedHash, bytes calldata _signature, address _account) internal pure returns (bool) {
         require(_signature.length == 65, "invalid signature length");
 
         uint8 v;
         bytes32 r;
         bytes32 s;
-        // solhint-disable-next-line no-inline-assembly
         assembly {
             r := calldataload(_signature.offset)
             s := calldataload(add(_signature.offset, 0x20))
