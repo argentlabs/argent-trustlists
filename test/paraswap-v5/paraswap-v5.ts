@@ -28,7 +28,7 @@ describe("Paraswap", function () {
     let filter: Contract;
 
     before(async function () {
-      filter = await ParaswapFilter.deploy(ags.address, AUGUSTUS_ADDRESS);
+      filter = await ParaswapFilter.deploy(ags.address);
       await registry.addDapp(REGISTRY_ID, AUGUSTUS_ADDRESS, filter.address);
     });
 
