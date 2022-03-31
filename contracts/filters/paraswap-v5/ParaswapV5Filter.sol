@@ -27,15 +27,15 @@ contract ParaswapV5Filter is BaseFilter {
     }
 
     function isValid(address _wallet, address /*_spender*/, address /*_to*/, bytes calldata _data) external view override returns (bool valid) {
-        // check that the data contains enough bytes for the signature and the deadline.
-        // 65 is length of signature, 32 is length of deadline
-        if (_data.length < 65 + 32) {
+        // check that the data contains enough bytes for the method, the signature and the deadline.
+        // 4 is the method, 65 is length of signature, 32 is length of deadline
+        if (_data.length < 4 + 65 + 32) {
             return false;
         }
 
         uint256 dataLength = _data.length;
         bytes calldata swapData = _data[:dataLength - 65 - 32];
-        uint256 deadline = abi.decode(_data[_data.length - 97: _data.length - 65], (uint256));
+        uint256 deadline = abi.decode(_data[_data.length - 65 - 32: _data.length - 65], (uint256));
         bytes calldata signature = _data[dataLength - 65:];
 
         // make sure trade hasn't expired
