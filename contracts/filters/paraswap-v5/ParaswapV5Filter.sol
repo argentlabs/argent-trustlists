@@ -16,9 +16,9 @@
 // SPDX-License-Identifier: GPL-3.0-only
 pragma solidity ^0.8.3;
 
-import "../BaseFilter.sol";
+import "../../interfaces/IFilter.sol";
 
-contract ParaswapV5Filter is BaseFilter {
+contract ParaswapV5Filter is IFilter {
 
     address private immutable masterSigner;
 
