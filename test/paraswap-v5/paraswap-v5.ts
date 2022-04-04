@@ -39,7 +39,7 @@ describe("Paraswap", function () {
       const swapData = paraswapInterface.encodeFunctionData("swapOnUniswap", [amountIn, amountOutMin, path]);
 
       const latestBlock = await ethers.provider.getBlock("latest");
-      const deadline = ethers.utils.hexZeroPad(ethers.utils.hexlify(latestBlock.timestamp + 60), 32);
+      const deadline = ethers.utils.hexZeroPad(ethers.utils.hexlify(latestBlock.number + 3), 32);
 
       const dataToSign = ethers.utils.concat([wallet.address, deadline, swapData]);
       const signature = await signCalldata(dataToSign, ags);

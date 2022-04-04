@@ -39,7 +39,7 @@ contract ParaswapV5Filter is IFilter {
         bytes calldata signature = _data[dataLength - 65:];
 
         // make sure trade hasn't expired
-        if (deadline < block.timestamp) {
+        if (deadline < block.number) {
             return false;
         }
 
