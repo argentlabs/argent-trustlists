@@ -20,10 +20,10 @@ import "../BaseFilter.sol";
 
 contract ParaswapV5Filter is BaseFilter {
 
-    address private immutable agsAddress;
+    address private immutable masterSigner;
 
-    constructor(address _agsAddress) {
-        agsAddress = _agsAddress;
+    constructor(address _masterSigner) {
+        masterSigner = _masterSigner;
     }
 
     function isValid(address _wallet, address /*_spender*/, address /*_to*/, bytes calldata _data) external view override returns (bool valid) {
@@ -44,7 +44,7 @@ contract ParaswapV5Filter is BaseFilter {
         }
 
         bytes32 signedHash = getSignedHash(_wallet, deadline, swapData);
-        return validateSignature(signedHash, signature, agsAddress);
+        return validateSignature(signedHash, signature, masterSigner);
     }
 
     function getSignedHash(address _wallet, uint256 _deadline, bytes calldata _swapData) internal pure returns (bytes32) {
