@@ -32,7 +32,7 @@ describe("Paraswap", function () {
       await registry.addDapp(REGISTRY_ID, AUGUSTUS_ADDRESS, filter.address);
     });
 
-    it("Should accept swap data signed by the ags", async function () {
+    it("Should accept swap data signed by the master signer", async function () {
       const amountIn = ethers.utils.parseEther("0.1");
       const amountOutMin = "1";
       const path = [ethers.constants.AddressZero];
