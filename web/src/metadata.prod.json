@@ -166,7 +166,9 @@
                 "0x4A3FE75762017DB0eD73a71C9A06db7768DB5e66": "Buy & sell yearn v2",
                 "0x6d765CbE5bC922694afE112C140b8878b9FB0390": "Buy & sell yearn v2",
                 "0xd9788f3931Ede4D5018184E198699dC6d66C1915": "Buy & sell yearn v2",
-                "0xFD0877d9095789cAF24c98F7CCe092fa8E120775": "Buy & sell yearn v2"
+                "0xFD0877d9095789cAF24c98F7CCe092fa8E120775": "Buy & sell yearn v2",
+                "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57": "Paraswap v5 AugustusSwapper",
+                "0x216B4B4Ba9F3e719726886d34a177484278Bfcae": "Paraswap v5 TokenTransferProxy"
             }
         }
     ]
