@@ -2,6 +2,7 @@
   "argent": {
     "refundCollector": "0x482579F93dC13e6B434E38b5a0447ca543D88A46",
     "tradeCommissionCollector": "0xfb2a52012F5E757Ba748d1F8D7f582B8d1a613C0",
+    "onlyApproveFilter": "0x87F0C2EF4d7774061Bc6C65bED3E007E436627b5",
     "multisig": {
       "address": "0xa5c603e1C27a96171487aea0649b01c56248d2e8",
       "autosign": false
@@ -355,6 +356,7 @@
   },
   "paraswapV5": {
     "address": "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57",
+    "spenderAddress": "0x216b4b4ba9f3e719726886d34a177484278bfcae",
     "filter": ""
   },
   "maker": {

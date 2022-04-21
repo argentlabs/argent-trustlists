@@ -18,6 +18,7 @@ export async function main() {
   console.log("Deployer is", deployer.address);
 
   let tx: TransactionResponse;
+
   // Temporarily give ownership of DappRegistry to deployment account if needed
   const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
   if (registryOwner != deployer.address) {
@@ -27,7 +28,7 @@ export async function main() {
     await tx.wait();
   }
 
-  // Add filters
+  // Add Paraswap filter
   const Filter = await ethers.getContractFactory("ParaswapV5Filter");
   const filter = await Filter.deploy(config.masterSigner.address);
 
@@ -36,6 +37,12 @@ export async function main() {
 
   configUpdate.paraswapV5.filter = filter.address;
   console.log(`Added Paraswap v5 filter ${filter.address} with master signer ${config.masterSigner.address}`);
+
+  // Add spender approval filter
+  tx = await dappRegistry.addDapp(TRUSTLIST, config.paraswapV5.spenderAddress, config.argent.onlyApproveFilter);
+  await tx.wait();
+
+  console.log(`Added OnlyApprove filter ${config.argent.onlyApproveFilter} for paraswap spender ${config.paraswapV5.spenderAddress}`);
 
   // Give ownership back
   if (registryOwner != deployer.address) {
