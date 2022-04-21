@@ -1,3 +1,4 @@
+import { TransactionResponse } from "@ethersproject/abstract-provider";
 import hre, { ethers } from "hardhat";
 import clonedeep from "lodash.clonedeep";
 
@@ -16,25 +17,30 @@ export async function main() {
   const [deployer] = await ethers.getSigners();
   console.log("Deployer is", deployer.address);
 
+  let tx: TransactionResponse;
   // Temporarily give ownership of DappRegistry to deployment account if needed
   const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
   if (registryOwner != deployer.address) {
     const multisigExecutor = new MultisigExecutor(config.argent.multisig.autosign);
     await multisigExecutor.connect(registryOwner);
-    await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
+    tx = await multisigExecutor.executeCall(dappRegistry, "changeOwner", [TRUSTLIST, deployer.address]);
+    await tx.wait();
   }
 
   // Add filters
   const Filter = await ethers.getContractFactory("ParaswapV5Filter");
   const filter = await Filter.deploy(config.masterSigner.address);
 
-  await dappRegistry.addDapp(TRUSTLIST, config.masterSigner.address, filter.address);
+  tx = await dappRegistry.addDapp(TRUSTLIST, config.paraswapV5.address, filter.address);
+  await tx.wait();
+
   configUpdate.paraswapV5.filter = filter.address;
   console.log(`Added Paraswap v5 filter ${filter.address} with master signer ${config.masterSigner.address}`);
 
   // Give ownership back
   if (registryOwner != deployer.address) {
-    await dappRegistry.changeOwner(TRUSTLIST, registryOwner);
+    tx = await dappRegistry.changeOwner(TRUSTLIST, registryOwner);
+    await tx.wait();
   }
 
   // update config
