@@ -18,6 +18,9 @@
   "tokenRegistry": {
     "address": "0x90b97E83e22AFa2e6A96b3549A0E495D5Bae61aF"
   },
+  "masterSigner": {
+    "address": "0x297a5131249cef7d887e6c23d170de6cf3dc7346"
+  },
   "compound": {
     "markets": [
       {
@@ -318,6 +321,9 @@
       "linkswap": "0xbFD3c8A956AFB7a9754C951D03C9aDdA7EC5d638",
       "defiswap": "0xc075BC0f734EFE6ceD866324fc2A9DBe1065CBB1"
     }
+  },
+  "paraswapV5": {
+    "filter": ""
   },
   "maker": {
     "pot": {
