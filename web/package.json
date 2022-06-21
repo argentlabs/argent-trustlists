@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "sh -ac '. .env.test; craco start'",
-    "build": "sh -ac '. .env.${REACT_APP_ENV}; craco build'",
+    "build": "sh -ac '. ./.env.${REACT_APP_ENV}; craco build'",
     "test": "craco test",
     "eject": "craco eject"
   },

@@ -1,0 +1,110 @@
+[
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "contract IERC20",
+            "name": "makerToken",
+            "type": "address"
+          },
+          {
+            "internalType": "contract IERC20",
+            "name": "takerToken",
+            "type": "address"
+          },
+          {
+            "internalType": "uint128",
+            "name": "makerAmount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint128",
+            "name": "takerAmount",
+            "type": "uint128"
+          },
+          {
+            "internalType": "address",
+            "name": "maker",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "taker",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "txOrigin",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "pool",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "expiry",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint256",
+            "name": "salt",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct LibOrderV4.Order",
+        "name": "order",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          {
+            "internalType": "enum LibOrderV4.SignatureType",
+            "name": "signatureType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "v",
+            "type": "uint8"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "r",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "s",
+            "type": "bytes32"
+          }
+        ],
+        "internalType": "struct LibOrderV4.Signature",
+        "name": "signature",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint128",
+        "name": "takerTokenFillAmount",
+        "type": "uint128"
+      }
+    ],
+    "name": "fillRfqOrder",
+    "outputs": [
+      {
+        "internalType": "uint128",
+        "name": "",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint128",
+        "name": "",
+        "type": "uint128"
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "function"
+  }
+]

@@ -1,0 +1,18 @@
+name: argent-trustlist
+on: [push]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      ALCHEMY_KEY: ${{ secrets.ALCHEMY_KEY }}
+      DEV_PKEY: ${{ secrets.DEV_PKEY }}
+      TEST_PKEY: ${{ secrets.TEST_PKEY }}
+      STAGING_PKEY: ${{ secrets.STAGING_PKEY }}
+      PROD_PKEY: ${{ secrets.PROD_PKEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: npm install
+      - run: npm test

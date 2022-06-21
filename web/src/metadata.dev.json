@@ -1,0 +1,12 @@
+{
+    "registries": [
+        {
+            "id": "0",
+            "name": "Argent list",
+            "dapps": {
+                "0x9e8f9a396675eaa34c9b2a2baacc58c30af4594f": "To pay network fees",
+                "0xe139882664ada2523de76a0f539a5023981e7550": "Trade via Paraswap"
+            }
+        }
+    ]
+}
