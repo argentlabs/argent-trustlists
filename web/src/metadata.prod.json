@@ -160,15 +160,15 @@
                 "0x12392f67bdf24fae0af363c24ac620a2f67dad86": "Buy, sell, borrow Compound",
                 "0xb7207ea9446dca1dec1c1fc93c6fcdf8b4a44f40": "Buy Gro",
                 "0x641befa4db601578a64f0fc1f4e89e9869268fe7": "Sell Gro",
-                "0xdb25cA703181E7484a155DD612b06f57E12Be5F0": "Buy & sell yearn v2",
-                "0xa354F35829Ae975e850e23e9615b11Da1B3dC4DE": "Buy & sell yearn v2",
+                "0xdb25ca703181e7484a155dd612b06f57e12be5f0": "Buy & sell yearn v2",
+                "0xa354f35829ae975e850e23e9615b11da1b3dc4de": "Buy & sell yearn v2",
                 "0xabea9132b05a70803a4e85094fd0e1800777fbef": "zkSync",
-                "0x4A3FE75762017DB0eD73a71C9A06db7768DB5e66": "Buy & sell yearn v2",
-                "0x6d765CbE5bC922694afE112C140b8878b9FB0390": "Buy & sell yearn v2",
-                "0xd9788f3931Ede4D5018184E198699dC6d66C1915": "Buy & sell yearn v2",
-                "0xFD0877d9095789cAF24c98F7CCe092fa8E120775": "Buy & sell yearn v2",
-                "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57": "Paraswap v5 AugustusSwapper",
-                "0x216B4B4Ba9F3e719726886d34a177484278Bfcae": "Paraswap v5 TokenTransferProxy"
+                "0x4a3fe75762017db0ed73a71c9a06db7768db5e66": "Buy & sell yearn v2",
+                "0x6d765cbe5bc922694afe112c140b8878b9fb0390": "Buy & sell yearn v2",
+                "0xd9788f3931ede4d5018184e198699dc6d66c1915": "Buy & sell yearn v2",
+                "0xfd0877d9095789caf24c98f7cce092fa8e120775": "Buy & sell yearn v2",
+                "0xdef171fe48cf0115b1d80b88dc8eab59176fee57": "Paraswap v5 AugustusSwapper",
+                "0x216b4b4ba9f3e719726886d34a177484278bfcae": "Paraswap v5 TokenTransferProxy"
             }
         }
     ]
