@@ -99,8 +99,8 @@
                 "0x45f783cce6b7ff23b2ab2d70e416cdb7d6055f51": "Buy & sell Curve Y",
                 "0x79a8c46dea5ada233abaffd40f3a0a2b1e5a4f27": "Buy & sell Curve BUSD",
                 "0x080bf510fcbf18b91105470639e9561022937712": "Buy & sell 0x",
-                "0x641bEFA4dB601578A64F0Fc1f4E89E9869268Fe7": "Sell Gro",
-                "0xB7207Ea9446DcA1dEC1c1FC93c6Fcdf8B4a44F40": "Buy Gro",
+                "0x641befa4db601578a64f0fc1f4e89e9869268fe7": "Sell Gro",
+                "0xb7207ea9446dca1dec1c1fc93c6fcdf8b4a44f40": "Buy Gro",
                 "0xe592427a0aece92de3edee1f18e0157c05861564": "Buy & sell Uniswap v3",
                 "0x9d409a0a012cfba9b15f6d4b36ac57a46966ab9a": "Buy & sell yearn v2",
                 "0x19d3364a399d251e894ac732651be8b0e4e85001": "Buy & sell yearn v2",
@@ -130,8 +130,8 @@
                 "0x23d3d0f1c697247d5e0a9efb37d8b0ed0c464f7f": "Buy & sell yearn v2",
                 "0x8fa3a9ecd9efb07a8ce90a6eb014cf3c0e3b32ef": "Buy & sell yearn v2",
                 "0xf8768814b88281de4f532a3beefa5b85b69b9324": "Buy & sell yearn v2",
-                "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57": "Paraswap v5 AugustusSwapper",
-                "0x216B4B4Ba9F3e719726886d34a177484278Bfcae": "Paraswap v5 TokenTransferProxy"
+                "0xdef171fe48cf0115b1d80b88dc8eab59176fee57": "Paraswap v5 AugustusSwapper",
+                "0x216b4b4ba9f3e719726886d34a177484278bfcae": "Paraswap v5 TokenTransferProxy"
             }
         }
     ]
