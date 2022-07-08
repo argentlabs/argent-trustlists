@@ -1,0 +1,32 @@
+{
+  "argent": {
+    "refundCollector": "0x15a3361e61bee856f3204917330bc4446207f876",
+    "tradeCommissionCollector": "0x15a3361e61bee856f3204917330bc4446207f876",
+    "multisig": {
+      "address": "0x7119744781Cf98125d2bc609Da3550a3aA55986C",
+      "autosign": true
+    },
+    "managers": [
+      "0xe1d13a5007ef4f75bf2dcc266091c345421cb1f2",
+      "0x198b094fd347f6fa4f6c77d47c65205ebd60917a",
+      "0xbcb86619b4eaec33884d0871931e82a6def60687",
+      "0x94ab847da28a13340adeb23a2cf335afd232df0a",
+      "0x52a3b4ba1eb7c0ccb69b4507b3f691cfd98350f5"
+    ],
+    "ens": {
+      "manager": "0x5cCe8f81Ca37Dd2998FE2a0d7f8EfFABd8010901",
+      "managerFilter": "0x923fe3e094a82ab019B509311B6f65700FBA5349"
+    }
+  },
+  "dappRegistry": {
+    "timelock": 0,
+    "address": "0x3a934C06d713eeB79a7f8628c6e0EF022Fe70e3e"
+  },
+  "tokenRegistry": {
+    "address": "0x8B012eA0c1c6b60Cc28999482399166C97564A23"
+  },
+  "zkSync": {
+    "address": "0xb97b410cd92151ff645f80b653b519df1c0198ae",
+    "filter": "0xe8231bf2Af7a48113bad3691c670E7427ECdc7Cd"
+  }
+}

@@ -47,6 +47,11 @@ const config: HardhatUserConfig = {
       accounts: [`0x${process.env.DEV_PKEY}`],
       chainId: 4,
     },
+    hydrogen: {
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: [`0x${process.env.HYDROGEN_PKEY}`],
+      chainId: 5,
+    },
     test: {
       url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
       kmsKeyId: process.env.TEST_KMSID,
