@@ -53,23 +53,26 @@ export async function main() {
   await dappRegistry.changeOwner(TRUSTLIST, multisigAddress);
   console.log(`Transfered ownership of trustlist 0 to Argent multisig ${multisigAddress}`);
 
+
+  // The following isn't part of our current model but leaving it commented here for legacy purposes
+
   /////////////////////////////////
   // TokenRegistry
   /////////////////////////////////
 
-  const TokenRegistry = await ethers.getContractFactory("TokenRegistry");
-  const tokenRegistry = await TokenRegistry.attach(config.tokenRegistry.address);
+  // const TokenRegistry = await ethers.getContractFactory("TokenRegistry");
+  // const tokenRegistry = await TokenRegistry.attach(config.tokenRegistry.address);
 
-  // Add Argent backend EOAs as managers to the TokenRegistry
-  for (const idx in config.argent.managers) {
-    const manager = config.argent.managers[idx];
-    console.log(`Adding ${manager} as a manager of the token registry`);
-    await tokenRegistry.addManager(manager);
-  }
+  // // Add Argent backend EOAs as managers to the TokenRegistry
+  // for (const idx in config.argent.managers) {
+  //   const manager = config.argent.managers[idx];
+  //   console.log(`Adding ${manager} as a manager of the token registry`);
+  //   await tokenRegistry.addManager(manager);
+  // }
 
-  // Transfer ownership to Argent multisig
-  await tokenRegistry.changeOwner(multisigAddress);
-  console.log(`Transfered ownership of toekn registry to Argent multisig ${multisigAddress}`);
+  // // Transfer ownership to Argent multisig
+  // await tokenRegistry.changeOwner(multisigAddress);
+  // console.log(`Transfered ownership of toekn registry to Argent multisig ${multisigAddress}`);
 
   /////////////////////////////////
   // Update the config

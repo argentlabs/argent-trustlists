@@ -43,9 +43,9 @@ const config: HardhatUserConfig = {
       },
     },
     dev: {
-      url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
       accounts: [`0x${process.env.DEV_PKEY}`],
-      chainId: 4,
+      chainId: 5,
     },
     hydrogen: {
       url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
