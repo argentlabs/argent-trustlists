@@ -6,6 +6,7 @@ jobs:
     env:
       ALCHEMY_KEY: ${{ secrets.ALCHEMY_KEY }}
       DEV_PKEY: ${{ secrets.DEV_PKEY }}
+      HYDROGEN_PKEY: ${{ secrets.HYDROGEN_PKEY }}
       TEST_PKEY: ${{ secrets.TEST_PKEY }}
       STAGING_PKEY: ${{ secrets.STAGING_PKEY }}
       PROD_PKEY: ${{ secrets.PROD_PKEY }}
