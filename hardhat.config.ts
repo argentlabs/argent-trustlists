@@ -19,7 +19,7 @@ const scripts = [
   "deploy-maker.ts",
   "deploy-gro.ts",
   "deploy-paraswap.ts",
-  "deploy-argent.ts",
+  "deploy-registries.ts",
 ];
 
 task("deploy-all", "Deploy all scripts", async (args, hre) => {
