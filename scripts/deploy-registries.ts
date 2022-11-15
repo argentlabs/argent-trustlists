@@ -16,12 +16,12 @@ export async function main() {
   configUpdate.dappRegistry.address = dappRegistry.address;
   console.log(`Deployed DappRegistry ${dappRegistry.address} with timelock ${config.dappRegistry.timelock}`);
 
-  // Deploy new TokenRegistry
-  const TokenRegistry = await ethers.getContractFactory("TokenRegistry");
-  const tokenRegistry = await TokenRegistry.deploy();
-  await tokenRegistry.deployed();
-  console.log("Deployed TokenRegistry ", tokenRegistry.address);
-  configUpdate.tokenRegistry.address = tokenRegistry.address;
+  // // Deploy new TokenRegistry
+  // const TokenRegistry = await ethers.getContractFactory("TokenRegistry");
+  // const tokenRegistry = await TokenRegistry.deploy();
+  // await tokenRegistry.deployed();
+  // console.log("Deployed TokenRegistry ", tokenRegistry.address);
+  // configUpdate.tokenRegistry.address = tokenRegistry.address;
 
   configLoader.save(configUpdate);
 }

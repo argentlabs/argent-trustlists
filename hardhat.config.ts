@@ -19,7 +19,7 @@ const scripts = [
   "deploy-maker.ts",
   "deploy-gro.ts",
   "deploy-paraswap.ts",
-  "deploy-argent.ts",
+  "deploy-registries.ts",
 ];
 
 task("deploy-all", "Deploy all scripts", async (args, hre) => {
@@ -43,9 +43,14 @@ const config: HardhatUserConfig = {
       },
     },
     dev: {
-      url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
       accounts: [`0x${process.env.DEV_PKEY}`],
-      chainId: 4,
+      chainId: 5,
+    },
+    hydrogen: {
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+      accounts: [`0x${process.env.HYDROGEN_PKEY}`],
+      chainId: 5,
     },
     test: {
       url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
