@@ -14,7 +14,6 @@ const FILTERS_TO_REMOVE = [
   "WhitelistedZeroExV4Filter",
   "UniswapV2UniZapFilter"
 ];
-const network = "staging";
 
 async function getContractName(contractAddress: string, apiKey: string) {
   const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${contractAddress}&apiKey=${apiKey}`);
@@ -26,8 +25,7 @@ async function getContractName(contractAddress: string, apiKey: string) {
 }
 
 export async function main() {
-  // const configLoader = new ConfigLoader(hre.network.name);
-  const configLoader = new ConfigLoader(network);
+  const configLoader = new ConfigLoader(hre.network.name);
   const apiKey = process.env.ETHERSCAN_API_KEY!;
   const config = configLoader.load();
 
@@ -58,8 +56,8 @@ export async function main() {
     filterWithNames.push([filter, name]);
   }
 
-  const filtersToRemove = filterWithNames.filter(f => FILTERS_TO_REMOVE.includes(f[1]));
-  const filtersAddressesToRemove = filtersToRemove.map(f => f[0]);
+  const filtersToRemove = filterWithNames.filter(([filterAddress, filterName])  => FILTERS_TO_REMOVE.includes(filterName));
+  const filtersAddressesToRemove = filtersToRemove.map(([filterAddress, filterName])  => filterAddress);
 
   const dappsToRemove: string[] = []
   console.log(`Querying dapp filters...`);
@@ -67,7 +65,7 @@ export async function main() {
     await setTimeout(500);
     const authorisation = await dappRegistry.authorisations(TRUSTLIST, dapp);
     const dappFilter = ("0x" + authorisation.substring(10, 50)).toLowerCase();
-    console.log(`filter: ${dappFilter}`);
+    console.log(`dapp ${dapp} -> filter ${dappFilter}`);
     if (filtersAddressesToRemove.includes(dappFilter)) {
       dappsToRemove.push(dapp);
     }
