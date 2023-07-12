@@ -41,6 +41,7 @@
     "ethereumjs-util": "^7.0.0",
     "fs": "0.0.1-security",
     "inquirer": "^8.1.2",
-    "lodash.clonedeep": "^4.5.0"
+    "lodash.clonedeep": "^4.5.0",
+    "node-fetch": "^2.6.7"
   }
 }

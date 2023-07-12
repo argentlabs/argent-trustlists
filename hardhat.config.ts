@@ -35,6 +35,12 @@ task("display-account", "Display deployment account", async (args, hre) => {
   console.log(signer);
 });
 
+
+task("remove-filters", "Remove some filters", async (args, hre) => {
+  console.log("\n", `/////////////     Executing [remove-filters.ts] on [${hre.network.name}]     ///////////////`, "\n");
+  const { main } = require(`./scripts/remove-filters.ts`);
+  await main();
+});
 const config: HardhatUserConfig = {
   networks: {
     hardhat: {
