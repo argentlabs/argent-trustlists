@@ -1,5 +1,5 @@
 import { HardhatUserConfig, task } from "hardhat/config";
-import "@nomiclabs/hardhat-waffle";
+import "@nomicfoundation/hardhat-toolbox";
 import "@rumblefishdev/hardhat-kms-signer";
 import "solidity-coverage";
 import dotenv from "dotenv";
@@ -41,18 +41,19 @@ task("remove-filters", "Remove some filters", async (args, hre) => {
   const { main } = require(`./scripts/remove-filters.ts`);
   await main();
 });
+
 const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+         url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
       },
     },
-    dev: {
-      url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-      accounts: [`0x${process.env.DEV_PKEY}`],
-      chainId: 4,
-    },
+    // dev: {
+    //   url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+    //   accounts: [`0x${process.env.DEV_PKEY}`],
+    //   chainId: 4,
+    // },
     test: {
       url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
       kmsKeyId: process.env.TEST_KMSID,

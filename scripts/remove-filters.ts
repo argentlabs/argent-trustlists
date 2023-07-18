@@ -25,26 +25,45 @@ async function getContractName(contractAddress: string, apiKey: string) {
 }
 
 export async function main() {
-  const configLoader = new ConfigLoader(hre.network.name);
+  let environment;
+  if (hre.network.name == "hardhat") {
+    environment = "staging";
+  } else {
+    environment = hre.network.name;
+  }
+  const configLoader = new ConfigLoader(environment);
   const apiKey = process.env.ETHERSCAN_API_KEY!;
   const config = configLoader.load();
 
   const dappRegistry = await ethers.getContractAt("DappRegistry", config.dappRegistry.address);
-  const [deployer] = await ethers.getSigners();
-  dappRegistry.connect(deployer);
+  const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
 
-  const filter = await dappRegistry.filters.DappAdded(TRUSTLIST, null, null, null);
+  let ownerAccount;
+  if (hre.network.name == "hardhat") {
+    console.log(`Running on a fork, impersonating owner`);
+    ownerAccount = await hre.ethers.getImpersonatedSigner(registryOwner);
+    dappRegistry.connect(ownerAccount);
+    await hre.ethers.provider.send("hardhat_setBalance", [
+      registryOwner,
+      "0x20000000000000000",
+    ]);
+  } else {
+    [ownerAccount] = await ethers.getSigners();
+    if (!ownerAccount) throw Error("Unable to load owner account");
+  }
 
-  const logs = await dappRegistry.provider.getLogs({
+  const filterTopicHash = await dappRegistry.filters.DappAdded(null, null, null, null).fragment.topicHash;
+  const logs = await hre.ethers.provider.getLogs({
     fromBlock: 0,
     toBlock: 'latest',
-    ...filter
+    topics: [filterTopicHash],
+    address: config.dappRegistry.address
   });
-  const events = logs.map(log => dappRegistry.interface.parseLog(log))
-  const allDappsInEvents = events.map(e => (e.args[1]).toLowerCase());
+  const events = logs.map(log => dappRegistry.interface.parseLog({ topics: log.topics.concat(), data: log.data }));
+  const allDappsInEvents = events.map(e => (e?.args[1]).toLowerCase());
   const dapps = [...new Set(allDappsInEvents)];
 
-  const allFiltersInEvents = events.map(e => (e.args[2]).toLowerCase());
+  const allFiltersInEvents = events.map(e => (e?.args[2]).toLowerCase());
   const filters = [...new Set(allFiltersInEvents)]
 
   console.log(`Querying filter names...`);
@@ -56,8 +75,10 @@ export async function main() {
     filterWithNames.push([filter, name]);
   }
 
-  const filtersToRemove = filterWithNames.filter(([filterAddress, filterName])  => FILTERS_TO_REMOVE.includes(filterName));
-  const filtersAddressesToRemove = filtersToRemove.map(([filterAddress, filterName])  => filterAddress);
+  const filtersToRemove = filterWithNames.filter(([filterAddress, filterName]) => FILTERS_TO_REMOVE.includes(filterName));
+  console.log(`Filters to remove:`);
+  console.log(filtersToRemove);
+  const filtersAddressesToRemove = filtersToRemove.map(([filterAddress, filterName]) => filterAddress);
 
   const dappsToRemove: string[] = []
   console.log(`Querying dapp filters...`);
@@ -75,16 +96,19 @@ export async function main() {
 
 
   console.log(`Removing...`);
-  const registryOwner = await dappRegistry.registryOwners(TRUSTLIST);
-  if (registryOwner != deployer.address) {
-    console.log(`The account ${deployer} is not the owner of the registry`);
+  if (registryOwner != ownerAccount.address) {
+    console.log(`The account ${ownerAccount} is not the owner of the registry`);
     return;
   }
 
-
   for (const dappToRemove of dappsToRemove) {
-    const receipt = await dappRegistry.removeDapp(TRUSTLIST, dappToRemove);
-    console.log(`receipt: ${receipt}`);
+    const tx = await dappRegistry.removeDapp.populateTransaction(TRUSTLIST, dappToRemove)
+    const response = await ownerAccount.sendTransaction(tx);
+    console.log(`Sent tx: ${response.hash}`);
+    const receipt = await response.wait();
+    if (receipt?.status != 1) {
+      throw Error("Transaction failed");
+    }
   }
 };
 
