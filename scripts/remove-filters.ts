@@ -14,6 +14,8 @@ const FILTERS_TO_REMOVE = [
   "WhitelistedZeroExV4Filter",
   "UniswapV2UniZapFilter"
 ];
+const MAX_FEE_PER_GAS = 60000000000n // 60gwei
+const MAX_TIP = 10000000000n //  1gwei
 
 async function getContractName(contractAddress: string, apiKey: string) {
   const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${contractAddress}&apiKey=${apiKey}`);
@@ -103,7 +105,7 @@ export async function main() {
 
   for (const dappToRemove of dappsToRemove) {
     const tx = await dappRegistry.removeDapp.populateTransaction(TRUSTLIST, dappToRemove)
-    const response = await ownerAccount.sendTransaction(tx);
+    const response = await ownerAccount.sendTransaction({...tx,  maxFeePerGas: MAX_FEE_PER_GAS, maxPriorityFeePerGas: MAX_TIP });
     console.log(`Sent tx: ${response.hash}`);
     const receipt = await response.wait();
     if (receipt?.status != 1) {
