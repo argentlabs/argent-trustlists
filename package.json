@@ -31,7 +31,7 @@
     "web3": "^1.5.2"
   },
   "dependencies": {
-    "@rumblefishdev/hardhat-kms-signer": "argentlabs/hardhat-kms-signer#add-eth_sign-method",
+    "@rumblefishdev/hardhat-kms-signer": "^1.1.2",
     "aws-sdk": "^2.993.0",
     "ethereumjs-util": "^7.0.0",
     "fs": "0.0.1-security",
