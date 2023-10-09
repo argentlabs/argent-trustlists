@@ -29,7 +29,7 @@ async function getContractName(contractAddress: string, apiKey: string) {
 export async function main() {
   let environment;
   if (hre.network.name == "hardhat") {
-    environment = "staging";
+    environment = "prod";
   } else {
     environment = hre.network.name;
   }
@@ -65,8 +65,16 @@ export async function main() {
   const allDappsInEvents = events.map(e => (e?.args[1]).toLowerCase());
   const dapps = [...new Set(allDappsInEvents)];
 
-  const allFiltersInEvents = events.map(e => (e?.args[2]).toLowerCase());
-  const filters = [...new Set(allFiltersInEvents)]
+  console.log(`Querying dapp filters...`);
+  const dappToFilter: Record<string, string> = {};
+  for (const dapp of dapps) {
+    await setTimeout(500);
+    const authorisation = await dappRegistry.authorisations(TRUSTLIST, dapp);
+    const dappFilter = ("0x" + authorisation.substring(10, 50)).toLowerCase();
+    console.log(`dapp ${dapp} -> filter ${dappFilter}`);
+    dappToFilter[dapp] = dappFilter;
+  }
+  const filters = [...new Set(Object.values(dappToFilter))]
 
   console.log(`Querying filter names...`);
   const filterWithNames: any[] = [];
@@ -77,25 +85,16 @@ export async function main() {
     filterWithNames.push([filter, name]);
   }
 
-  const filtersToRemove = filterWithNames.filter(([filterAddress, filterName]) => FILTERS_TO_REMOVE.includes(filterName));
   console.log(`Filters to remove:`);
+  const filtersToRemove = filterWithNames.filter(([, filterName]) => FILTERS_TO_REMOVE.includes(filterName));
   console.log(filtersToRemove);
   const filtersAddressesToRemove = filtersToRemove.map(([filterAddress, filterName]) => filterAddress);
 
-  const dappsToRemove: string[] = []
-  console.log(`Querying dapp filters...`);
-  for (const dapp of dapps) {
-    await setTimeout(500);
-    const authorisation = await dappRegistry.authorisations(TRUSTLIST, dapp);
-    const dappFilter = ("0x" + authorisation.substring(10, 50)).toLowerCase();
-    console.log(`dapp ${dapp} -> filter ${dappFilter}`);
-    if (filtersAddressesToRemove.includes(dappFilter)) {
-      dappsToRemove.push(dapp);
-    }
-  }
   console.log(`Dapps to remove:`);
+  const dappsToRemove = Object.entries(dappToFilter)
+    .filter(([dapp, filter]) => filtersAddressesToRemove.includes(filter))
+    .map(([dapp, filter]) => dapp);
   console.log(dappsToRemove);
-
 
   console.log(`Removing...`);
   if (registryOwner != ownerAccount.address) {
@@ -105,7 +104,7 @@ export async function main() {
 
   for (const dappToRemove of dappsToRemove) {
     const tx = await dappRegistry.removeDapp.populateTransaction(TRUSTLIST, dappToRemove)
-    const response = await ownerAccount.sendTransaction({...tx,  maxFeePerGas: MAX_FEE_PER_GAS, maxPriorityFeePerGas: MAX_TIP });
+    const response = await ownerAccount.sendTransaction({ ...tx, maxFeePerGas: MAX_FEE_PER_GAS, maxPriorityFeePerGas: MAX_TIP });
     console.log(`Sent tx: ${response.hash}`);
     const receipt = await response.wait();
     if (receipt?.status != 1) {
